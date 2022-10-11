@@ -2,10 +2,10 @@
   "private": true,
   "scripts": {
     "build": "next build",
+    "cors:add": "npx @sanity/cli cors add",
     "dev": "next",
     "format": "npx prettier --write . --ignore-path .gitignore",
     "lint": "next lint",
-    "cors:add": "npx @sanity/cli cors add",
     "start": "next start"
   },
   "prettier": {
