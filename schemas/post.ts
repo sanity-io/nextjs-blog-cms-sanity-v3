@@ -1,6 +1,11 @@
-export default {
+import { BookIcon } from '@sanity/icons'
+import { defineType } from 'sanity'
+import authorType from './author'
+
+export default defineType({
   name: 'post',
   title: 'Post',
+  icon: BookIcon,
   type: 'document',
   fields: [
     {
@@ -47,7 +52,7 @@ export default {
       name: 'author',
       title: 'Author',
       type: 'reference',
-      to: [{ type: 'author' }],
+      to: [{ type: authorType.name }],
     },
   ],
   preview: {
@@ -61,4 +66,4 @@ export default {
       return { ...selection, subtitle: author && `by ${author}` }
     },
   },
-}
+})

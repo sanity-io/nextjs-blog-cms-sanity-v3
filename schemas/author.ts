@@ -1,6 +1,10 @@
-export default {
+import { UserIcon } from '@sanity/icons'
+import { defineType } from 'sanity'
+
+export default defineType({
   name: 'author',
   title: 'Author',
+  icon: UserIcon,
   type: 'document',
   fields: [
     {
@@ -17,4 +21,4 @@ export default {
       validation: (Rule) => Rule.required(),
     },
   ],
-}
+})
