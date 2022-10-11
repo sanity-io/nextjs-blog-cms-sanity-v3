@@ -1,3 +1,5 @@
+# This is the v3 version of [cms-sanity](https://github.com/vercel/next.js/tree/canary/examples/cms-sanity)
+
 # A statically generated blog example using Next.js and Sanity
 
 This example showcases Next.js's [Static Generation](https://nextjs.org/docs/basic-features/pages) feature using [Sanity](https://www.sanity.io/) as the data source.
