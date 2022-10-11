@@ -8,11 +8,11 @@ export default function CoverImage({ title, slug, image: source, priority }) {
   const image = source?.asset?._ref ? (
     <div
       className={cn('shadow-small', {
-        'hover:shadow-medium transition-shadow duration-200': slug,
+        'transition-shadow duration-200 hover:shadow-medium': slug,
       })}
     >
       <Image
-        className="w-full h-auto"
+        className="h-auto w-full"
         layout="responsive"
         width={2000}
         height={1000}

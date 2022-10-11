@@ -1,4 +1,4 @@
-import { format,parseISO } from 'date-fns'
+import { format, parseISO } from 'date-fns'
 
 export default function Date({ dateString }) {
   if (!dateString) return null

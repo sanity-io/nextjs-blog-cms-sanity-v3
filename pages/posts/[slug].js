@@ -13,7 +13,7 @@ import SectionSeparator from '../../components/section-separator'
 import { CMS_NAME } from '../../lib/constants'
 import { postQuery, postSlugsQuery } from '../../lib/queries'
 import { urlForImage, usePreviewSubscription } from '../../lib/sanity'
-import { getClient, overlayDrafts,sanityClient } from '../../lib/sanity.server'
+import { getClient, overlayDrafts, sanityClient } from '../../lib/sanity.server'
 
 export default function Post({ data = {}, preview }) {
   const router = useRouter()

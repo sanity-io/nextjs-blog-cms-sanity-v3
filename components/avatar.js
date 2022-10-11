@@ -5,7 +5,7 @@ import { urlForImage } from '../lib/sanity'
 export default function Avatar({ name, picture }) {
   return (
     <div className="flex items-center">
-      <div className="relative w-12 h-12 mr-4">
+      <div className="relative mr-4 h-12 w-12">
         <Image
           src={
             picture?.asset?._ref
