@@ -354,7 +354,7 @@ Wormhole into the [manager](https://manage.sanity.io/) by running:
 - Mount your preview inside the Sanity Studio for comfortable side-by-side editing
 - [Join the Sanity community](https://slack.sanity.io/)
 
-[vercel-deploy]: https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fsanity-io%2Fnext.js%2Ftree%2Fvercel-next.js-examples-cms-sanity-studio-v3&repository-name=cms-sanity&project-name=cms-sanity&demo-title=Blog%20using%20Next.js%20%26%20Sanity&demo-description=On-demand%20ISR%2C%20sub-second%20as-you-type%20previews&demo-url=https%3A%2F%2Fnext-blog-sanity.vercel.app%2F&demo-image=https%3A%2F%2Fuser-images.githubusercontent.com%2F110497645%2F182727236-75c02b1b-faed-4ae2-99ce-baa089f7f363.png&integration-ids=oac_hb2LITYajhRQ0i4QznmKH7gx
+[vercel-deploy]: https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fsanity-io%2Fvercel-next.js-examples-cms-sanity-studio-v3&repository-name=cms-sanity&project-name=cms-sanity&demo-title=Blog%20using%20Next.js%20%26%20Sanity&demo-description=On-demand%20ISR%2C%20sub-second%20as-you-type%20previews&demo-url=https%3A%2F%2Fnext-blog-sanity.vercel.app%2F&demo-image=https%3A%2F%2Fuser-images.githubusercontent.com%2F110497645%2F182727236-75c02b1b-faed-4ae2-99ce-baa089f7f363.png&integration-ids=oac_hb2LITYajhRQ0i4QznmKH7gx
 [integration]: https://www.sanity.io/docs/vercel-integration
 [`sanity.json`]: studio/sanity.json
 [`.env.local.example`]: .env.local.example
