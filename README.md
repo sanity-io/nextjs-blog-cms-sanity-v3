@@ -253,7 +253,7 @@ It's required to set a secret that makes Preview Mode activation links unique. O
 Run this and it'll prompt you for a value:
 
 ```bash
-npx vercel env add SANITY_STUDIO_PREVIEW_SECRET
+npx vercel env add NEXT_PUBLIC_PREVIEW_SECRET
 ```
 
 The secret can be any combination of random words and letters as long as it's URL safe.
@@ -262,11 +262,11 @@ You can generate one in your DevTools console using `copy(Math.random().toString
 You should see something like this in your terminal afterwards:
 
 ```bash
-$ npx vercel env add SANITY_STUDIO_PREVIEW_SECRET
+$ npx vercel env add NEXT_PUBLIC_PREVIEW_SECRET
 Vercel CLI 27.3.7
-? What’s the value of SANITY_STUDIO_PREVIEW_SECRET? 2whpu1jefs
-? Add SANITY_STUDIO_PREVIEW_SECRET to which Environments (select multiple)? Production, Preview, Development
-✅  Added Environment Variable SANITY_STUDIO_PREVIEW_SECRET to Project cms-sanity [1s]
+? What’s the value of NEXT_PUBLIC_PREVIEW_SECRET? 2whpu1jefs
+? Add NEXT_PUBLIC_PREVIEW_SECRET to which Environments (select multiple)? Production, Preview, Development
+✅  Added Environment Variable NEXT_PUBLIC_PREVIEW_SECRET to Project cms-sanity [1s]
 ```
 
 Redeploy production to apply the secret to the preview api:
@@ -293,21 +293,13 @@ npm run dev
 
 And now you'll get an error if `[secret]` is incorrect when you try to open `https://localhost:3000/api/preview?secret=[secret]`.
 
-### How to start Preview Mode for Next.js in production from a local Studio
-
-Run this to make the Studio open previews at `[your production url]/api/preview` instead of `http://localhost:3000/api/preview`
-
-```bash
-SANITY_STUDIO_PREVIEW_URL=[your production url] npm run studio:dev
-```
-
 ### If you regret sending a preview link to someone
 
 Revoke their access by creating a new secret:
 
 ```bash
-npx vercel env rm SANITY_STUDIO_PREVIEW_SECRET
-npx vercel env add SANITY_STUDIO_PREVIEW_SECRET
+npx vercel env rm NEXT_PUBLIC_PREVIEW_SECRET
+npx vercel env add NEXT_PUBLIC_PREVIEW_SECRET
 npx vercel --prod
 ```
 
@@ -315,7 +307,7 @@ npx vercel --prod
 
 Using GROQ Webhooks Next.js can rebuild pages that have changed content. It rebuilds so fast it can almost compete with Preview Mode.
 
-Create a secret and give it a value the same way you did for `SANITY_STUDIO_PREVIEW_SECRET` in [Step 4](#add-the-preview-secret-environment-variable). It's used to verify that webhook payloads came from Sanity infra, and set it as the value for `SANITY_REVALIDATE_SECRET`:
+Create a secret and give it a value the same way you did for `NEXT_PUBLIC_PREVIEW_SECRET` in [Step 4](#add-the-preview-secret-environment-variable). It's used to verify that webhook payloads came from Sanity infra, and set it as the value for `SANITY_REVALIDATE_SECRET`:
 
 ```bash
 npx vercel env add SANITY_REVALIDATE_SECRET
