@@ -80,6 +80,8 @@ npx vercel env pull
 - [Connect to a Sanity project](#connect-to-a-sanity-project)
 - [Set up environment variables](#set-up-environment-variables)
 
+@TODO update this section to not use `sanity.json`
+
 If using the [integration] isn't an option. Or maybe you want to work locally first and deploy to Vercel later. Whatever the reason this guide shows you how to setup manually.
 
 ### Bootstrap the example
@@ -144,7 +146,7 @@ SANITY_API_READ_TOKEN=...
 Needed for live previewing unpublished/draft content.
 
 ```bash
-npm --prefix studio run cors:add -- http://localhost:3000 --credentials
+npm run cors:add -- http://localhost:3000 --credentials
 ```
 
 ## Step 3. Run Next.js locally in development mode
@@ -161,13 +163,7 @@ Your blog should be up and running on [http://localhost:3000](http://localhost:3
 
 ## Step 4. Populate content
 
-In another terminal start up the studio:
-
-```bash
-npm run studio:dev
-```
-
-Your studio should be up and running on [http://localhost:3333](http://localhost:3333)!
+Your studio should be up and running on [http://localhost:3000/studio](http://localhost:3000/studio)!
 
 Create content in Sanity Studio and live preview it in Next.js, side-by-side, by opening these URLs:
 
@@ -295,10 +291,6 @@ Restart your Next.js and Studio processes so the secret is applied:
 npm run dev
 ```
 
-```bash
-npm run studio:dev
-```
-
 And now you'll get an error if `[secret]` is incorrect when you try to open `https://localhost:3000/api/preview?secret=[secret]`.
 
 ### How to start Preview Mode for Next.js in production from a local Studio
@@ -319,34 +311,7 @@ npx vercel env add SANITY_STUDIO_PREVIEW_SECRET
 npx vercel --prod
 ```
 
-## Step 6. Deploy your Studio and publish from anywhere
-
-Live previewing content is fun, but collaborating on content in real-time is next-level:
-
-```bash
-SANITY_STUDIO_PREVIEW_URL=[your production url] npm run studio:deploy
-```
-
-If it's successful you should see something like this in your terminal:
-
-```bash
-SANITY_STUDIO_PREVIEW_URL="https://cms-sanity.vercel.app" npm run studio:deploy
-? Studio hostname (<value>.sanity.studio): cms-sanity
-
-Including the following environment variables as part of the JavaScript bundle:
-- SANITY_STUDIO_PREVIEW_URL
-- SANITY_STUDIO_PREVIEW_SECRET
-- SANITY_STUDIO_API_PROJECT_ID
-- SANITY_STUDIO_API_DATASET
-
-✔ Deploying to Sanity.Studio
-
-Success! Studio deployed to https://cms-sanity.sanity.studio/
-```
-
-This snippet is stripped from verbose information, you'll see a lot of extra stuff in your terminal.
-
-## Step 7. Setup Revalidation Webhook
+## Step 6. Setup Revalidation Webhook
 
 Using GROQ Webhooks Next.js can rebuild pages that have changed content. It rebuilds so fast it can almost compete with Preview Mode.
 

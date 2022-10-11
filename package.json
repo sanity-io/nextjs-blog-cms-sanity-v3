@@ -5,9 +5,8 @@
     "dev": "next",
     "format": "npx prettier --write . --ignore-path .gitignore",
     "lint": "next lint",
-    "start": "next start",
-    "studio:deploy": "npx vercel env pull && npm --prefix studio run deploy",
-    "studio:dev": "npm --prefix studio run start"
+    "cors:add": "npx @sanity/cli cors add",
+    "start": "next start"
   },
   "prettier": {
     "semi": false,
