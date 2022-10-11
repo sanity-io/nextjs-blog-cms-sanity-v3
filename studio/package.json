@@ -1,13 +1,13 @@
 {
   "private": true,
   "scripts": {
-    "start": "npx @sanity/cli start",
-    "deploy": "npx @sanity/cli deploy",
-    "cors:add": "npx @sanity/cli cors add",
-    "prestart": "npm run env",
     "precors:add": "npm run env",
+    "cors:add": "npx @sanity/cli cors add",
     "predeploy": "npm run env",
-    "env": "npx @sanity/cli install && cp ../.env .env.development || cp ../.env.local .env.development"
+    "deploy": "npx @sanity/cli deploy",
+    "env": "npx @sanity/cli install && cp ../.env .env.development || cp ../.env.local .env.development",
+    "prestart": "npm run env",
+    "start": "npx @sanity/cli start"
   },
   "dependencies": {
     "@sanity/base": "^2.30.1",

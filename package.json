@@ -1,13 +1,17 @@
 {
   "private": true,
   "scripts": {
-    "dev": "next",
     "build": "next build",
-    "start": "next start",
+    "dev": "next",
     "format": "npx prettier --write . --ignore-path .gitignore",
     "lint": "next lint",
-    "studio:dev": "npm --prefix studio run start",
-    "studio:deploy": "npx vercel env pull && npm --prefix studio run deploy"
+    "start": "next start",
+    "studio:deploy": "npx vercel env pull && npm --prefix studio run deploy",
+    "studio:dev": "npm --prefix studio run start"
+  },
+  "prettier": {
+    "semi": false,
+    "singleQuote": true
   },
   "dependencies": {
     "@portabletext/react": "^1.0.6",
@@ -22,10 +26,6 @@
     "react-dom": "^17.0.2",
     "sanity": "3.0.0-dev-preview.20",
     "sanity-plugin-asset-source-unsplash": "3.0.0-v3-studio.5"
-  },
-  "prettier": {
-    "semi": false,
-    "singleQuote": true
   },
   "devDependencies": {
     "autoprefixer": "^10.4.8",
