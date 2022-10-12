@@ -25,7 +25,7 @@
     "react-dom": "^17.0.2",
     "react-is": "^17.0.2",
     "sanity": "3.0.0-dev-preview.20",
-    "sanity-plugin-asset-source-unsplash": "3.0.0-v3-studio.5"
+    "sanity-plugin-asset-source-unsplash": "3.0.0-v3-studio.7"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.12",
