@@ -19,12 +19,8 @@ export default createConfig({
   schema: { types: [postType, authorType] },
   document: {
     productionUrl: async (prev, { document }) => {
-      const secret = process.env.NEXT_PUBLIC_PREVIEW_SECRET
-      if (!secret && process.env.NODE_ENV === 'production') {
-        console.warn('No preview secret set. Previews disabled.')
-        return prev
-      }
       const url = new URL('/api/preview', location.origin)
+      const secret = process.env.NEXT_PUBLIC_PREVIEW_SECRET
       if (secret) {
         url.searchParams.set('secret', secret)
       }
