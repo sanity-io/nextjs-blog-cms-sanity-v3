@@ -1,5 +1,11 @@
 # This is the v3 version of [cms-sanity](https://github.com/vercel/next.js/tree/canary/examples/cms-sanity)
 
+Use this deploy link while jumpstart is in development (it uses the staging integration with the new flow): [Deploy (Staging)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fsanity-io%2Fvercel-next.js-examples-cms-sanity-studio-v3&repository-name=nextjs-blog&project-name=nextjs-blog&demo-title=Blog%20using%20Next.js%20%26%20Sanity&demo-description=On-demand%20ISR%2C%20sub-second%20as-you-type%20previews&demo-url=https%3A%2F%2Fnextjs-blog.sanity.build%2F&demo-image=https%3A%2F%2Fuser-images.githubusercontent.com%2F110497645%2F182727236-75c02b1b-faed-4ae2-99ce-baa089f7f363.png&integration-ids=oac_Cf6NwaRiVHouq8BfQAR802qo&external-id=nextjs)
+
+> If you're running jumpstart on http://localhost:3001 then use this link: [Deploy (Development)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fsanity-io%2Fvercel-next.js-examples-cms-sanity-studio-v3&repository-name=nextjs-blog&project-name=nextjs-blog&demo-title=Blog%20using%20Next.js%20%26%20Sanity&demo-description=On-demand%20ISR%2C%20sub-second%20as-you-type%20previews&demo-url=https%3A%2F%2Fnextjs-blog.sanity.build%2F&demo-image=https%3A%2F%2Fuser-images.githubusercontent.com%2F110497645%2F182727236-75c02b1b-faed-4ae2-99ce-baa089f7f363.png&integration-ids=oac_5lzYFz8Fc3nFPbTWXb73BDwa&external-id=nextjs)
+
+---
+
 # A statically generated blog example using Next.js and Sanity
 
 [![Deploy with Vercel](https://vercel.com/button)][vercel-deploy]
@@ -141,7 +147,7 @@ npx vercel --prod
 
 - [Join the Sanity community](https://slack.sanity.io/)
 
-[vercel-deploy]: https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fsanity-io%2Fvercel-next.js-examples-cms-sanity-studio-v3&repository-name=nextjs-blog&project-name=nextjs-blog&demo-title=Blog%20using%20Next.js%20%26%20Sanity&demo-description=On-demand%20ISR%2C%20sub-second%20as-you-type%20previews&demo-url=https%3A%2F%2Fnext-blog-sanity.vercel.app%2F&demo-image=https%3A%2F%2Fuser-images.githubusercontent.com%2F110497645%2F182727236-75c02b1b-faed-4ae2-99ce-baa089f7f363.png&integration-ids=oac_hb2LITYajhRQ0i4QznmKH7gx&external-id=nextjs
+[vercel-deploy]: https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fsanity-io%2Fvercel-next.js-examples-cms-sanity-studio-v3&repository-name=nextjs-blog&project-name=nextjs-blog&demo-title=Blog%20using%20Next.js%20%26%20Sanity&demo-description=On-demand%20ISR%2C%20sub-second%20as-you-type%20previews&demo-url=https%3A%2F%2Fnextjs-blog.sanity.build%2F&demo-image=https%3A%2F%2Fuser-images.githubusercontent.com%2F110497645%2F182727236-75c02b1b-faed-4ae2-99ce-baa089f7f363.png&integration-ids=oac_hb2LITYajhRQ0i4QznmKH7gx&external-id=nextjs
 [integration]: https://www.sanity.io/docs/vercel-integration
 [`.env.local.example`]: .env.local.example
 [unsplash]: https://unsplash.com
