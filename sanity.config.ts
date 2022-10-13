@@ -1,3 +1,4 @@
+import { visionTool } from '@sanity/vision'
 import { createConfig, Slug } from 'sanity'
 import { deskTool } from 'sanity/desk'
 import { unsplashImageAsset } from 'sanity-plugin-asset-source-unsplash'
@@ -41,6 +42,9 @@ export default createConfig({
       },
     }),
     unsplashImageAsset(),
+    visionTool({
+      defaultApiVersion: '2022-08-08',
+    }),
   ],
   schema: {
     types: [settingsType, postType, authorType],
