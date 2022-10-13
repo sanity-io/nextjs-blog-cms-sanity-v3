@@ -13,7 +13,7 @@ export default function Alert({ preview }) {
     >
       <Container>
         <div className="py-2 text-center text-sm">
-          {preview ? (
+          {preview && (
             <>
               This page is a preview.{' '}
               <a
@@ -23,17 +23,6 @@ export default function Alert({ preview }) {
                 Click here
               </a>{' '}
               to exit preview mode.
-            </>
-          ) : (
-            <>
-              The source code for this blog is{' '}
-              <a
-                href={`https://github.com/vercel/next.js/tree/canary/examples/${EXAMPLE_PATH}`}
-                className="underline transition-colors duration-200 hover:text-success"
-              >
-                available on GitHub
-              </a>
-              .
             </>
           )}
         </div>

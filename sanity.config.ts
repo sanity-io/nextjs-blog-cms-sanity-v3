@@ -4,6 +4,7 @@ import { unsplashImageAsset } from 'sanity-plugin-asset-source-unsplash'
 
 import authorType from './schemas/author'
 import postType from './schemas/post'
+import settingsType from './schemas/settings'
 
 const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID!
 const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET!
@@ -15,8 +16,35 @@ export default createConfig({
   basePath,
   name: 'blog',
   title: 'Blog',
-  plugins: [deskTool(), unsplashImageAsset()],
-  schema: { types: [postType, authorType] },
+  plugins: [
+    deskTool({
+      structure: (S) => {
+        // The `Settings` root list item
+        const settingsListItem = // A singleton not using `documentListItem`, eg no built-in preview
+          S.listItem()
+            .title('Settings')
+            .child(
+              S.document()
+                .schemaType('settings')
+                .documentId('settings')
+                .title('Settings')
+            )
+
+        // The default root list items (except custom ones)
+        const defaultListItems = S.documentTypeListItems().filter(
+          (listItem) => listItem.getId() !== 'settings'
+        )
+
+        return S.list()
+          .title('Content')
+          .items([settingsListItem, S.divider(), ...defaultListItems])
+      },
+    }),
+    unsplashImageAsset(),
+  ],
+  schema: {
+    types: [settingsType, postType, authorType],
+  },
   document: {
     productionUrl: async (prev, { document }) => {
       const url = new URL('/api/preview', location.origin)
