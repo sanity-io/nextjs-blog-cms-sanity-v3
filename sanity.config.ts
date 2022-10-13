@@ -39,6 +39,7 @@ export default createConfig({
           .title('Content')
           .items([settingsListItem, S.divider(), ...defaultListItems])
       },
+      // Hide 'Settings' from new document options
     }),
     unsplashImageAsset(),
     visionTool({
@@ -70,6 +71,15 @@ export default createConfig({
       } catch {
         return prev
       }
+    },
+    newDocumentOptions: (prev, { creationContext }) => {
+      if (creationContext.type === 'global') {
+        return prev.filter(
+          (templateItem) => templateItem.templateId !== settingsType.name
+        )
+      }
+
+      return prev
     },
   },
 })
