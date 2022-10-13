@@ -21,7 +21,9 @@ You'll get:
 
 ## Demo
 
-### [nextjs-blog.sanity.build](https://nextjs-blog.sanity.build)
+### [Blog](https://nextjs-blog.sanity.build)
+
+### [Studio](https://nextjs-blog.sanity.build/studio)
 
 # Configuration
 
