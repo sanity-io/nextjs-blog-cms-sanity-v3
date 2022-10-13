@@ -7,12 +7,14 @@ import authorType from './schemas/author'
 import postType from './schemas/post'
 import settingsType from './schemas/settings'
 
+// @TODO update next-sanity/studio to automatically set this when needed
 const basePath = '/studio'
 
 export default createConfig({
-  projectId,
-  dataset,
   basePath,
+  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
+  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET,
+  title: process.env.NEXT_PUBLIC_SANITY_PROJECT_TITLE || 'Blog Studio',
   plugins: [
     deskTool({
       structure: (S) => {
