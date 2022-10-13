@@ -1,4 +1,5 @@
 import cn from 'classnames'
+import Link from 'next/link'
 
 import Container from './container'
 
@@ -15,12 +16,11 @@ export default function Alert({ preview }) {
           {preview && (
             <>
               This page is a preview.{' '}
-              <a
-                href="/api/exit-preview"
-                className="underline transition-colors duration-200 hover:text-cyan"
-              >
-                Click here
-              </a>{' '}
+              <Link href="/api/exit-preview">
+                <a className="underline transition-colors duration-200 hover:text-cyan">
+                  Click here
+                </a>
+              </Link>{' '}
               to exit preview mode.
             </>
           )}
