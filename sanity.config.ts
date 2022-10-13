@@ -7,33 +7,30 @@ import authorType from './schemas/author'
 import postType from './schemas/post'
 import settingsType from './schemas/settings'
 
-const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID!
-const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET!
 const basePath = '/studio'
 
 export default createConfig({
   projectId,
   dataset,
   basePath,
-  name: 'blog',
-  title: 'Blog',
   plugins: [
     deskTool({
       structure: (S) => {
         // The `Settings` root list item
         const settingsListItem = // A singleton not using `documentListItem`, eg no built-in preview
           S.listItem()
-            .title('Settings')
+            .title(settingsType.title)
+            .icon(settingsType.icon)
             .child(
-              S.document()
-                .schemaType('settings')
-                .documentId('settings')
-                .title('Settings')
+              S.editor()
+                .id(settingsType.name)
+                .schemaType(settingsType.name)
+                .documentId(settingsType.name)
             )
 
         // The default root list items (except custom ones)
         const defaultListItems = S.documentTypeListItems().filter(
-          (listItem) => listItem.getId() !== 'settings'
+          (listItem) => listItem.getId() !== settingsType.name
         )
 
         return S.list()
@@ -59,6 +56,8 @@ export default createConfig({
 
       try {
         switch (document._type) {
+          case settingsType.name:
+            break
           case postType.name:
             url.searchParams.set('slug', (document.slug as Slug).current!)
             break
