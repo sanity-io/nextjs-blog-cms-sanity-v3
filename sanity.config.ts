@@ -39,7 +39,6 @@ export default createConfig({
           .title('Content')
           .items([settingsListItem, S.divider(), ...defaultListItems])
       },
-      // Hide 'Settings' from new document options
     }),
     unsplashImageAsset(),
     visionTool({
@@ -72,11 +71,21 @@ export default createConfig({
         return prev
       }
     },
+    // Hide 'Settings' from new document options
+    // https://user-images.githubusercontent.com/81981/195728798-e0c6cf7e-d442-4e58-af3a-8cd99d7fcc28.png
     newDocumentOptions: (prev, { creationContext }) => {
       if (creationContext.type === 'global') {
         return prev.filter(
           (templateItem) => templateItem.templateId !== settingsType.name
         )
+      }
+
+      return prev
+    },
+    // Removes the "duplicate" action on the "settings" singleton
+    actions: (prev, { schemaType }) => {
+      if (schemaType === settingsType.name) {
+        return prev.filter(({ action }) => action !== 'duplicate')
       }
 
       return prev
