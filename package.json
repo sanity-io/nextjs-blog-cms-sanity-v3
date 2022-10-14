@@ -16,17 +16,18 @@
   "dependencies": {
     "@portabletext/react": "^1.0.6",
     "@sanity/image-url": "^1.0.1",
-    "@sanity/vision": "3.0.0-dev-preview.20",
+    "@sanity/vision": "3.0.0-purple-unicorn-quickfix.6",
     "@sanity/webhook": "^2.0.0",
     "classnames": "^2.3.2",
     "date-fns": "^2.29.3",
-    "next": "latest",
+    "next": "^12.3.1",
     "next-sanity": "^1.0.0",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-is": "^17.0.2",
-    "sanity": "3.0.0-dev-preview.20",
-    "sanity-plugin-asset-source-unsplash": "3.0.0-v3-studio.5"
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-is": "^18.2.0",
+    "sanity": "3.0.0-purple-unicorn.6",
+    "sanity-plugin-asset-source-unsplash": "3.0.0-v3-studio.7",
+    "styled-components": "^5.3.6"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.12",
