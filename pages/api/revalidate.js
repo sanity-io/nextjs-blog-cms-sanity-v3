@@ -14,6 +14,7 @@ const AUTHOR_UPDATED_QUERY = /* groq */ `
     "slug": *[_type == "post" && references(^._id)].slug.current
   }["slug"][]`
 const POST_UPDATED_QUERY = /* groq */ `*[_type == "post" && _id == $id].slug.current`
+const SETTINGS_UPDATED_QUERY = /* groq */ `*[_type == "post"].slug.current`
 
 const getQueryForType = (type) => {
   switch (type) {
@@ -21,6 +22,8 @@ const getQueryForType = (type) => {
       return AUTHOR_UPDATED_QUERY
     case 'post':
       return POST_UPDATED_QUERY
+    case 'settings':
+      return SETTINGS_UPDATED_QUERY
     default:
       throw new TypeError(`Unknown type: ${type}`)
   }
