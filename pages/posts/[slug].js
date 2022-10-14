@@ -10,12 +10,11 @@ import PostBody from '../../components/post-body'
 import PostHeader from '../../components/post-header'
 import PostTitle from '../../components/post-title'
 import SectionSeparator from '../../components/section-separator'
-import { CMS_NAME } from '../../lib/constants'
-import { postQuery, postSlugsQuery } from '../../lib/queries'
+import { postQuery, postSlugsQuery, settingsQuery } from '../../lib/queries'
 import { urlForImage, usePreviewSubscription } from '../../lib/sanity'
 import { getClient, overlayDrafts, sanityClient } from '../../lib/sanity.server'
 
-export default function Post({ data = {}, preview }) {
+export default function Post({ data = {}, preview, blogSettings }) {
   const router = useRouter()
 
   const slug = data?.post?.slug
@@ -26,6 +25,7 @@ export default function Post({ data = {}, preview }) {
     initialData: data,
     enabled: preview && slug,
   })
+  const { title = 'Blog.' } = blogSettings || {}
 
   if (!router.isFallback && !slug) {
     return <ErrorPage statusCode={404} />
@@ -34,7 +34,7 @@ export default function Post({ data = {}, preview }) {
   return (
     <Layout preview={preview}>
       <Container>
-        <Header />
+        <Header title={title} />
         {router.isFallback ? (
           <PostTitle>Loading…</PostTitle>
         ) : (
@@ -42,7 +42,7 @@ export default function Post({ data = {}, preview }) {
             <article>
               <Head>
                 <title>
-                  {post.title} | Next.js Blog Example with {CMS_NAME}
+                  {post.title} | {title}
                 </title>
                 {post.coverImage?.asset?._ref && (
                   <meta
@@ -57,6 +57,7 @@ export default function Post({ data = {}, preview }) {
                 )}
               </Head>
               <PostHeader
+                blogSettings={blogSettings}
                 title={post.title}
                 coverImage={post.coverImage}
                 date={post.date}
@@ -77,6 +78,7 @@ export async function getStaticProps({ params, preview = false }) {
   const { post, morePosts } = await getClient(preview).fetch(postQuery, {
     slug: params.slug,
   })
+  const blogSettings = await getClient(preview).fetch(settingsQuery)
 
   return {
     props: {
@@ -85,6 +87,7 @@ export async function getStaticProps({ params, preview = false }) {
         post,
         morePosts: overlayDrafts(morePosts),
       },
+      blogSettings,
     },
     // If webhooks isn't setup then attempt to re-generate in 1 minute intervals
     revalidate: process.env.SANITY_REVALIDATE_SECRET ? undefined : 60,

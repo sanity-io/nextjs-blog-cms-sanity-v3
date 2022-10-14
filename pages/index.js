@@ -19,7 +19,7 @@ export default function Index({
     enabled: preview,
   })
   const [heroPost, ...morePosts] = allPosts || []
-  const { title } = blogSettings || ''
+  const { title = 'Blog.' } = blogSettings || {}
 
   return (
     <>
