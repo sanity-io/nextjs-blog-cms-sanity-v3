@@ -10,6 +10,24 @@ import settingsType from './schemas/settings'
 // @TODO update next-sanity/studio to automatically set this when needed
 const basePath = '/studio'
 
+import { DefaultDocumentNodeResolver } from 'sanity/desk'
+
+import { PostsPreview } from './components/Preview/PostsPreview'
+
+export const defaultDocumentNode: DefaultDocumentNodeResolver = (
+  S,
+  { schemaType }
+) => {
+  if (schemaType === 'post') {
+    return S.document().views([
+      S.view.form(),
+      S.view.component(PostsPreview).title('Preview'),
+    ])
+  }
+
+  return null
+}
+
 export default createConfig({
   basePath,
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
@@ -39,6 +57,8 @@ export default createConfig({
           .title('Content')
           .items([settingsListItem, S.divider(), ...defaultListItems])
       },
+
+      defaultDocumentNode,
     }),
     unsplashImageAsset(),
     visionTool({
