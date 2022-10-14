@@ -12,8 +12,8 @@ export default function Alert({ preview }) {
       })}
     >
       <Container>
-        <div className="py-2 text-center text-sm">
-          {preview && (
+        <div className="py-2 text-sm text-center">
+          {preview ? (
             <>
               This page is a preview.{' '}
               <Link href="/api/exit-preview">
@@ -22,6 +22,17 @@ export default function Alert({ preview }) {
                 </a>
               </Link>{' '}
               to exit preview mode.
+            </>
+          ) : (
+            <>
+              The source code for this blog is{' '}
+              <a
+                href={`https://${process.env.NEXT_PUBLIC_VERCEL_GIT_PROVIDER}.com/${process.env.NEXT_PUBLIC_VERCEL_GIT_REPO_OWNER}/${process.env.NEXT_PUBLIC_VERCEL_GIT_REPO_SLUG}`}
+                className="underline transition-colors duration-200 hover:text-success"
+              >
+                available on GitHub
+              </a>
+              .
             </>
           )}
         </div>

@@ -4,7 +4,15 @@ import Link from 'next/link'
 
 import { urlForImage } from '../lib/sanity'
 
-export default function CoverImage({ title, slug, image: source, priority }) {
+interface CoverImageProps {
+  title: string
+  slug?: string
+  image: any
+  priority?: boolean
+}
+
+export default function CoverImage(props: CoverImageProps) {
+  const { title, slug, image: source, priority } = props
   const image = source?.asset?._ref ? (
     <div
       className={cn('shadow-small', {
@@ -13,7 +21,6 @@ export default function CoverImage({ title, slug, image: source, priority }) {
     >
       <Image
         className="h-auto w-full"
-        layout="responsive"
         width={2000}
         height={1000}
         alt={`Cover Image for ${title}`}

@@ -1,8 +1,10 @@
 import Image from 'next/future/image'
 
 import { urlForImage } from '../lib/sanity'
+import { AuthorProps } from '../types'
 
-export default function Avatar({ name, picture }) {
+export default function Avatar(props: AuthorProps) {
+  const { name, picture } = props
   return (
     <div className="flex items-center">
       <div className="relative mr-4 h-12 w-12">

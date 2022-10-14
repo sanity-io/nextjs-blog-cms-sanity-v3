@@ -13,18 +13,27 @@ import SectionSeparator from '../../components/section-separator'
 import { postQuery, postSlugsQuery, settingsQuery } from '../../lib/queries'
 import { urlForImage, usePreviewSubscription } from '../../lib/sanity'
 import { getClient, overlayDrafts, sanityClient } from '../../lib/sanity.server'
+import { PostProps } from '../../types'
 
-export default function Post({ data = {}, preview, blogSettings }) {
+interface Props {
+  data: { post: PostProps; morePosts: any }
+  preview: any
+  blogSettings: any
+}
+
+export default function Post(props: Props) {
+  const { data: initialData, preview, blogSettings } = props
   const router = useRouter()
 
-  const slug = data?.post?.slug
+  const slug = initialData?.post?.slug
   const {
-    data: { post, morePosts },
+    data,
   } = usePreviewSubscription(postQuery, {
     params: { slug },
-    initialData: data,
-    enabled: preview && slug,
+    initialData: initialData,
+    enabled: preview && !!slug,
   })
+  const { post, morePosts } = data || {}
   const { title = 'Blog.' } = blogSettings || {}
 
   if (!router.isFallback && !slug) {
@@ -57,7 +66,6 @@ export default function Post({ data = {}, preview, blogSettings }) {
                 )}
               </Head>
               <PostHeader
-                blogSettings={blogSettings}
                 title={post.title}
                 coverImage={post.coverImage}
                 date={post.date}
