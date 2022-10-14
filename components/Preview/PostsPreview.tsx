@@ -1,5 +1,5 @@
-import React from 'react'
 import { Card } from '@sanity/ui'
+import React from 'react'
 
 export function PostsPreview(props: any) {
   return (
