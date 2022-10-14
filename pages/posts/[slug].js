@@ -89,8 +89,8 @@ export async function getStaticProps({ params, preview = false }) {
       },
       blogSettings,
     },
-    // If webhooks isn't setup then attempt to re-generate in 1 minute intervals
-    revalidate: process.env.SANITY_REVALIDATE_SECRET ? undefined : 60,
+    // If webhooks isn't setup then attempt to re-generate in 1 second intervals
+    revalidate: process.env.SANITY_REVALIDATE_SECRET ? undefined : 1,
   }
 }
 
