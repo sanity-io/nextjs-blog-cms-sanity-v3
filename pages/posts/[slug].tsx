@@ -22,17 +22,18 @@ interface Props {
 }
 
 export default function Post(props: Props) {
-  const { data, preview, blogSettings } = props
+  const { data: initialData, preview, blogSettings } = props
   const router = useRouter()
 
-  const slug = data?.post?.slug
+  const slug = initialData?.post?.slug
   const {
-    data: { post, morePosts },
+    data,
   } = usePreviewSubscription(postQuery, {
     params: { slug },
-    initialData: data,
+    initialData: initialData,
     enabled: preview && !!slug,
   })
+  const { post, morePosts } = data || {}
   const { title = 'Blog.' } = blogSettings || {}
 
   if (!router.isFallback && !slug) {
