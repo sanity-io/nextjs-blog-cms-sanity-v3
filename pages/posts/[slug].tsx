@@ -31,7 +31,7 @@ export default function Post(props: Props) {
   } = usePreviewSubscription(postQuery, {
     params: { slug },
     initialData: data,
-    enabled: preview && slug !== '',
+    enabled: preview && !!slug,
   })
   const { title = 'Blog.' } = blogSettings || {}
 
