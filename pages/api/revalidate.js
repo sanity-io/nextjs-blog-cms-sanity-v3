@@ -61,15 +61,12 @@ export default async function revalidate(req, res) {
     return res.status(400).json({ message: invalidId })
   }
 
-  let staleRoutes = ['/']
-  if (_type !== 'settings') {
-    log(`Querying post slug for _id '${id}', type '${_type}' ..`)
-    const slug = await sanityClient.fetch(getQueryForType(_type), { id })
-    const slugs = (Array.isArray(slug) ? slug : [slug]).map(
-      (_slug) => `/posts/${_slug}`
-    )
-    staleRoutes.push(...slugs)
-  }
+  log(`Querying post slug for _id '${id}', type '${_type}' ..`)
+  const slug = await sanityClient.fetch(getQueryForType(_type), { id })
+  const slugs = (Array.isArray(slug) ? slug : [slug]).map(
+    (_slug) => `/posts/${_slug}`
+  )
+  const staleRoutes = ['/', ...slugs]
 
   try {
     await Promise.all(staleRoutes.map((route) => res.revalidate(route)))
