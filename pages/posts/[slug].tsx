@@ -65,7 +65,6 @@ export default function Post(props: Props) {
                 )}
               </Head>
               <PostHeader
-                blogSettings={blogSettings}
                 title={post.title}
                 coverImage={post.coverImage}
                 date={post.date}

@@ -20,5 +20,5 @@ jobs:
           node-version: lts/*
           cache: npm
       - run: npm ci
-      - run: npx tsc --noEmit
-      - run: npx next lint -- --ignore-path .gitignore --max-warnings 0
+      - run: npm run type-check
+      - run: npm run lint -- --max-warnings 0
