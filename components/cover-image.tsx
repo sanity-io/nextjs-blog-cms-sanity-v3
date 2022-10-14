@@ -6,7 +6,7 @@ import { urlForImage } from '../lib/sanity'
 
 interface CoverImageProps {
   title: string
-  slug: string
+  slug?: string
   image: any
   priority?: boolean
 }
