@@ -26,9 +26,7 @@ export default function Post(props: Props) {
   const router = useRouter()
 
   const slug = initialData?.post?.slug
-  const {
-    data,
-  } = usePreviewSubscription(postQuery, {
+  const { data } = usePreviewSubscription(postQuery, {
     params: { slug },
     initialData: initialData,
     enabled: preview && !!slug,
