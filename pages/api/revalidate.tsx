@@ -29,7 +29,7 @@ const getQueryForType = (type) => {
   }
 }
 
-const log = (msg, error) =>
+const log = (msg, error?) =>
   console[error ? 'error' : 'log'](`[revalidate] ${msg}`)
 
 async function readBody(readable) {

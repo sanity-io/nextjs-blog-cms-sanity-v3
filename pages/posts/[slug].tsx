@@ -13,8 +13,16 @@ import SectionSeparator from '../../components/section-separator'
 import { postQuery, postSlugsQuery, settingsQuery } from '../../lib/queries'
 import { urlForImage, usePreviewSubscription } from '../../lib/sanity'
 import { getClient, overlayDrafts, sanityClient } from '../../lib/sanity.server'
+import { PostProps } from '../../types'
 
-export default function Post({ data = {}, preview, blogSettings }) {
+interface Props {
+  data: { post: PostProps; morePosts: any }
+  preview: any
+  blogSettings: any
+}
+
+export default function Post(props: Props) {
+  const { data, preview, blogSettings } = props
   const router = useRouter()
 
   const slug = data?.post?.slug
@@ -23,7 +31,7 @@ export default function Post({ data = {}, preview, blogSettings }) {
   } = usePreviewSubscription(postQuery, {
     params: { slug },
     initialData: data,
-    enabled: preview && slug,
+    enabled: preview && slug !== '',
   })
   const { title = 'Blog.' } = blogSettings || {}
 

@@ -1,8 +1,9 @@
 import Link from 'next/link'
 
-import Avatar from '../components/avatar'
-import Date from '../components/date'
+import { PostProps } from '../types'
+import Avatar from './avatar'
 import CoverImage from './cover-image'
+import Date from './date'
 
 export default function PostPreview({
   title,
@@ -11,11 +12,16 @@ export default function PostPreview({
   excerpt,
   author,
   slug,
-}) {
+}: PostProps) {
   return (
     <div>
       <div className="mb-5">
-        <CoverImage slug={slug} title={title} image={coverImage} />
+        <CoverImage
+          slug={slug}
+          title={title}
+          image={coverImage}
+          priority={false}
+        />
       </div>
       <h3 className="mb-3 text-3xl leading-snug">
         <Link href={`/posts/${slug}`}>

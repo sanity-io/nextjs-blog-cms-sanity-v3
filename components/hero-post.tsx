@@ -1,17 +1,12 @@
 import Link from 'next/link'
 
-import Avatar from '../components/avatar'
-import CoverImage from '../components/cover-image'
-import Date from '../components/date'
+import { PostProps } from '../types'
+import Avatar from './avatar'
+import CoverImage from './cover-image'
+import Date from './date'
 
-export default function HeroPost({
-  title,
-  coverImage,
-  date,
-  excerpt,
-  author,
-  slug,
-}) {
+export default function HeroPost(props: PostProps) {
+  const { title, coverImage, date, excerpt, author, slug } = props
   return (
     <section>
       <div className="mb-8 md:mb-16">
