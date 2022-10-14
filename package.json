@@ -2,7 +2,6 @@
   "private": true,
   "scripts": {
     "build": "next build",
-    "predev": "npx vercel env pull",
     "dev": "next",
     "format": "npx prettier --write . --ignore-path .gitignore",
     "lint": "next lint -- --ignore-path .gitignore",
