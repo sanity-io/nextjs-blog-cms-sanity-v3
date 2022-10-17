@@ -2,7 +2,7 @@ import Head from 'next/head'
 
 import Container from '../components/container'
 import HeroPost from '../components/hero-post'
-import Intro from '../components/intro'
+import IntroTemplate from '../components/intro-template'
 import Layout from '../components/layout'
 import MoreStories from '../components/more-stories'
 import { indexQuery, settingsQuery } from '../lib/queries'
@@ -28,7 +28,7 @@ export default function Index({
           <title>{title}</title>
         </Head>
         <Container>
-          <Intro title={title} />
+          {allPosts.length === 0 && <IntroTemplate />}
           {heroPost && (
             <HeroPost
               title={heroPost.title}
