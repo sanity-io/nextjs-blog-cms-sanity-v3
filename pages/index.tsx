@@ -28,7 +28,7 @@ export default function Index({
           <title>{title}</title>
         </Head>
         <Container>
-          {allPosts.length === 0 && <IntroTemplate />}
+          <IntroTemplate />
           {heroPost && (
             <HeroPost
               title={heroPost.title}
