@@ -41,7 +41,15 @@ export default function IntroTemplate() {
               </div>
               <div className="mt-2">
                 Check out instant previews:
-                <LinkAttribute href="/studio" text="Create a document" blue />
+                <Link href="/studio">
+                  <a
+                    className="mx-1 text-blue-500 hover:underline"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    Create a document
+                  </a>
+                </Link>
               </div>
             </div>
           }
@@ -126,14 +134,13 @@ function LinkAttribute({
   blue?: boolean
 }) {
   return (
-    <Link href={href}>
-      <a
-        className={`mx-1 ${blue && 'text-blue-500'} hover:underline`}
-        target="_blank"
-        rel="noreferrer"
-      >
-        {text}
-      </a>
-    </Link>
+    <a
+      href={href}
+      className={`mx-1 ${blue && 'text-blue-500'} hover:underline`}
+      target="_blank"
+      rel="noreferrer"
+    >
+      {text}
+    </a>
   )
 }
