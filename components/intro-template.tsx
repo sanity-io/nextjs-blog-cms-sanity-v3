@@ -41,7 +41,7 @@ export default function IntroTemplate() {
               </div>
               <div className="mt-2">
                 Check out instant previews:
-                <Link href="/studio">
+                <Link href="/studio/intent/create/template=post;type=post/">
                   <a
                     className="mx-1 text-blue-500 hover:underline"
                     target="_blank"
