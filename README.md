@@ -113,8 +113,6 @@ npx vercel link
 
 ## Step 3. Run Next.js locally in development mode
 
-When working locally you can make changes to your blog and studio, and your changes are applied live using hot reloading.
-
 ```bash
 npm install && npm run dev
 ```
@@ -122,6 +120,8 @@ npm install && npm run dev
 ```bash
 yarn install && yarn dev
 ```
+
+When working locally you can make changes to your blog and studio, and your changes are applied live using hot reloading.
 
 Your blog should be up and running on [http://localhost:3000](http://localhost:3000)! You'll be able to find the studio in [http://localhost:3000/studio](http://localhost:3000/studio).
 
