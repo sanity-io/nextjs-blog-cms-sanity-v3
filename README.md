@@ -125,7 +125,7 @@ yarn install && yarn dev
 
 Your blog should be up and running on [http://localhost:3000](http://localhost:3000)! You'll be able to find the studio in [http://localhost:3000/studio](http://localhost:3000/studio).
 
-If it doesn't work, post on [GitHub discussions](https://github.com/vercel/next.js/discussions).
+In case of any issues, you can post on [GitHub discussions](https://github.com/vercel/next.js/discussions).
 
 ## Step 4. Deploy to production
 
