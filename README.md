@@ -145,10 +145,10 @@ npx vercel --prod
 
 ## Next steps
 
-- [Join the Sanity community](https://slack.sanity.io/)
-- [What is a schema?](https://www.sanity.io/docs/schema-types)
+- [Join our Slack community to ask questions and get help](https://slack.sanity.io/)
+- [How to edit my content structure?](https://www.sanity.io/docs/schema-types)
+- [How to query content?](https://www.sanity.io/docs/groq)
 - [What is content modelling?](https://www.sanity.io/docs/content-modelling)
-- [What is GROQ?](https://www.sanity.io/docs/groq)
 
 [vercel-deploy]: https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fsanity-io%2Fvercel-next.js-examples-cms-sanity-studio-v3&repository-name=blog-nextjs-sanity&project-name=blog-nextjs-sanity&demo-title=Blog%20using%20Next.js%20%26%20Sanity&demo-description=On-demand%20ISR%2C%20sub-second%20as-you-type%20previews&demo-url=https%3A%2F%2Fnextjs-blog.sanity.build%2F&demo-image=https%3A%2F%2Fuser-images.githubusercontent.com%2F110497645%2F182727236-75c02b1b-faed-4ae2-99ce-baa089f7f363.png&integration-ids=oac_hb2LITYajhRQ0i4QznmKH7gx
 [integration]: https://www.sanity.io/docs/vercel-integration
