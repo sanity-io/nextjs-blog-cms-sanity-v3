@@ -1,16 +1,10 @@
-# This is the v3 version of [cms-sanity](https://github.com/vercel/next.js/tree/canary/examples/cms-sanity)
+# Sanity.io and Next.js
 
-Use this deploy link while jumpstart is in development (it uses the staging integration with the new flow): [Deploy (Staging)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fsanity-io%2Fvercel-next.js-examples-cms-sanity-studio-v3&repository-name=blog-nextjs-sanity&project-name=blog-nextjs-sanity&demo-title=Blog%20using%20Next.js%20%26%20Sanity&demo-description=On-demand%20ISR%2C%20sub-second%20as-you-type%20previews&demo-url=https%3A%2F%2Fnextjs-blog.sanity.build%2F&demo-image=https%3A%2F%2Fuser-images.githubusercontent.com%2F110497645%2F182727236-75c02b1b-faed-4ae2-99ce-baa089f7f363.png&integration-ids=oac_Cf6NwaRiVHouq8BfQAR802qo)
+![main](./assets/readme/main.png)
 
-> If you're running jumpstart on http://localhost:3001 then use this link: [Deploy (Development)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fsanity-io%2Fvercel-next.js-examples-cms-sanity-studio-v3&repository-name=blog-nextjs-sanity&project-name=blog-nextjs-sanity&demo-title=Blog%20using%20Next.js%20%26%20Sanity&demo-description=On-demand%20ISR%2C%20sub-second%20as-you-type%20previews&demo-url=https%3A%2F%2Fnextjs-blog.sanity.build%2F&demo-image=https%3A%2F%2Fuser-images.githubusercontent.com%2F110497645%2F182727236-75c02b1b-faed-4ae2-99ce-baa089f7f363.png&integration-ids=oac_5lzYFz8Fc3nFPbTWXb73BDwa&external-id=nextjs)
+Sanity.io is the platform for structured content. With Sanity.io you can manage your text, images, and other media with APIs and use the open-source single page application Sanity Studio to quickly set up an editing environment that you can customize.
 
----
-
-# A statically generated blog example using Next.js and Sanity
-
-[![Deploy with Vercel](https://vercel.com/button)][vercel-deploy]
-
-This example showcases Next.js's [Static Generation](https://nextjs.org/docs/basic-features/pages) feature using [Sanity](https://www.sanity.io/) as the data source.
+This is a statically generated blog that uses Next.js and Sanity. It showcases Next.js's Static Generation feature using Sanity as the data source.
 
 You'll get:
 
@@ -21,9 +15,9 @@ You'll get:
 
 ## Demo
 
-### [Blog](https://nextjs-blog.sanity.build)
-
-### [Studio](https://nextjs-blog.sanity.build/studio)
+| [Blog](https://nextjs-blog.sanity.build)                              | [Studio](https://nextjs-blog.sanity.build/studio)                                |
+| --------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| [![blog](./assets/readme/blog.png)](https://nextjs-blog.sanity.build) | [![studio](./assets/readme/studio.png)](https://nextjs-blog.sanity.build/studio) |
 
 # Configuration
 
@@ -32,6 +26,8 @@ You'll get:
 Use the Deploy Button below, you'll deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example) as well as connect it to your Sanity dataset using [the Sanity Vercel Integration][integration].
 
 [![Deploy with Vercel](https://vercel.com/button)][vercel-deploy]
+
+## Step 2. Set up the project locally
 
 [Clone the repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository) that Vercel created for you and from the root directory of your local checkout.
 Then link your clone to Vercel:
@@ -115,7 +111,7 @@ npx vercel link
 
 </details>
 
-## Step 2. Run Next.js locally in development mode
+## Step 3. Run Next.js locally in development mode
 
 When working locally you can make changes to your blog and studio, and your changes are applied live using hot reloading.
 
@@ -127,9 +123,11 @@ npm install && npm run dev
 yarn install && yarn dev
 ```
 
-Your blog should be up and running on [http://localhost:3000](http://localhost:3000)! If it doesn't work, post on [GitHub discussions](https://github.com/vercel/next.js/discussions).
+Your blog should be up and running on [http://localhost:3000](http://localhost:3000)! You'll be able to find the studio in [http://localhost:3000/studio](http://localhost:3000/studio).
 
-## Step 3. Deploy to production
+If it doesn't work, post on [GitHub discussions](https://github.com/vercel/next.js/discussions).
+
+## Step 4. Deploy to production
 
 To deploy your changes to production you use `git`:
 
@@ -148,6 +146,9 @@ npx vercel --prod
 ## Next steps
 
 - [Join the Sanity community](https://slack.sanity.io/)
+- [What is a schema?](https://www.sanity.io/docs/schema-types)
+- [What is content modelling?](https://www.sanity.io/docs/content-modelling)
+- [What is GROQ?](https://www.sanity.io/docs/groq)
 
 [vercel-deploy]: https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fsanity-io%2Fvercel-next.js-examples-cms-sanity-studio-v3&repository-name=blog-nextjs-sanity&project-name=blog-nextjs-sanity&demo-title=Blog%20using%20Next.js%20%26%20Sanity&demo-description=On-demand%20ISR%2C%20sub-second%20as-you-type%20previews&demo-url=https%3A%2F%2Fnextjs-blog.sanity.build%2F&demo-image=https%3A%2F%2Fuser-images.githubusercontent.com%2F110497645%2F182727236-75c02b1b-faed-4ae2-99ce-baa089f7f363.png&integration-ids=oac_hb2LITYajhRQ0i4QznmKH7gx
 [integration]: https://www.sanity.io/docs/vercel-integration
