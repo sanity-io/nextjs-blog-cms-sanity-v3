@@ -4,7 +4,7 @@
 
 Sanity.io is the platform for structured content. With Sanity.io you can manage your text, images, and other media with APIs and use the open-source single page application Sanity Studio to quickly set up an editing environment that you can customize.
 
-This is a statically generated blog that uses Next.js and Sanity. It showcases Next.js's Static Generation feature using Sanity as the data source.
+Want to try Sanity.io with Next.js? This blog starter uses Next.js and Sanity which generates both the front-end and content editor so that you can jump immediately into action. The Sanity editor is React (with Typescript sprinkles) which you can access by adding /studio when running it. It comes with real-time collaboration and instant "as-you-type" previews. Further down, you'll be shown how to configure ISR (incremental static rebuilding) for performant sites that can rebuild instantly.  
 
 You'll get:
 
