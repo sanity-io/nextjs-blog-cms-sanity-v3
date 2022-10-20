@@ -12,7 +12,7 @@ const basePath = '/studio'
 
 import { DefaultDocumentNodeResolver } from 'sanity/desk'
 
-import { PostsPreview } from './components/Preview/PostsPreview'
+import { PostsPreview } from './components/Posts/PostsPreview'
 
 export const defaultDocumentNode: DefaultDocumentNodeResolver = (
   S,
