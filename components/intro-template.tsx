@@ -2,7 +2,7 @@ import Link from 'next/link'
 
 export default function IntroTemplate() {
   return (
-    <div className="my-16 md:mb-28 md:grid md:grid-cols-2 md:gap-x-16 lg:gap-x-16">
+    <div className="border border-slate-300 px-14 pb-14 pt-11 md:mb-28 md:grid md:grid-cols-2 md:gap-x-16 lg:gap-x-16	">
       <div>
         <iframe
           className="mt-4 aspect-video w-full rounded-sm shadow-2xl"
@@ -114,8 +114,8 @@ function Box({
 }) {
   return (
     <div className="grid grid-flow-col grid-rows-1 place-content-start gap-3">
-      <div className="row-span-3">
-        <div className="relative flex h-6 w-6 items-center justify-center rounded-full bg-gray-200 p-4 text-center">
+      <div className="row-span-3 select-none">
+        <div className="relative flex	h-6 w-6 select-none items-center justify-center rounded-full bg-gray-200 p-4 text-center">
           {circleTitle}
         </div>
       </div>
