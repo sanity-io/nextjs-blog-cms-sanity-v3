@@ -12,7 +12,7 @@ module.exports = {
         'accent-7': '#333',
         success: '#0070f3',
         cyan: '#79FFE1',
-        blue: '#2276FC',
+        'blue-500': '#2276FC',
       },
       spacing: {
         28: '7rem',

@@ -52,7 +52,7 @@ export default function IntroTemplate() {
               </div>
               <div className="mt-2">
                 <button
-                  className="rounded bg-blue py-2 px-4 text-white"
+                  className="rounded bg-blue-500 py-2 px-4 text-white"
                   onClick={() => goToURL(createPostURL)}
                   role="link"
                 >
@@ -72,34 +72,45 @@ export default function IntroTemplate() {
               </div>
               <div className="text-xs text-gray-700">
                 Your code can be found under
-                <LinkAttribute href={repoURL} text={repoURL} blue />
+                <LinkAttribute href={repoURL} text={repoURL} />
               </div>
 
               <div className="mt-2">
                 <button
-                  className="rounded bg-blue py-2 px-4 text-white"
+                  className="rounded bg-blue-500 py-2 px-4 text-white"
                   onClick={() => goToURL(repoURL)}
                   role="link"
                 >
                   Get the repo
                 </button>
               </div>
+            </div>
+          }
+        />
+
+        <Box
+          circleTitle="3"
+          element={
+            <div>
+              <div className="col-span-2 mb-2 font-bold">
+                Learn more & get help
+              </div>
+
               <div className="mb-2">
-                Check out
                 <LinkAttribute
                   href="https://www.sanity.io/docs"
-                  text="Sanity Docs"
+                  text="Learn more about Sanity"
                   blue
                 />
+                in our documentation.
               </div>
               <div className="mt-2">
-                Join
                 <LinkAttribute
                   href="https://slack.sanity.io/"
-                  text="Sanity Slack Community"
+                  text="Join the Sanity Slack Community"
                   blue
                 />
-                to get help and ask questions
+                to ask questions and get help.
               </div>
             </div>
           }
