@@ -2,7 +2,7 @@ import Link from 'next/link'
 
 export default function IntroTemplate() {
   return (
-    <div className="border border-slate-300 px-14 pb-14 pt-11 md:mb-20 md:grid md:grid-cols-2 md:gap-x-16 lg:gap-x-16	">
+    <div className="space-x-14 border border-slate-300 px-14 pb-14 pt-11 md:mb-20 md:grid md:grid-cols-2">
       <div>
         <iframe
           className="mt-4 aspect-video w-full rounded-sm shadow-2xl"
