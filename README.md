@@ -1,6 +1,6 @@
 # Sanity.io and Next.js
 
-![main](./assets/readme/main.png)
+[main image placeholder]
 
 Sanity.io is the platform for structured content. With Sanity.io you can use the open-source, single page application to manage your text, images, and other media with APIs. More! You can also use it to quickly set up an editing environment that you can customize.
 
@@ -15,9 +15,9 @@ You'll get:
 
 ## Demo
 
-| [Blog](https://nextjs-blog.sanity.build)                              | [Studio](https://nextjs-blog.sanity.build/studio)                                |
-| --------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
-| [![blog](./assets/readme/blog.png)](https://nextjs-blog.sanity.build) | [![studio](./assets/readme/studio.png)](https://nextjs-blog.sanity.build/studio) |
+| [Blog](https://nextjs-blog.sanity.build) | [Studio](https://nextjs-blog.sanity.build/studio) |
+| ---------------------------------------- | ------------------------------------------------- |
+| [blog image placeholder]                 | [studio image placeholder]                        |
 
 # Configuration
 
