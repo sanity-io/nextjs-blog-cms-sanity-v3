@@ -1,6 +1,13 @@
 import Link from 'next/link'
 
 export default function IntroTemplate() {
+  const goToCreatePost = () => {
+    window.open(
+      `${window.location.href}/studio/intent/create/template=post;type=post/`,
+      '_blank'
+    )
+  }
+
   return (
     <div className="space-x-14 border border-slate-300 px-14 pb-14 pt-11 md:mb-20 md:grid md:grid-cols-2">
       <div>
@@ -12,7 +19,7 @@ export default function IntroTemplate() {
 
         <div className="invisible mt-4 text-gray-700 md:visible">
           <LinkAttribute
-            href={`https://${process.env.NEXT_PUBLIC_VERCEL_GIT_PROVIDER}.com/${process.env.NEXT_PUBLIC_VERCEL_GIT_REPO_OWNER}/${process.env.NEXT_PUBLIC_VERCEL_GIT_REPO_SLUG}/blob/main/README.md`}
+            href={`https://${process.env.NEXT_PUBLIC_VERCEL_GIT_PROVIDER}.com/${process.env.NEXT_PUBLIC_VERCEL_GIT_REPO_OWNER}/${process.env.NEXT_PUBLIC_VERCEL_GIT_REPO_SLUG}/blob/main/README.md#how-can-i-remove-the-next-steps-block-from-my-blog`}
             text="How to remove this block?"
           />
         </div>
@@ -26,30 +33,22 @@ export default function IntroTemplate() {
           element={
             <div>
               <div className="col-span-2 mb-2 font-bold">
-                Create and edit content
-              </div>
-              <div>
-                Go to
-                <LinkAttribute href="/studio" text="Sanity Studio" blue />
+                Create content in Sanity Studio
               </div>
               <div className="text-xs text-gray-700">
                 We embedded it in this project under
                 <LinkAttribute
-                  href="https://cms-sanity-2-eight.vercel.app/studio"
-                  text="https://cms-sanity-2-eight.vercel.app/studio"
+                  href={`${window.location.href}studio`}
+                  text={`${window.location.href}studio`}
                 />
               </div>
               <div className="mt-2">
-                Check out instant previews:
-                <Link href="/studio/intent/create/template=post;type=post/">
-                  <a
-                    className="mx-1 text-blue-500 hover:underline"
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    Create a document
-                  </a>
-                </Link>
+                <button
+                  className="rounded bg-blue py-2 px-4 text-white"
+                  onClick={goToCreatePost}
+                >
+                  Create Content
+                </button>
               </div>
             </div>
           }
