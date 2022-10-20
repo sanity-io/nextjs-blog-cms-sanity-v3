@@ -29,8 +29,7 @@ Use the Deploy Button below, you'll deploy the example using [Vercel](https://ve
 
 ## Step 2. Set up the project locally
 
-[Clone the repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository) that Vercel created for you and from the root directory of your local checkout.
-Then link your clone to Vercel:
+[Clone the repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository) that was created for you. Once cloned, from the project's root directory, link it to Vercel:
 
 ```bash
 npx vercel link
