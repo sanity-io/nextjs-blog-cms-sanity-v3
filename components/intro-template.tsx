@@ -28,7 +28,7 @@ export default function IntroTemplate() {
           allowFullScreen
         />
 
-        <div className="invisible mt-4 text-gray-700 md:visible">
+        <div className="mt-10 text-xs text-gray-700">
           <LinkAttribute
             href={`https://${process.env.NEXT_PUBLIC_VERCEL_GIT_PROVIDER}.com/${process.env.NEXT_PUBLIC_VERCEL_GIT_REPO_OWNER}/${process.env.NEXT_PUBLIC_VERCEL_GIT_REPO_SLUG}/blob/main/README.md#how-can-i-remove-the-next-steps-block-from-my-blog`}
             text="How to remove this block?"
