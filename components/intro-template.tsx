@@ -1,11 +1,22 @@
 import Link from 'next/link'
+import { useEffect, useState } from 'react'
 
 export default function IntroTemplate() {
-  const goToCreatePost = () => {
-    window.open(
-      `${window.location.href}/studio/intent/create/template=post;type=post/`,
-      '_blank'
-    )
+  const [studioURL, setStudioURL] = useState(null)
+  const [createPostURL, setCreatePostURL] = useState(null)
+  const repoURL = `https://${process.env.NEXT_PUBLIC_VERCEL_GIT_PROVIDER}.com/${process.env.NEXT_PUBLIC_VERCEL_GIT_REPO_OWNER}/${process.env.NEXT_PUBLIC_VERCEL_GIT_REPO_SLUG}`
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setStudioURL(`${window.location.href}studio`)
+      setCreatePostURL(
+        `${window.location.href}/studio/intent/create/template=post;type=post/`
+      )
+    }
+  }, [])
+
+  const goToURL = (url: string) => {
+    window.open(url, '_blank')
   }
 
   return (
@@ -37,15 +48,13 @@ export default function IntroTemplate() {
               </div>
               <div className="text-xs text-gray-700">
                 We embedded it in this project under
-                <LinkAttribute
-                  href={`${window.location.href}studio`}
-                  text={`${window.location.href}studio`}
-                />
+                <LinkAttribute href={studioURL} text={studioURL} />
               </div>
               <div className="mt-2">
                 <button
                   className="rounded bg-blue py-2 px-4 text-white"
-                  onClick={goToCreatePost}
+                  onClick={() => goToURL(createPostURL)}
+                  role="link"
                 >
                   Create Content
                 </button>
@@ -61,23 +70,19 @@ export default function IntroTemplate() {
               <div className="col-span-2 mb-2 font-bold">
                 Modify and deploy the project
               </div>
-              <div className="mb-2">
-                Clone the
-                <LinkAttribute
-                  href={`https://${process.env.NEXT_PUBLIC_VERCEL_GIT_PROVIDER}.com/${process.env.NEXT_PUBLIC_VERCEL_GIT_REPO_OWNER}/${process.env.NEXT_PUBLIC_VERCEL_GIT_REPO_SLUG}`}
-                  text="repo"
-                  blue
-                />
-                for this project
+              <div className="text-xs text-gray-700">
+                Your code can be found under
+                <LinkAttribute href={repoURL} text={repoURL} blue />
               </div>
-              <div className="mb-2">
-                Learn how to configure your project locally, make changes and
-                deploy them:
-                <LinkAttribute
-                  href={`https://${process.env.NEXT_PUBLIC_VERCEL_GIT_PROVIDER}.com/${process.env.NEXT_PUBLIC_VERCEL_GIT_REPO_OWNER}/${process.env.NEXT_PUBLIC_VERCEL_GIT_REPO_SLUG}/blob/main/README.md`}
-                  text="Read the README"
-                  blue
-                />
+
+              <div className="mt-2">
+                <button
+                  className="rounded bg-blue py-2 px-4 text-white"
+                  onClick={() => goToURL(repoURL)}
+                  role="link"
+                >
+                  Get the repo
+                </button>
               </div>
               <div className="mb-2">
                 Check out
