@@ -24,7 +24,7 @@ export default function IntroTemplate() {
       <div>
         <iframe
           className="mt-4 aspect-video w-full rounded-sm shadow-2xl"
-          src="https://www.youtube.com/embed/32RP-sG1njE"
+          src="https://www.youtube.com/embed/Tsf4QcSUqI4"
           allowFullScreen
         />
 
