@@ -144,7 +144,7 @@ npx vercel --prod
 
 ## How can I remove the "Next steps" block from my blog?
 
-You can remove it by deleting the `IntroTemplate` component in the `index.ts` file (in the pages folder within the root of your project).
+You can remove it by deleting the `IntroTemplate` component in `/pages/index.tsx`.
 
 ## Next steps
 
