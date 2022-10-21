@@ -20,7 +20,7 @@ export default function IntroTemplate() {
   }
 
   return (
-    <div className="mb-10 border border-slate-300 px-6 py-4 md:mb-20 md:grid md:grid-cols-2 md:space-x-14 md:px-14 md:pb-14 md:pt-11">
+    <div className="mb-10 border border-slate-300 px-3 pb-3 md:mb-20 md:grid md:grid-cols-2 md:space-x-14 md:px-14 md:pb-0 md:pb-14 md:pt-11">
       <div>
         <iframe
           className="mt-4 aspect-video w-full rounded shadow-2xl"
@@ -28,16 +28,15 @@ export default function IntroTemplate() {
           allowFullScreen
         />
 
-        <div className="mt-10 text-xs text-gray-700">
-          <LinkAttribute
-            href={`https://${process.env.NEXT_PUBLIC_VERCEL_GIT_PROVIDER}.com/${process.env.NEXT_PUBLIC_VERCEL_GIT_REPO_OWNER}/${process.env.NEXT_PUBLIC_VERCEL_GIT_REPO_SLUG}/blob/main/README.md#how-can-i-remove-the-next-steps-block-from-my-blog`}
-            text="How to remove this block?"
-          />
+        <div className="mt-10 hidden text-xs text-gray-700 md:block">
+          <RemoveBlock />
         </div>
       </div>
 
       <div>
-        <h2 className="mb-4 text-5xl font-bold tracking-wide">Next steps</h2>
+        <h2 className="mb-4 mt-5 text-xl font-bold tracking-wide md:text-5xl">
+          Next steps
+        </h2>
 
         <Box
           circleTitle="1"
@@ -115,6 +114,9 @@ export default function IntroTemplate() {
             </div>
           }
         />
+        <div className="text-center text-xs text-gray-700	 md:invisible">
+          <RemoveBlock />
+        </div>
       </div>
     </div>
   )
@@ -159,3 +161,10 @@ function LinkAttribute({
     </a>
   )
 }
+
+const RemoveBlock = () => (
+  <LinkAttribute
+    href={`https://${process.env.NEXT_PUBLIC_VERCEL_GIT_PROVIDER}.com/${process.env.NEXT_PUBLIC_VERCEL_GIT_REPO_OWNER}/${process.env.NEXT_PUBLIC_VERCEL_GIT_REPO_SLUG}/blob/main/README.md#how-can-i-remove-the-next-steps-block-from-my-blog`}
+    text="How to remove this block?"
+  />
+)
