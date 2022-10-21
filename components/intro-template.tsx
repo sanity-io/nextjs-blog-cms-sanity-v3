@@ -20,7 +20,7 @@ export default function IntroTemplate() {
   }
 
   return (
-    <div className="space-x-14 border border-slate-300 px-14 pb-14 pt-11 md:mb-20 md:grid md:grid-cols-2">
+    <div className="mb-10 border border-slate-300 px-6 py-4 md:mb-20 md:grid md:grid-cols-2 md:space-x-14 md:px-14 md:pb-14 md:pt-11">
       <div>
         <iframe
           className="mt-4 aspect-video w-full rounded-sm shadow-2xl"
