@@ -1,4 +1,3 @@
-import Link from 'next/link'
 import { useEffect, useState } from 'react'
 
 export default function IntroTemplate() {
@@ -43,14 +42,14 @@ export default function IntroTemplate() {
           circleTitle="1"
           element={
             <div>
-              <div className="col-span-2 mb-2 font-bold">
+              <div className="col-span-2 mb-2 mt-1 font-bold">
                 Create content in Sanity Studio
               </div>
               <div className="text-xs text-gray-700">
-                We embedded it in this project under
+                Your Sanity Studio is deployed under
                 <LinkAttribute href={studioURL} text={studioURL} />
               </div>
-              <div className="mt-2">
+              <div className="mt-3">
                 <button
                   className="rounded bg-blue-500 py-2 px-4 text-white"
                   onClick={() => goToURL(createPostURL)}
@@ -67,7 +66,7 @@ export default function IntroTemplate() {
           circleTitle="2"
           element={
             <div>
-              <div className="col-span-2 mb-2 font-bold">
+              <div className="col-span-2 mt-1 mb-2 font-bold">
                 Modify and deploy the project
               </div>
               <div className="text-xs text-gray-700">
@@ -75,7 +74,7 @@ export default function IntroTemplate() {
                 <LinkAttribute href={repoURL} text={repoURL} />
               </div>
 
-              <div className="mt-2">
+              <div className="mt-3">
                 <button
                   className="rounded bg-blue-500 py-2 px-4 text-white"
                   onClick={() => goToURL(repoURL)}
@@ -92,11 +91,10 @@ export default function IntroTemplate() {
           circleTitle="3"
           element={
             <div>
-              <div className="col-span-2 mb-2 font-bold">
+              <div className="col-span-2 mb-3 mt-1 font-bold">
                 Learn more & get help
               </div>
-
-              <div className="mb-2">
+              <div className="mb-3">
                 <LinkAttribute
                   href="https://www.sanity.io/docs"
                   text="Learn more about Sanity"
@@ -104,14 +102,12 @@ export default function IntroTemplate() {
                 />
                 in our documentation.
               </div>
-              <div className="mt-2">
-                <LinkAttribute
-                  href="https://slack.sanity.io/"
-                  text="Join the Sanity Slack Community"
-                  blue
-                />
-                to ask questions and get help.
-              </div>
+              <LinkAttribute
+                href="https://slack.sanity.io/"
+                text="Join the Sanity Slack Community"
+                blue
+              />
+              to ask questions and get help.
             </div>
           }
         />
@@ -128,7 +124,7 @@ function Box({
   element: JSX.Element
 }) {
   return (
-    <div className="grid grid-flow-col grid-rows-1 place-content-start gap-3">
+    <div className="mt-2 grid grid-flow-col grid-rows-1 place-content-start gap-3">
       <div className="row-span-3 select-none">
         <div className="relative flex	h-6 w-6 select-none items-center justify-center rounded-full bg-gray-200 p-4 text-center">
           {circleTitle}
