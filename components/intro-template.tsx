@@ -33,7 +33,7 @@ export default function IntroTemplate() {
       </div>
 
       <div>
-        <h2 className="mb-4 mt-5 text-xl font-bold tracking-wide md:text-5xl">
+        <h2 className="mb-8 mt-5 text-xl font-bold tracking-wide md:text-5xl">
           Next steps
         </h2>
 
