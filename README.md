@@ -2,40 +2,69 @@
 
 [main image placeholder]
 
-Sanity.io is the platform for structured content. With Sanity.io you can use the open-source, single page application to manage your text, images, and other media with APIs. More! You can also use it to quickly set up an editing environment that you can customize.
+This starter is a statically generated blog that uses [Next.js](https://github.com/vercel/next.js) for the frontend and [Sanity](https://www.sanity.io/) to power its content. It comes with a built-in Sanity Studio that offers features like real-time collaboration, instant side-by-side content previews, and intuitive editing.
 
-Want to try Sanity.io with Next.js? This blog starter uses Next.js and Sanity which generates both the front-end and content editor so that you can jump immediately into action. The Sanity editor is React (with Typescript) which you can access by adding `/studio` to the url. It comes with real-time collaboration and instant "as-you-type" previews. Further down, you'll be shown how to configure ISR (incremental static rebuilding) for performant sites that can rebuild instantly.
+The Studio connects to Sanity Content Lake, which gives you hosted content APIs with a flexible query language, on-demand image transformations, powerful patching, and more. You can use this starter to kick-start a blog or to learn these technologies.
 
-You'll get:
+[![Deploy with Vercel](https://vercel.com/button)][vercel-deploy]
+
+- [Features](#features)
+- [Project overview](#project-overview)
+  - [Important files and folders](#important-files-and-folders)
+- [Configuration](#configuration)
+  - [Step 1. Set up the environment](#step-1-set-up-the-environment)
+  - [Step 2. Set up the project locally](#step-2-set-up-the-project-locally)
+    - [Bootstrap the example](#bootstrap-the-example)
+    - [Set up environment variables](#set-up-environment-variables)
+    - [Import to Vercel](#import-to-vercel)
+  - [Step 3. Run Next.js locally in development mode](#step-3-run-nextjs-locally-in-development-mode)
+  - [Step 4. Deploy to production](#step-4-deploy-to-production)
+- [How can I remove the "Next steps" block from my blog?](#how-can-i-remove-the-next-steps-block-from-my-blog)
+- [Next steps](#next-steps)
+
+## Features
 
 - Next.js deployed with the [Sanity Vercel Integration][integration].
-- Sanity Studio running on localhost and deployed in the [cloud](https://www.sanity.io/docs/deployment).
+- Built-in Sanity Studio that is accessible on `yoururl.com/studio`
 - Sub-second as-you-type previews in Next.js
-- [On-demand revalidation of pages](https://nextjs.org/blog/next-12-1#on-demand-incremental-static-regeneration-beta) with [GROQ powered webhooks](https://www.sanity.io/docs/webhooks)
+- [On-demand revalidation of pages](https://nextjs.org/blog/next-12-1#on-demand-incremental-static-regeneration-beta) with [GROQ-powered Webhooks](https://www.sanity.io/docs/webhooks)
+- A project with starter-friendly and not too heavy-handed TypeScript and Tailwind.css
 
-## Demo
+## Project overview
 
 | [Blog](https://nextjs-blog.sanity.build) | [Studio](https://nextjs-blog.sanity.build/studio) |
 | ---------------------------------------- | ------------------------------------------------- |
 | [blog image placeholder]                 | [studio image placeholder]                        |
 
-# Configuration
+### Important files and folders
 
-## Step 1. Set up the environment
+|File(s)|Description|
+|---|---|
+|`sanity.config.ts` | Config file for Sanity Studio|
+|`sanity.cli.ts` | Config file for Sanity CLI|
+|`/pages/studio/[[...index]].tsx` | Where Sanity Studio is mounted|
+|`/pages/api/revalidate.tsx` | Serverless route for triggering ISR|
+|`/schemas` | Where Sanity Studio gets its content types from|
+|`/lib/sanity.server.tsx`, `/lib/config.tsx` | Configuration for the Sanity Content Lake client|
 
-Use the Deploy Button below, you'll deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example) as well as connect it to your Sanity dataset using [the Sanity Vercel Integration][integration].
+
+## Configuration
+
+### Step 1. Set up the environment
+
+Use the Deploy Button below. It will let you deploy the starter using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-sanity-example) as well as connect it to your Sanity Content Lake using [the Sanity Vercel Integration][integration].
 
 [![Deploy with Vercel](https://vercel.com/button)][vercel-deploy]
 
-## Step 2. Set up the project locally
+### Step 2. Set up the project locally
 
-[Clone the repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository) that was created for you. Once cloned, from the project's root directory, link it to Vercel:
+[Clone the repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository) that was created for you on your GitHub account. Once cloned, run the following command from the project's root directory:
 
 ```bash
 npx vercel link
 ```
 
-Download the environment variables needed to connect Next.js and Studio to your Sanity project:
+Download the environment variables needed to connect Next.js and the Studio to your Sanity project:
 
 ```bash
 npx vercel env pull
@@ -50,9 +79,9 @@ npx vercel env pull
 
 If using the [integration] isn't an option. Or maybe you want to work locally first and deploy to Vercel later. Whatever the reason this guide shows you how to setup manually.
 
-### Bootstrap the example
+#### Bootstrap the example
 
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init), [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/), or [pnpm](https://pnpm.io):
+Run the command [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init), [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/), or [pnpm](https://pnpm.io):
 
 ```bash
 npx create-next-app --example https://github.com/sanity-io/nextjs-blog-cms-sanity-v3
@@ -66,13 +95,13 @@ yarn create next-app --example https://github.com/sanity-io/nextjs-blog-cms-sani
 pnpm create next-app --example https://github.com/sanity-io/nextjs-blog-cms-sanity-v3
 ```
 
-### Set up environment variables
+#### Set up environment variables
 
-Create a new [Sanity project](https://www.sanity.io/get-started/create-project) and at the end note the values for `--project` and `--dataset`:
+Create a new [Sanity project](https://www.sanity.io/get-started/create-project) and at note the values for `--project` and `--dataset` that's comes up after project creation:
 
 ![Screenshot of a screen with a terminal command containing "--project ygjibjo8 --dataset production"](https://user-images.githubusercontent.com/81981/195444377-dd497dc1-db90-4b08-843e-84df50a0231a.png)
 
-In the above screenshot the `projectId` is `ygjibjo8` and `dataset` is `production`.
+In the screenshot above, the `projectId` is `ygjibjo8` and `dataset` is `production`.
 
 Copy the [`.env.local.example`] file in this directory to `.env.local` (which will be ignored by Git):
 
@@ -85,7 +114,7 @@ Then set these variables in `.env.local`:
 - `NEXT_PUBLIC_SANITY_PROJECT_ID` should be the `projectId`.
 - `NEXT_PUBLIC_SANITY_DATASET` should be the `dataset`.
 - `SANITY_API_READ_TOKEN` create an API token with `read-only` permissions:
-  - Go to https://manage.sanity.io/ and open your project.
+  - Go to [https://sanity.io/manage](https://sanity.io/manage) and open your project.
   - Go to **API** and the **Tokens** section at the bottom, launch its **Add API token** button.
   - Name it `SANITY_API_READ_TOKEN`, set **Permissions** to `Viewer`.
   - Hit **Save** and you can copy/paste the token.
@@ -98,11 +127,11 @@ NEXT_PUBLIC_SANITY_DATASET=...
 SANITY_API_READ_TOKEN=...
 ```
 
-### Import to Vercel
+#### Import to Vercel
 
 To deploy your local project to Vercel, push it to [GitHub](https://docs.github.com/en/get-started/importing-your-projects-to-github/importing-source-code-to-github/adding-locally-hosted-code-to-github)/GitLab/Bitbucket and [import to Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example).
 **Important**: When you import your project on Vercel, make sure to click on **Environment Variables** and set them to match your `.env.local` file.
-After it's deployed link your local code to the Vercel project:
+After it's deployed, link your local code to the Vercel project:
 
 ```bash
 npx vercel link
@@ -110,7 +139,7 @@ npx vercel link
 
 </details>
 
-## Step 3. Run Next.js locally in development mode
+### Step 3. Run Next.js locally in development mode
 
 ```bash
 npm install && npm run dev
@@ -120,13 +149,13 @@ npm install && npm run dev
 yarn install && yarn dev
 ```
 
-When working locally you can make changes to your blog and studio, and your changes are applied live using hot reloading.
+When working locally, you can make changes to your blog and studio, and your changes are applied live using hot reloading.
 
 Your blog should be up and running on [http://localhost:3000](http://localhost:3000)! You'll be able to find the studio in [http://localhost:3000/studio](http://localhost:3000/studio).
 
 In case of any issues, you can post on [GitHub discussions](https://github.com/vercel/next.js/discussions).
 
-## Step 4. Deploy to production
+### Step 4. Deploy to production
 
 To deploy your changes to production you use `git`:
 
