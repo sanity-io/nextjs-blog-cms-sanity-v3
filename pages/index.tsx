@@ -1,5 +1,6 @@
 import Head from 'next/head'
 
+import BlogHeader from '../components/blog-header'
 import Container from '../components/container'
 import HeroPost from '../components/hero-post'
 import IntroTemplate from '../components/intro-template'
@@ -28,6 +29,7 @@ export default function Index({
           <title>{title}</title>
         </Head>
         <Container>
+          <BlogHeader title={title} />
           <IntroTemplate />
           {heroPost && (
             <HeroPost
