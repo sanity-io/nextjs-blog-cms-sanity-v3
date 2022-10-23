@@ -1,19 +1,26 @@
+/**
+ * This config is used to set up Sanity Studio that's mounted on the `/pages/studio/[[...index]].tsx` route
+ */
+
 import { visionTool } from '@sanity/vision'
 import { createConfig, Slug } from 'sanity'
-import { deskTool } from 'sanity/desk'
+import { DefaultDocumentNodeResolver, deskTool } from 'sanity/desk'
 import { unsplashImageAsset } from 'sanity-plugin-asset-source-unsplash'
 
+import { PostsPreview } from './components/Posts/PostsPreview'
 import authorType from './schemas/author'
 import postType from './schemas/post'
 import settingsType from './schemas/settings'
 
-// @TODO update next-sanity/studio to automatically set this when needed
+// @TODO: update next-sanity/studio to automatically set this when needed
 const basePath = '/studio'
 
-import { DefaultDocumentNodeResolver } from 'sanity/desk'
-
-import { PostsPreview } from './components/Posts/PostsPreview'
-
+/**
+ * `defaultDocumentNode is responsible for adding a “Preview” tab to the document pane
+ *  You can add any React component to `S.view.component` and it will be rendered in the pane and have access to content in the form in real-time.
+ * It's part of the Studio's “Structure Builder API” and is documented here:
+ * https://www.sanity.io/docs/structure-builder-reference
+ */
 export const defaultDocumentNode: DefaultDocumentNodeResolver = (
   S,
   { schemaType }
@@ -33,6 +40,10 @@ export default createConfig({
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET,
   title: process.env.NEXT_PUBLIC_SANITY_PROJECT_TITLE || 'Blog Studio',
+  schema: {
+    // If you want more content types, you can add them to this array
+    types: [settingsType, postType, authorType],
+  },
   plugins: [
     deskTool({
       structure: (S) => {
@@ -57,17 +68,16 @@ export default createConfig({
           .title('Content')
           .items([settingsListItem, S.divider(), ...defaultListItems])
       },
-
       defaultDocumentNode,
     }),
+    // Add an image asset source for Unsplash
     unsplashImageAsset(),
+    // Vision lets you query your content with GROQ in the studio
+    // https://www.sanity.io/docs/the-vision-plugin
     visionTool({
       defaultApiVersion: '2022-08-08',
     }),
   ],
-  schema: {
-    types: [settingsType, postType, authorType],
-  },
   document: {
     productionUrl: async (prev, { document }) => {
       const url = new URL('/api/preview', location.origin)
