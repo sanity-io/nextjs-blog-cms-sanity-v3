@@ -1,7 +1,5 @@
 # Sanity.io and Next.js
 
-[main image placeholder]
-
 This starter is a statically generated blog that uses [Next.js](https://github.com/vercel/next.js) for the frontend and [Sanity](https://www.sanity.io/) to power its content. It comes with a built-in Sanity Studio that offers features like real-time collaboration, instant side-by-side content previews, and intuitive editing.
 
 The Studio connects to Sanity Content Lake, which gives you hosted content APIs with a flexible query language, on-demand image transformations, powerful patching, and more. You can use this starter to kick-start a blog or to learn these technologies.
@@ -19,7 +17,9 @@ The Studio connects to Sanity Content Lake, which gives you hosted content APIs 
     - [Import to Vercel](#import-to-vercel)
   - [Step 3. Run Next.js locally in development mode](#step-3-run-nextjs-locally-in-development-mode)
   - [Step 4. Deploy to production](#step-4-deploy-to-production)
-- [How can I remove the "Next steps" block from my blog?](#how-can-i-remove-the-next-steps-block-from-my-blog)
+- [Questions and Answers](#questions-and-answers)
+  - [It doesn't work! Where can I get help?](#it-doesnt-work-where-can-i-get-help)
+  - [How can I remove the "Next steps" block from my blog?](#how-can-i-remove-the-next-steps-block-from-my-blog)
 - [Next steps](#next-steps)
 
 ## Features
@@ -32,9 +32,11 @@ The Studio connects to Sanity Content Lake, which gives you hosted content APIs 
 
 ## Project overview
 
+<!--
 | [Blog](https://nextjs-blog.sanity.build) | [Studio](https://nextjs-blog.sanity.build/studio) |
 | ---------------------------------------- | ------------------------------------------------- |
 | [blog image placeholder]                 | [studio image placeholder]                        |
+-->
 
 ### Important files and folders
 
@@ -44,6 +46,7 @@ The Studio connects to Sanity Content Lake, which gives you hosted content APIs 
 |`sanity.cli.ts` | Config file for Sanity CLI|
 |`/pages/studio/[[...index]].tsx` | Where Sanity Studio is mounted|
 |`/pages/api/revalidate.tsx` | Serverless route for triggering ISR|
+|`/pages/api/preivew.tsx` | Serverless route for triggering Preview mode|
 |`/schemas` | Where Sanity Studio gets its content types from|
 |`/lib/sanity.server.tsx`, `/lib/config.tsx` | Configuration for the Sanity Content Lake client|
 
@@ -71,13 +74,13 @@ npx vercel env pull
 ```
 
 <details>
-<summary>You can also set up manually</summary>
+<summary>Step-by-step manual configuration</summary>
 
 - [Bootstrap the example](#bootstrap-the-example)
 - [Set up environment variables](#set-up-environment-variables)
 - [Import to Vercel](#import-to-vercel)
 
-If using the [integration] isn't an option. Or maybe you want to work locally first and deploy to Vercel later. Whatever the reason this guide shows you how to setup manually.
+If using the [integration] isn't an option. Or maybe you want to work locally first and deploy to Vercel later. This guide shows you how to set it up manually.
 
 #### Bootstrap the example
 
@@ -87,21 +90,13 @@ Run the command [`create-next-app`](https://github.com/vercel/next.js/tree/canar
 npx create-next-app --example https://github.com/sanity-io/nextjs-blog-cms-sanity-v3
 ```
 
-```bash
-yarn create next-app --example https://github.com/sanity-io/nextjs-blog-cms-sanity-v3
-```
-
-```bash
-pnpm create next-app --example https://github.com/sanity-io/nextjs-blog-cms-sanity-v3
-```
-
 #### Set up environment variables
 
-Create a new [Sanity project](https://www.sanity.io/get-started/create-project) and at note the values for `--project` and `--dataset` that's comes up after project creation:
+Create a new [Sanity project](https://www.sanity.io/get-started/create-project) and note the values for `--project` and `--dataset`, which comes up after project creation:
 
 ![Screenshot of a screen with a terminal command containing "--project ygjibjo8 --dataset production"](https://user-images.githubusercontent.com/81981/195444377-dd497dc1-db90-4b08-843e-84df50a0231a.png)
 
-In the screenshot above, the `projectId` is `ygjibjo8` and `dataset` is `production`.
+In the screenshot above, the `projectId` is `ygjibjo8`, and `dataset` is `production`.
 
 Copy the [`.env.local.example`] file in this directory to `.env.local` (which will be ignored by Git):
 
@@ -115,7 +110,7 @@ Then set these variables in `.env.local`:
 - `NEXT_PUBLIC_SANITY_DATASET` should be the `dataset`.
 - `SANITY_API_READ_TOKEN` create an API token with `read-only` permissions:
   - Go to [https://sanity.io/manage](https://sanity.io/manage) and open your project.
-  - Go to **API** and the **Tokens** section at the bottom, launch its **Add API token** button.
+  - Go to **API** and the **Tokens** section at the bottom, press its **Add API token** button.
   - Name it `SANITY_API_READ_TOKEN`, set **Permissions** to `Viewer`.
   - Hit **Save** and you can copy/paste the token.
 
@@ -145,19 +140,13 @@ npx vercel link
 npm install && npm run dev
 ```
 
-```bash
-yarn install && yarn dev
-```
+When working locally, you can make changes to your frontend, and studio configuration. Your changes are applied live using hot reloading.
 
-When working locally, you can make changes to your blog and studio, and your changes are applied live using hot reloading.
-
-Your blog should be up and running on [http://localhost:3000](http://localhost:3000)! You'll be able to find the studio in [http://localhost:3000/studio](http://localhost:3000/studio).
-
-In case of any issues, you can post on [GitHub discussions](https://github.com/vercel/next.js/discussions).
+Your blog should be up and running on [http://localhost:3000](http://localhost:3000)! You'll be able to find the studio on [http://localhost:3000/studio](http://localhost:3000/studio).
 
 ### Step 4. Deploy to production
 
-To deploy your changes to production you use `git`:
+To deploy your changes to production, you use `git`:
 
 ```bash
 git add .
@@ -171,7 +160,17 @@ Alternatively you can deploy without a `git` hosting provider using the Vercel C
 npx vercel --prod
 ```
 
-## How can I remove the "Next steps" block from my blog?
+## Questions and Answers
+
+### It doesn't work! Where can I get help?
+
+In case of any issues or questions, you can post:
+
+- [GitHub Discussions for Next.js](https://github.com/vercel/next.js/discussions)
+- [Sanity's GitHub Discussions](https://github.com/sanity-io/sanity/discussions)
+- [Sanity's Community Slack](https://slack.sanity.io)
+
+### How can I remove the "Next steps" block from my blog?
 
 You can remove it by deleting the `IntroTemplate` component in `/pages/index.tsx`.
 
