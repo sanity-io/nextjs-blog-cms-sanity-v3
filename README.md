@@ -55,15 +55,15 @@ If using the [integration] isn't an option. Or maybe you want to work locally fi
 Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init), [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/), or [pnpm](https://pnpm.io):
 
 ```bash
-npx create-next-app --example https://github.com/sanity-io/vercel-next.js-examples-cms-sanity-studio-v3
+npx create-next-app --example https://github.com/sanity-io/nextjs-blog-cms-sanity-v3
 ```
 
 ```bash
-yarn create next-app --example https://github.com/sanity-io/vercel-next.js-examples-cms-sanity-studio-v3
+yarn create next-app --example https://github.com/sanity-io/nextjs-blog-cms-sanity-v3
 ```
 
 ```bash
-pnpm create next-app --example https://github.com/sanity-io/vercel-next.js-examples-cms-sanity-studio-v3
+pnpm create next-app --example https://github.com/sanity-io/nextjs-blog-cms-sanity-v3
 ```
 
 ### Set up environment variables
@@ -153,7 +153,7 @@ You can remove it by deleting the `IntroTemplate` component in `/pages/index.tsx
 - [How to query content?](https://www.sanity.io/docs/groq)
 - [What is content modelling?](https://www.sanity.io/docs/content-modelling)
 
-[vercel-deploy]: https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fsanity-io%2Fvercel-next.js-examples-cms-sanity-studio-v3&repository-name=blog-nextjs-sanity&project-name=blog-nextjs-sanity&demo-title=Blog%20using%20Next.js%20%26%20Sanity&demo-description=On-demand%20ISR%2C%20sub-second%20as-you-type%20previews&demo-url=https%3A%2F%2Fnextjs-blog.sanity.build%2F&demo-image=https%3A%2F%2Fuser-images.githubusercontent.com%2F110497645%2F182727236-75c02b1b-faed-4ae2-99ce-baa089f7f363.png&integration-ids=oac_hb2LITYajhRQ0i4QznmKH7gx
+[vercel-deploy]: https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fsanity-io%2Fnextjs-blog-cms-sanity-v3&repository-name=blog-nextjs-sanity&project-name=blog-nextjs-sanity&demo-title=Blog%20using%20Next.js%20%26%20Sanity&demo-description=On-demand%20ISR%2C%20sub-second%20as-you-type%20previews&demo-url=https%3A%2F%2Fnextjs-blog.sanity.build%2F&demo-image=https%3A%2F%2Fuser-images.githubusercontent.com%2F110497645%2F182727236-75c02b1b-faed-4ae2-99ce-baa089f7f363.png&integration-ids=oac_hb2LITYajhRQ0i4QznmKH7gx
 [integration]: https://www.sanity.io/docs/vercel-integration
 [`.env.local.example`]: .env.local.example
 [unsplash]: https://unsplash.com
