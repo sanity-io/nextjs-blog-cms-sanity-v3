@@ -24,7 +24,7 @@ The Studio connects to Sanity Content Lake, which gives you hosted content APIs 
 - [Project Overview](#project-overview)
   - [Important files and folders](#important-files-and-folders)
 - [Configuration](#configuration)
-  - [Step 1. Set up the environment](#step-1-set-up-the-environment-2)
+  - [Step 1. Set up the environment](#step-1-set-up-the-environment)
   - [Step 2. Set up the project locally](#step-2-set-up-the-project-locally)
   - [Step 3. Run Next.js locally in development mode](#step-3-run-nextjs-locally-in-development-mode)
   - [Step 4. Deploy to production](#step-4-deploy-to-production)
