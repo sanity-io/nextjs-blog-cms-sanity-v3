@@ -34,23 +34,27 @@ export default function IntroTemplate() {
       </div>
 
       <div className="md:mr-24">
-        {!hasEnvVars && (
-          <div
-            className="mb-4 rounded-lg bg-yellow-100 p-4 text-sm text-yellow-700 dark:bg-yellow-200 dark:text-yellow-800"
-            role="alert"
-          >
-            {`It looks like you haven't set up the local environment variables.`}
-            <LinkAttribute
-              href={
-                'https://github.com/sanity-io/nextjs-blog-cms-sanity-v3#step-2-set-up-the-project-locally'
-              }
-              text={`Here's how to set them up locally`}
-            />
-          </div>
-        )}
         <h2 className="mt-5 mb-8 text-xl font-bold tracking-wide md:text-5xl">
           Next steps
         </h2>
+
+        {!hasEnvVars && (
+          <div
+            className="mb-4 rounded-lg bg-yellow-100 p-4 text-sm text-yellow-700"
+            role="alert"
+          >
+            {`It looks like you haven't set up the local environment variables.`}
+            <p>
+              <LinkAttribute
+                margin={false}
+                href={
+                  'https://github.com/sanity-io/nextjs-blog-cms-sanity-v3#step-2-set-up-the-project-locally'
+                }
+                text={`Here's how to set them up locally`}
+              />
+            </p>
+          </div>
+        )}
         <ol>
           <Box
             circleTitle="1"
@@ -183,15 +187,17 @@ function LinkAttribute({
   href,
   text,
   blue,
+  margin = true,
 }: {
   href: string
   text: string
   blue?: boolean
+  margin?: boolean
 }) {
   return (
     <a
       href={href}
-      className={`mx-1 underline ${
+      className={`${margin && 'mx-1'} underline ${
         blue && 'text-blue-500'
       } hover:text-blue-800`}
       target="_blank"
@@ -203,5 +209,5 @@ function LinkAttribute({
 }
 
 const RemoveBlock = ({ url }) => (
-  <LinkAttribute href={url} text="How to remove this block?" />
+  <LinkAttribute margin={false} href={url} text="How to remove this block?" />
 )
