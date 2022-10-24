@@ -31,7 +31,7 @@ export default function IntroTemplate() {
       </div>
 
       <div className="md:mr-24">
-        {hasEnvVars && (
+        {!hasEnvVars && (
           <div
             className="mb-4 rounded-lg bg-yellow-100 p-4 text-sm text-yellow-700 dark:bg-yellow-200 dark:text-yellow-800"
             role="alert"
