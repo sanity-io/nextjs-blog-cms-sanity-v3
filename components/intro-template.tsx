@@ -35,7 +35,7 @@ export default function IntroTemplate() {
           className="mb-4 rounded-lg bg-yellow-100 p-4 text-sm text-yellow-700 dark:bg-yellow-200 dark:text-yellow-800"
           role="alert"
         >
-          It looks like you haven't set up the local environment variables.
+          {`It looks like you haven't set up the local environment variables.`}
           <LinkAttribute
             href={
               'https://github.com/sanity-io/nextjs-blog-cms-sanity-v3#step-2-set-up-the-project-locally'
