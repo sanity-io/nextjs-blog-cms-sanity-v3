@@ -31,18 +31,20 @@ export default function IntroTemplate() {
       </div>
 
       <div className="md:mr-24">
-        <div
-          className="mb-4 rounded-lg bg-yellow-100 p-4 text-sm text-yellow-700 dark:bg-yellow-200 dark:text-yellow-800"
-          role="alert"
-        >
-          {`It looks like you haven't set up the local environment variables.`}
-          <LinkAttribute
-            href={
-              'https://github.com/sanity-io/nextjs-blog-cms-sanity-v3#step-2-set-up-the-project-locally'
-            }
-            text={`Here's how to set them up locally`}
-          />
-        </div>
+        {hasEnvVars && (
+          <div
+            className="mb-4 rounded-lg bg-yellow-100 p-4 text-sm text-yellow-700 dark:bg-yellow-200 dark:text-yellow-800"
+            role="alert"
+          >
+            {`It looks like you haven't set up the local environment variables.`}
+            <LinkAttribute
+              href={
+                'https://github.com/sanity-io/nextjs-blog-cms-sanity-v3#step-2-set-up-the-project-locally'
+              }
+              text={`Here's how to set them up locally`}
+            />
+          </div>
+        )}
         <h2 className="mt-5 mb-8 text-xl font-bold tracking-wide md:text-5xl">
           Next steps
         </h2>
