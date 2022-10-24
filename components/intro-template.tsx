@@ -40,7 +40,7 @@ export default function IntroTemplate() {
 
         {!hasEnvVars && (
           <div
-            className="mb-4 rounded-lg bg-yellow-100 p-4 text-sm text-yellow-700"
+            className="mb-6 rounded-lg bg-yellow-100 p-4 text-sm text-yellow-700"
             role="alert"
           >
             {`It looks like you haven't set up the local environment variables.`}
