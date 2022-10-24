@@ -4,7 +4,7 @@
 
 import { visionTool } from '@sanity/vision'
 import { createConfig, Slug } from 'sanity'
-import { DefaultDocumentNodeResolver, deskTool } from 'sanity/desk'
+import { deskTool } from 'sanity/desk'
 import { unsplashImageAsset } from 'sanity-plugin-asset-source-unsplash'
 
 import { PostsPreview } from './components/Posts/PostsPreview'
@@ -14,26 +14,6 @@ import settingsType from './schemas/settings'
 
 // @TODO: update next-sanity/studio to automatically set this when needed
 const basePath = '/studio'
-
-/**
- * `defaultDocumentNode is responsible for adding a “Preview” tab to the document pane
- *  You can add any React component to `S.view.component` and it will be rendered in the pane and have access to content in the form in real-time.
- * It's part of the Studio's “Structure Builder API” and is documented here:
- * https://www.sanity.io/docs/structure-builder-reference
- */
-export const defaultDocumentNode: DefaultDocumentNodeResolver = (
-  S,
-  { schemaType }
-) => {
-  if (schemaType === 'post') {
-    return S.document().views([
-      S.view.form(),
-      S.view.component(PostsPreview).title('Preview'),
-    ])
-  }
-
-  return null
-}
 
 export default createConfig({
   basePath,
@@ -68,7 +48,22 @@ export default createConfig({
           .title('Content')
           .items([settingsListItem, S.divider(), ...defaultListItems])
       },
-      defaultDocumentNode,
+
+      // `defaultDocumentNode is responsible for adding a “Preview” tab to the document pane
+      // You can add any React component to `S.view.component` and it will be rendered in the pane
+      // and have access to content in the form in real-time.
+      // It's part of the Studio's “Structure Builder API” and is documented here:
+      // https://www.sanity.io/docs/structure-builder-reference
+      defaultDocumentNode: (S, { schemaType }) => {
+        if (schemaType === 'post') {
+          return S.document().views([
+            S.view.form(),
+            S.view.component(PostsPreview).title('Preview'),
+          ])
+        }
+
+        return null
+      },
     }),
     // Add an image asset source for Unsplash
     unsplashImageAsset(),
