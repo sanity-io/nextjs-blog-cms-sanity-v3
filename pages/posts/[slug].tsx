@@ -48,9 +48,7 @@ export default function Post(props: Props) {
           <>
             <article>
               <Head>
-                <title>
-                  {post.title} | {title}
-                </title>
+                <title>{`${post.title} | ${title}`}</title>
                 {post.coverImage?.asset?._ref && (
                   <meta
                     key="ogImage"
