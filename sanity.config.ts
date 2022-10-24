@@ -19,7 +19,9 @@ export default createConfig({
   basePath,
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET,
-  title: process.env.NEXT_PUBLIC_SANITY_PROJECT_TITLE || 'Blog Studio',
+  title:
+    process.env.NEXT_PUBLIC_SANITY_PROJECT_TITLE ||
+    'Next.js Blog with Sanity.io',
   schema: {
     // If you want more content types, you can add them to this array
     types: [settingsType, postType, authorType],
