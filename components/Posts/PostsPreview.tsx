@@ -1,3 +1,7 @@
+/**
+ * This component is responsible for rendering a preview of a post inside the Studio.
+ * It's imported in `sanity.config.ts´ and used as a component in the defaultDocumentNode function.
+ */
 import { Card, Text } from '@sanity/ui'
 import React from 'react'
 
