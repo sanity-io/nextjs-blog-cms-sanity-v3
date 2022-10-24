@@ -34,7 +34,7 @@ export default defineType({
     {
       name: 'excerpt',
       title: 'Excerpt',
-      type: 'string',
+      type: 'text',
     },
     {
       name: 'coverImage',

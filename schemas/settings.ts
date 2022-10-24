@@ -9,7 +9,7 @@ export default defineType({
   fields: [
     {
       name: 'title',
-      description: 'This field is the title of your application.',
+      description: 'This field is the title of your blog.',
       title: 'Title',
       type: 'string',
       initialValue: 'Blog.',
