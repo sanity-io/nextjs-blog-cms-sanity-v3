@@ -11,6 +11,9 @@ export default function IntroTemplate() {
     process.env.NEXT_PUBLIC_VERCEL_GIT_REPO_OWNER &&
     process.env.NEXT_PUBLIC_VERCEL_GIT_REPO_SLUG
   const repoURL = `https://${process.env.NEXT_PUBLIC_VERCEL_GIT_PROVIDER}.com/${process.env.NEXT_PUBLIC_VERCEL_GIT_REPO_OWNER}/${process.env.NEXT_PUBLIC_VERCEL_GIT_REPO_SLUG}`
+  const removeBlockURL = hasEnvVars
+    ? `https://${process.env.NEXT_PUBLIC_VERCEL_GIT_PROVIDER}.com/${process.env.NEXT_PUBLIC_VERCEL_GIT_REPO_OWNER}/${process.env.NEXT_PUBLIC_VERCEL_GIT_REPO_SLUG}/blob/main/README.md#how-can-i-remove-the-next-steps-block-from-my-blog`
+    : `https://github.com/sanity-io/nextjs-blog-cms-sanity-v3#how-can-i-remove-the-next-steps-block-from-my-blog`
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -26,7 +29,7 @@ export default function IntroTemplate() {
       <div className="self-center">
         <Image alt={'Cover Image IntroTemplate'} src={introTemplateImg} />
         <div className="mt-10 hidden px-14 text-xs text-gray-700 md:block">
-          <RemoveBlock />
+          <RemoveBlock url={removeBlockURL} />
         </div>
       </div>
 
@@ -150,7 +153,7 @@ export default function IntroTemplate() {
           />
         </ol>
         <div className="text-center text-xs text-gray-700 md:invisible">
-          <RemoveBlock />
+          <RemoveBlock url={removeBlockURL} />
         </div>
       </div>
     </div>
@@ -199,9 +202,6 @@ function LinkAttribute({
   )
 }
 
-const RemoveBlock = () => (
-  <LinkAttribute
-    href={`https://${process.env.NEXT_PUBLIC_VERCEL_GIT_PROVIDER}.com/${process.env.NEXT_PUBLIC_VERCEL_GIT_REPO_OWNER}/${process.env.NEXT_PUBLIC_VERCEL_GIT_REPO_SLUG}/blob/main/README.md#how-can-i-remove-the-next-steps-block-from-my-blog`}
-    text="How to remove this block?"
-  />
+const RemoveBlock = ({ url }) => (
+  <LinkAttribute href={url} text="How to remove this block?" />
 )
