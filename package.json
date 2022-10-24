@@ -16,7 +16,7 @@
   "dependencies": {
     "@portabletext/react": "^1.0.6",
     "@sanity/image-url": "^1.0.1",
-    "@sanity/vision": "3.0.0-purple-unicorn-starter.75",
+    "@sanity/vision": "3.0.0-dev-preview.22",
     "@sanity/webhook": "^2.0.0",
     "classnames": "^2.3.2",
     "date-fns": "^2.29.3",
@@ -25,8 +25,8 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-is": "^18.2.0",
-    "sanity": "3.0.0-purple-unicorn-starter.75",
-    "sanity-plugin-asset-source-unsplash": "1.0.0-purple-unicorn-starter.1",
+    "sanity": "3.0.0-dev-preview.22",
+    "sanity-plugin-asset-source-unsplash": "v3.0.0-v3-studio.8",
     "styled-components": "^5.3.6"
   },
   "devDependencies": {
