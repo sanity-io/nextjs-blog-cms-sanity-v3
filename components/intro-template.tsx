@@ -25,10 +25,10 @@ export default function IntroTemplate() {
   }, [])
 
   return (
-    <div className="pb-3 mb-10 border border-slate-300 px-14 md:mb-20 md:grid md:grid-cols-2 md:px-0 md:pb-14 md:pt-11">
+    <div className="mb-10 border border-slate-300 px-14 pb-3 md:mb-20 md:grid md:grid-cols-2 md:px-0 md:pb-14 md:pt-11">
       <div className="self-center">
         <Image alt={'Cover Image IntroTemplate'} src={introTemplateImg} />
-        <div className="hidden mt-10 text-xs text-gray-700 px-14 md:block">
+        <div className="mt-10 hidden px-14 text-xs text-gray-700 md:block">
           <RemoveBlock url={removeBlockURL} />
         </div>
       </div>
@@ -40,7 +40,7 @@ export default function IntroTemplate() {
 
         {!hasEnvVars && (
           <div
-            className="p-4 mb-6 text-sm text-yellow-700 bg-yellow-100 rounded-lg"
+            className="mb-6 rounded-lg bg-yellow-100 p-4 text-sm text-yellow-700"
             role="alert"
           >
             {`It looks like you haven't set up the local environment variables.`}
@@ -69,7 +69,7 @@ export default function IntroTemplate() {
                 </div>
                 <div className="mt-3">
                   <a
-                    className="inline-flex px-4 py-2 text-white bg-blue-500 rounded hover:bg-blue-800"
+                    className="inline-flex rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-800"
                     href={createPostURL}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -98,7 +98,7 @@ export default function IntroTemplate() {
 
                     <div className="mt-3">
                       <a
-                        className="inline-flex px-4 py-2 text-white bg-blue-500 rounded hover:bg-blue-800"
+                        className="inline-flex rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-800"
                         href={repoURL}
                         target="_blank"
                         rel="noopener noreferrer"
@@ -156,7 +156,7 @@ export default function IntroTemplate() {
             }
           />
         </ol>
-        <div className="text-xs text-center text-gray-700 md:invisible">
+        <div className="text-center text-xs text-gray-700 md:invisible">
           <RemoveBlock url={removeBlockURL} />
         </div>
       </div>
@@ -172,9 +172,9 @@ function Box({
   element: JSX.Element
 }) {
   return (
-    <li className="grid grid-flow-col grid-rows-1 gap-3 mt-2 place-content-start">
+    <li className="mt-2 grid grid-flow-col grid-rows-1 place-content-start gap-3">
       <div className="row-span-3 select-none">
-        <div className="relative flex items-center justify-center w-6 h-6 p-4 text-center bg-gray-200 rounded-full select-none">
+        <div className="relative flex h-6 w-6 select-none items-center justify-center rounded-full bg-gray-200 p-4 text-center">
           {circleTitle}
         </div>
       </div>
