@@ -1,4 +1,7 @@
+import Image from 'next/future/image'
 import { useEffect, useState } from 'react'
+
+import introTemplateImg from '../images/introTemplateImg.png'
 
 export default function IntroTemplate() {
   const [studioURL, setStudioURL] = useState(null)
@@ -15,16 +18,15 @@ export default function IntroTemplate() {
   }, [])
 
   return (
-    <div className="mb-10 border border-slate-300 px-3 pb-3 md:mb-20 md:grid md:grid-cols-1 md:space-x-14 md:px-14 md:pb-14 md:pt-11">
-      {/* <div>
-        <iframe
-          className="w-full mt-4 rounded shadow-2xl aspect-video"
-          src="https://www.youtube.com/embed/Tsf4QcSUqI4"
-          allowFullScreen
-        />
-      </div> */}
+    <div className="mb-10 border border-slate-300 px-14 pb-3 md:mb-20 md:grid md:grid-cols-2 md:px-0 md:pb-14 md:pt-11">
+      <div className="self-center">
+        <Image alt={'Cover Image IntroTemplate'} src={introTemplateImg} />
+        <div className="mt-10 hidden px-14 text-xs text-gray-700 md:block">
+          <RemoveBlock />
+        </div>
+      </div>
 
-      <div>
+      <div className="md:mr-24">
         <h2 className="mt-5 mb-8 text-xl font-bold tracking-wide md:text-5xl">
           Next steps
         </h2>
@@ -34,10 +36,10 @@ export default function IntroTemplate() {
             element={
               <div>
                 <div className="col-span-2 mt-1 mb-2 font-bold">
-                  Create content in Sanity Studio
+                  Create content with Sanity Studio
                 </div>
                 <div className="text-xs text-gray-700">
-                  You can open your Sanity Studio at
+                  Your Sanity Studio is deployed at
                   <LinkAttribute href={studioURL} text={studioURL} />
                 </div>
                 <div className="mt-3">
@@ -47,7 +49,7 @@ export default function IntroTemplate() {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    Open Sanity Studio to create content
+                    Open Studio to edit content
                   </a>
                 </div>
               </div>
@@ -62,7 +64,7 @@ export default function IntroTemplate() {
                   Modify and deploy the project
                 </div>
                 <div className="text-xs text-gray-700">
-                  Your code can be found under
+                  Your code can be found at
                   <LinkAttribute href={repoURL} text={repoURL} />
                 </div>
 
@@ -73,7 +75,7 @@ export default function IntroTemplate() {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    Go to your repository on GitHub
+                    Go to your repo on GitHub
                   </a>
                 </div>
               </div>
@@ -110,9 +112,6 @@ export default function IntroTemplate() {
                     />
                   </li>
                 </ul>
-                <div className="mt-10 hidden text-xs text-gray-700 md:block">
-                  <RemoveBlock />
-                </div>
               </div>
             }
           />
