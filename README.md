@@ -1,25 +1,98 @@
 # Sanity.io and Next.js
 
-This starter is a statically generated blog that uses [Next.js](https://github.com/vercel/next.js) for the frontend and [Sanity](https://www.sanity.io/) to power its content. It comes with a built-in Sanity Studio that offers features like real-time collaboration, instant side-by-side content previews, and intuitive editing.
+This starter is a statically generated blog that uses [Next.js][nextjs] for the frontend and [Sanity][sanity-homepage] to handle its content. It comes with a built-in Sanity Studio that offers features like real-time collaboration, instant side-by-side content previews, and intuitive editing.
 
 The Studio connects to Sanity Content Lake, which gives you hosted content APIs with a flexible query language, on-demand image transformations, powerful patching, and more. You can use this starter to kick-start a blog or to learn these technologies.
 
 [![Deploy with Vercel](https://vercel.com/button)][vercel-deploy]
 
+## Features
+
+- A performant, static blog with editable posts, authors, and site settings
+- A built-in and customizable authoring environment, accessible on `yourblog.com/studio`
+- Real-time and collaborative content editing with fine-grained revision history
+- Side-by-side instant content preview that works across your whole site
+- Support for block content and the most advanced custom fields capability in the industry
+- Webhook-triggered Incremental Static Revalidation; no need to wait for a rebuild to publish new content
+- Free and boosted Sanity project with unlimited admin users, free content updates, and pay-as-you-go for API overages
+- A project with starter-friendly and not too heavy-handed TypeScript and Tailwind.css
+
+## Table of Contents
+
 - [Features](#features)
-- [Project overview](#project-overview)
+- [Table of Contents](#table-of-contents)
+- [Project Overview](#project-overview)
   - [Important files and folders](#important-files-and-folders)
+- [Step 1. Set up the environment](#step-1-set-up-the-environment)
+  - [Step 1. Set up the environment](#step-1-set-up-the-environment-1)
+- [Features](#features-1)
+- [Project overview](#project-overview-1)
+  - [Important files and folders](#important-files-and-folders-1)
 - [Configuration](#configuration)
-  - [Step 1. Set up the environment](#step-1-set-up-the-environment)
+  - [Step 1. Set up the environment](#step-1-set-up-the-environment-2)
   - [Step 2. Set up the project locally](#step-2-set-up-the-project-locally)
     - [Bootstrap the example](#bootstrap-the-example)
     - [Set up environment variables](#set-up-environment-variables)
+  - [Set up environment variables](#set-up-environment-variables-1)
     - [Import to Vercel](#import-to-vercel)
   - [Step 3. Run Next.js locally in development mode](#step-3-run-nextjs-locally-in-development-mode)
-  - [Step 4. Deploy to production](#step-4-deploy-to-production)
+- [Step 4. Deploy to production](#step-4-deploy-to-production)
 - [Questions and Answers](#questions-and-answers)
   - [It doesn't work! Where can I get help?](#it-doesnt-work-where-can-i-get-help)
   - [How can I remove the "Next steps" block from my blog?](#how-can-i-remove-the-next-steps-block-from-my-blog)
+  - [How can I set up Incremental Static Revalidation?](#how-can-i-set-up-incremental-static-revalidation)
+- [Next steps](#next-steps)
+
+## Project Overview
+
+| [Blog](https://nextjs-blog.sanity.build) | [Studio](https://nextjs-blog.sanity.build/studio) |
+| ---------------------------------------- | ------------------------------------------------- |
+| [blog image placeholder]                 | [studio image placeholder]                        |
+
+-->
+
+### Important files and folders
+
+| File(s)                                     | Description                                      |
+| ------------------------------------------- | ------------------------------------------------ |
+| `sanity.config.ts`                          |  Config file for Sanity Studio                   |
+| `sanity.cli.ts`                             |  Config file for Sanity CLI                      |
+| `/pages/studio/[[...index]].tsx`            |  Where Sanity Studio is mounted                  |
+| `/pages/api/revalidate.tsx`                 |  Serverless route for triggering ISR             |
+| `/pages/api/preivew.tsx`                    |  Serverless route for triggering Preview mode    |
+| `/schemas`                                  |  Where Sanity Studio gets its content types from |
+| `/lib/sanity.server.tsx`, `/lib/config.tsx` | Configuration for the Sanity Content Lake client |
+
+## Step 1. Set up the environment
+
+### Step 1. Set up the environment
+
+Use the Deploy Button below. It will let you deploy the starter using [Vercel][vercel] as well as connect it to your Sanity Content Lake using [the Sanity Vercel Integration][integration].
+
+[![Deploy with Vercel](https://vercel.com/button)][vercel-deploy]
+
+- [Features](#features)
+- [Table of Contents](#table-of-contents)
+- [Project Overview](#project-overview)
+  - [Important files and folders](#important-files-and-folders)
+- [Step 1. Set up the environment](#step-1-set-up-the-environment)
+  - [Step 1. Set up the environment](#step-1-set-up-the-environment-1)
+- [Features](#features-1)
+- [Project overview](#project-overview-1)
+  - [Important files and folders](#important-files-and-folders-1)
+- [Configuration](#configuration)
+  - [Step 1. Set up the environment](#step-1-set-up-the-environment-2)
+  - [Step 2. Set up the project locally](#step-2-set-up-the-project-locally)
+    - [Bootstrap the example](#bootstrap-the-example)
+    - [Set up environment variables](#set-up-environment-variables)
+  - [Set up environment variables](#set-up-environment-variables-1)
+    - [Import to Vercel](#import-to-vercel)
+  - [Step 3. Run Next.js locally in development mode](#step-3-run-nextjs-locally-in-development-mode)
+- [Step 4. Deploy to production](#step-4-deploy-to-production)
+- [Questions and Answers](#questions-and-answers)
+  - [It doesn't work! Where can I get help?](#it-doesnt-work-where-can-i-get-help)
+  - [How can I remove the "Next steps" block from my blog?](#how-can-i-remove-the-next-steps-block-from-my-blog)
+  - [How can I set up Incremental Static Revalidation?](#how-can-i-set-up-incremental-static-revalidation)
 - [Next steps](#next-steps)
 
 ## Features
@@ -91,7 +164,13 @@ npx create-next-app --example https://github.com/sanity-io/nextjs-blog-cms-sanit
 
 #### Set up environment variables
 
-Create a new [Sanity project](https://www.sanity.io/get-started/create-project) and note the values for `--project` and `--dataset`, which comes up after project creation:
+```bash
+pnpm create next-app --example https://github.com/sanity-io/nextjs-blog-cms-sanity-v3
+```
+
+### Set up environment variables
+
+Create a new [Sanity project][sanity-create] and at the end note the values for `--project` and `--dataset`:
 
 ![Screenshot of a screen with a terminal command containing "--project ygjibjo8 --dataset production"](https://user-images.githubusercontent.com/81981/195444377-dd497dc1-db90-4b08-843e-84df50a0231a.png)
 
@@ -139,13 +218,13 @@ npx vercel link
 npm install && npm run dev
 ```
 
-When working locally, you can make changes to your frontend, and studio configuration. Your changes are applied live using hot reloading.
+When you run this development server, the changes you make in your frontend and studio configuration will be applied live using hot reloading.
 
-Your blog should be up and running on [http://localhost:3000](http://localhost:3000)! You'll be able to find the studio on [http://localhost:3000/studio](http://localhost:3000/studio).
+Your blog should be up and running on [http://localhost:3000][localhost-3000]! You can create and edit content on [http://localhost:3000/studio][localhost-3000-studio].
 
-### Step 4. Deploy to production
+## Step 4. Deploy to production
 
-To deploy your changes to production, you use `git`:
+To deploy your changes to production you use `git`:
 
 ```bash
 git add .
@@ -165,22 +244,40 @@ npx vercel --prod
 
 In case of any issues or questions, you can post:
 
-- [GitHub Discussions for Next.js](https://github.com/vercel/next.js/discussions)
-- [Sanity's GitHub Discussions](https://github.com/sanity-io/sanity/discussions)
-- [Sanity's Community Slack](https://slack.sanity.io)
+- [GitHub Discussions for Next.js][vercel-github]
+- [Sanity's GitHub Discussions][sanity-github]
+- [Sanity's Community Slack][sanity-community]
 
 ### How can I remove the "Next steps" block from my blog?
 
 You can remove it by deleting the `IntroTemplate` component in `/pages/index.tsx`.
 
+### How can I set up Incremental Static Revalidation?
+
+Go to the serverless function code in `/pages/api/revalidate.ts`. In the code comments, you'll find instructions for how to set up [ISR][vercel-isr].
+
 ## Next steps
 
-- [Join our Slack community to ask questions and get help](https://slack.sanity.io/)
-- [How to edit my content structure?](https://www.sanity.io/docs/schema-types)
-- [How to query content?](https://www.sanity.io/docs/groq)
-- [What is content modelling?](https://www.sanity.io/docs/content-modelling)
+- [Join our Slack community to ask questions and get help][sanity-community]
+- [How to edit my content structure?][sanity-schema-types]
+- [How to query content?][sanity-groq]
+- [What is content modelling?][sanity-content-modelling]
 
 [vercel-deploy]: https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fsanity-io%2Fnextjs-blog-cms-sanity-v3&repository-name=blog-nextjs-sanity&project-name=blog-nextjs-sanity&demo-title=Blog%20using%20Next.js%20%26%20Sanity&demo-description=On-demand%20ISR%2C%20sub-second%20as-you-type%20previews&demo-url=https%3A%2F%2Fnextjs-blog.sanity.build%2F&demo-image=https%3A%2F%2Fuser-images.githubusercontent.com%2F110497645%2F182727236-75c02b1b-faed-4ae2-99ce-baa089f7f363.png&integration-ids=oac_hb2LITYajhRQ0i4QznmKH7gx
 [integration]: https://www.sanity.io/docs/vercel-integration
 [`.env.local.example`]: .env.local.example
-[unsplash]: https://unsplash.com
+[nextjs]: https://github.com/vercel/next.js
+[sanity-create]: https://www.sanity.io/get-started/create-project
+[sanity-deployment]: https://www.sanity.io/docs/deployment
+[sanity-homepage]: https://www.sanity.io/
+[sanity-community]: https://slack.sanity.io/
+[sanity-schema-types]: https://www.sanity.io/docs/schema-types
+[sanity-github]: https://github.com/sanity-io/sanity/discussions
+[sanity-groq]: https://www.sanity.io/docs/groq
+[sanity-content-modelling]: https://www.sanity.io/docs/content-modelling
+[sanity-webhooks]: https://www.sanity.io/docs/webhooks
+[localhost-3000]: http://localhost:3000
+[localhost-3000-studio]: http://localhost:3000/studio
+[vercel-isr]: https://nextjs.org/blog/next-12-1#on-demand-incremental-static-regeneration-beta
+[vercel]: https://vercel.com
+[vercel-github]: https://github.com/vercel/next.js/discussions
