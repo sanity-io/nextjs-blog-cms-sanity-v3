@@ -38,7 +38,6 @@ export default function IntroTemplate() {
           </div>
         </div>
 
-
         <div className="mx-6 md:mx-0 md:mr-24">
           <h2 className="mb-8 text-xl font-bold tracking-wide md:text-5xl">
             Next steps
@@ -95,7 +94,6 @@ export default function IntroTemplate() {
                       Open Studio to edit content
                     </a>
                   </div>
-
                 </div>
               }
             />
@@ -108,9 +106,7 @@ export default function IntroTemplate() {
                     Modify and deploy the project
                   </div>
 
-
                   {isLocalHost ? (
-
                     <div className="text-xs text-gray-700">
                       Start editing your content structure by changing the post
                       schema in
@@ -131,7 +127,6 @@ export default function IntroTemplate() {
                           {repoURL}
                         </a>
                       </div>
-
 
                       <div className="mt-3">
                         <a
@@ -176,7 +171,6 @@ export default function IntroTemplate() {
                       />
                     </li>
                   </ul>
-
                 </div>
               }
             />
