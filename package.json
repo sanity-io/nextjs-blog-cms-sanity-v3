@@ -26,7 +26,7 @@
     "react-dom": "^18.2.0",
     "react-is": "^18.2.0",
     "sanity": "3.0.0-dev-preview.22",
-    "sanity-plugin-asset-source-unsplash": "v3.0.0-v3-studio.8",
+    "sanity-plugin-asset-source-unsplash": "v3.0.0-v3-studio.9",
     "styled-components": "^5.3.6"
   },
   "devDependencies": {
