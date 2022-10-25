@@ -97,7 +97,7 @@ export default function IntroTemplate() {
                   <div className="text-xs text-gray-700">
                     Start editing your content structure by changing the post
                     schema in
-                    <div className="w-fit bg-slate-200 px-2	">
+                    <div className="w-fit bg-slate-200 px-2">
                       <pre>schemas/post.ts</pre>
                     </div>
                   </div>
