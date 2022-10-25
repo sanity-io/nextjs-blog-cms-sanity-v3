@@ -29,137 +29,161 @@ export default function IntroTemplate() {
   }, [])
 
   return (
-    <div className="mb-10 border border-slate-300 px-14 pb-3 md:mb-20 md:grid md:grid-cols-2 md:px-0 md:pb-14 md:pt-11">
-      <div className="self-center">
-        <Image alt={'Cover Image IntroTemplate'} src={introTemplateImg} />
-        <div className="mt-10 hidden px-14 text-xs text-gray-700 md:block">
-          <RemoveBlock url={removeBlockURL} />
-        </div>
-      </div>
-
-      <div className="md:mr-24">
-        <h2 className="mt-5 mb-8 text-xl font-bold tracking-wide md:text-5xl">
-          Next steps
-        </h2>
-
-        {!hasEnvFile && (
-          <div
-            className="mb-6 rounded-lg bg-yellow-100 p-4 text-sm text-yellow-700"
-            role="alert"
-          >
-            {`It looks like you haven't set up the local environment variables.`}
-            <p>
-              <LinkAttribute
-                margin={false}
-                href={
-                  'https://github.com/sanity-io/nextjs-blog-cms-sanity-v3#step-2-set-up-the-project-locally'
-                }
-                text={`Here's how to set them up locally`}
-              />
-            </p>
+    <div className="flex justify-center border border-gray-200 bg-gray-50">
+      <div className="mt-20 mb-8 grid max-w-screen-2xl grid-cols-1 gap-y-20 md:grid-cols-2 md:gap-x-16 md:gap-y-32 lg:gap-x-32	">
+        <div className="self-center">
+          <Image alt={'Cover Image IntroTemplate'} src={introTemplateImg} />
+          <div className="mt-10 hidden px-14 text-xs text-gray-700 md:block">
+            <RemoveBlock url={removeBlockURL} />
           </div>
-        )}
-        <ol>
-          <Box
-            circleTitle="1"
-            element={
-              <div>
-                <div className="col-span-2 mt-1 mb-2 font-bold">
-                  Create content with Sanity Studio
-                </div>
-                <div className="text-xs text-gray-700">
-                  Your Sanity Studio is deployed at
-                  <LinkAttribute href={studioURL} text={studioURL} />
-                </div>
-                <div className="mt-3">
-                  <a
-                    className="inline-flex rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-800"
-                    href={createPostURL}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Open Studio to edit content
-                  </a>
-                </div>
-              </div>
-            }
-          />
+        </div>
 
-          <Box
-            circleTitle="2"
-            element={
-              <div>
-                <div className="col-span-2 mt-1 mb-2 font-bold">
-                  Modify and deploy the project
-                </div>
 
-                {isLocalHost ? (
-                  <div className="text-xs text-gray-700">
-                    Start editing your content structure by changing the post
-                    schema in
-                    <div className="w-fit bg-slate-200 px-2">
-                      <pre>schemas/post.ts</pre>
-                    </div>
+        <div className="mx-6 md:mx-0 md:mr-24">
+          <h2 className="mb-8 text-xl font-bold tracking-wide md:text-5xl">
+            Next steps
+          </h2>
+
+          {!hasEnvFile && (
+            <div
+              className="mb-6 rounded-lg bg-yellow-100 p-4 text-sm text-yellow-700"
+              role="alert"
+            >
+              {`It looks like you haven't set up the local environment variables.`}
+              <p>
+                <a
+                  href={
+                    'https://github.com/sanity-io/nextjs-blog-cms-sanity-v3#step-2-set-up-the-project-locally'
+                  }
+                  className={`mx-1 underline hover:text-blue-800`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  {`Here's how to set them up locally`}
+                </a>
+              </p>
+            </div>
+          )}
+
+          <ol>
+            <Box
+              circleTitle="1"
+              element={
+                <div>
+                  <div className="col-span-2 mt-1 mb-2 font-bold">
+                    Create content with Sanity Studio
                   </div>
-                ) : (
-                  <>
-                    <div className="text-xs text-gray-700">
-                      Your code can be found at
-                      <LinkAttribute href={repoURL} text={repoURL} />
-                    </div>
+                  <div className="text-xs text-gray-700">
+                    Your Sanity Studio is deployed at
+                    <a
+                      className="mx-1 underline hover:text-blue-800"
+                      target="_blank"
+                      rel="noreferrer"
+                      href={studioURL}
+                    >
+                      {studioURL}
+                    </a>
+                  </div>
 
-                    <div className="mt-3">
-                      <a
-                        className="inline-flex rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-800"
-                        href={repoURL}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        Go to your repo on {getGitProvider()}
-                      </a>
-                    </div>
-                  </>
-                )}
-              </div>
-            }
-          />
+                  <div className="mt-3">
+                    <a
+                      className="inline-flex rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-800"
+                      href={createPostURL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Open Studio to edit content
+                    </a>
+                  </div>
 
-          <Box
-            circleTitle="3"
-            element={
-              <div>
-                <div className="col-span-2 mt-1 mb-3 font-bold">
-                  Learn more and get help
                 </div>
-                <ul className="mb-3">
-                  <li className="mb-3">
-                    <LinkAttribute
-                      href="https://www.sanity.io/docs"
-                      text="Documentation for Sanity"
-                      blue
-                    />
-                  </li>
-                  <li className="mb-3">
-                    <LinkAttribute
-                      href="https://nextjs.org/docs"
-                      text="Documentation for Next.js"
-                      blue
-                    />
-                  </li>
-                  <li className="mb-3">
-                    <LinkAttribute
-                      href="https://slack.sanity.io/"
-                      text="Join the Sanity Community"
-                      blue
-                    />
-                  </li>
-                </ul>
-              </div>
-            }
-          />
-        </ol>
-        <div className="text-center text-xs text-gray-700 md:invisible">
-          <RemoveBlock url={removeBlockURL} />
+              }
+            />
+
+            <Box
+              circleTitle="2"
+              element={
+                <div>
+                  <div className="col-span-2 mt-1 mb-2 font-semibold">
+                    Modify and deploy the project
+                  </div>
+
+
+                  {isLocalHost ? (
+
+                    <div className="text-xs text-gray-700">
+                      Start editing your content structure by changing the post
+                      schema in
+                      <div className="w-fit bg-slate-200 px-2">
+                        <pre>schemas/post.ts</pre>
+                      </div>
+                    </div>
+                  ) : (
+                    <>
+                      <div className="text-xs text-gray-700">
+                        Your code can be found at
+                        <a
+                          className="mx-1 underline hover:text-blue-800"
+                          href={repoURL}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          {repoURL}
+                        </a>
+                      </div>
+
+
+                      <div className="mt-3">
+                        <a
+                          className="inline-flex rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-800"
+                          href={repoURL}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          Go to {getGitProvider()} repo
+                        </a>
+                      </div>
+                    </>
+                  )}
+                </div>
+              }
+            />
+
+            <Box
+              circleTitle="3"
+              element={
+                <div>
+                  <div className="col-span-2 mt-1 mb-3 font-semibold">
+                    Learn more and get help
+                  </div>
+                  <ul>
+                    <li className="mb-2">
+                      <BlueLink
+                        href="https://www.sanity.io/docs"
+                        text="Documentation for Sanity"
+                      />
+                    </li>
+                    <li className="mb-2">
+                      <BlueLink
+                        href="https://nextjs.org/docs"
+                        text="Documentation for Next.js"
+                      />
+                    </li>
+                    <li className="mb-2">
+                      <BlueLink
+                        href="https://slack.sanity.io/"
+                        text="Join the Sanity Community"
+                      />
+                    </li>
+                  </ul>
+
+                </div>
+              }
+            />
+          </ol>
+          <div className="text-center text-xs text-gray-700 md:invisible">
+            <RemoveBlock url={removeBlockURL} />
+          </div>
         </div>
       </div>
     </div>
@@ -185,23 +209,11 @@ function Box({
   )
 }
 
-function LinkAttribute({
-  href,
-  text,
-  blue,
-  margin = true,
-}: {
-  href: string
-  text: string
-  blue?: boolean
-  margin?: boolean
-}) {
+function BlueLink({ href, text }: { href: string; text: string }) {
   return (
     <a
       href={href}
-      className={`${margin && 'mx-1'} underline ${
-        blue && 'text-blue-500'
-      } hover:text-blue-800`}
+      className="text-blue-500 underline hover:text-blue-800"
       target="_blank"
       rel="noreferrer"
     >
@@ -211,7 +223,14 @@ function LinkAttribute({
 }
 
 const RemoveBlock = ({ url }) => (
-  <LinkAttribute margin={false} href={url} text="How to remove this block?" />
+  <a
+    className="hover:text-blue-800"
+    href={url}
+    target="_blank"
+    rel="noreferrer"
+  >
+    How to remove this block?
+  </a>
 )
 
 function getGitProvider() {
