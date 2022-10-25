@@ -6,12 +6,15 @@ import introTemplateImg from '../images/introTemplateImg.png'
 export default function IntroTemplate() {
   const [studioURL, setStudioURL] = useState(null)
   const [createPostURL, setCreatePostURL] = useState(null)
-  const hasEnvVars =
+  const [isLocalHost, setIsLocalhost] = useState(false)
+
+  const hasEnvFile = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID
+  const hasRepoEnvVars =
     process.env.NEXT_PUBLIC_VERCEL_GIT_PROVIDER &&
     process.env.NEXT_PUBLIC_VERCEL_GIT_REPO_OWNER &&
     process.env.NEXT_PUBLIC_VERCEL_GIT_REPO_SLUG
   const repoURL = `https://${process.env.NEXT_PUBLIC_VERCEL_GIT_PROVIDER}.com/${process.env.NEXT_PUBLIC_VERCEL_GIT_REPO_OWNER}/${process.env.NEXT_PUBLIC_VERCEL_GIT_REPO_SLUG}`
-  const removeBlockURL = hasEnvVars
+  const removeBlockURL = hasRepoEnvVars
     ? `https://${process.env.NEXT_PUBLIC_VERCEL_GIT_PROVIDER}.com/${process.env.NEXT_PUBLIC_VERCEL_GIT_REPO_OWNER}/${process.env.NEXT_PUBLIC_VERCEL_GIT_REPO_SLUG}/blob/main/README.md#how-can-i-remove-the-next-steps-block-from-my-blog`
     : `https://github.com/sanity-io/nextjs-blog-cms-sanity-v3#how-can-i-remove-the-next-steps-block-from-my-blog`
 
@@ -21,6 +24,7 @@ export default function IntroTemplate() {
       setCreatePostURL(
         `${window.location.href}/studio/intent/create/template=post;type=post/`
       )
+      setIsLocalhost(window.location.hostname === 'localhost')
     }
   }, [])
 
@@ -38,7 +42,7 @@ export default function IntroTemplate() {
           Next steps
         </h2>
 
-        {!hasEnvVars && (
+        {!hasEnvFile && (
           <div
             className="mb-6 rounded-lg bg-yellow-100 p-4 text-sm text-yellow-700"
             role="alert"
@@ -89,7 +93,15 @@ export default function IntroTemplate() {
                   Modify and deploy the project
                 </div>
 
-                {hasEnvVars ? (
+                {isLocalHost ? (
+                  <div className="text-xs text-gray-700">
+                    Start editing your content structure by changing the post
+                    schema in
+                    <div className="w-fit bg-slate-200 px-2">
+                      <pre>schemas/post.ts</pre>
+                    </div>
+                  </div>
+                ) : (
                   <>
                     <div className="text-xs text-gray-700">
                       Your code can be found at
@@ -107,16 +119,6 @@ export default function IntroTemplate() {
                       </a>
                     </div>
                   </>
-                ) : (
-                  <div className="text-xs text-gray-700">
-                    In order to continue with this step, you need to
-                    <LinkAttribute
-                      href={
-                        'https://github.com/sanity-io/nextjs-blog-cms-sanity-v3#step-2-set-up-the-project-locally'
-                      }
-                      text={`set up the project locally`}
-                    />
-                  </div>
                 )}
               </div>
             }
