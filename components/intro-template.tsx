@@ -6,12 +6,15 @@ import introTemplateImg from '../images/introTemplateImg.png'
 export default function IntroTemplate() {
   const [studioURL, setStudioURL] = useState(null)
   const [createPostURL, setCreatePostURL] = useState(null)
-  const hasEnvVars =
+  const [isLocalHost, setIsLocalhost] = useState(false)
+
+  const hasEnvFile = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID
+  const hasRepoEnvVars =
     process.env.NEXT_PUBLIC_VERCEL_GIT_PROVIDER &&
     process.env.NEXT_PUBLIC_VERCEL_GIT_REPO_OWNER &&
     process.env.NEXT_PUBLIC_VERCEL_GIT_REPO_SLUG
   const repoURL = `https://${process.env.NEXT_PUBLIC_VERCEL_GIT_PROVIDER}.com/${process.env.NEXT_PUBLIC_VERCEL_GIT_REPO_OWNER}/${process.env.NEXT_PUBLIC_VERCEL_GIT_REPO_SLUG}`
-  const removeBlockURL = hasEnvVars
+  const removeBlockURL = hasRepoEnvVars
     ? `https://${process.env.NEXT_PUBLIC_VERCEL_GIT_PROVIDER}.com/${process.env.NEXT_PUBLIC_VERCEL_GIT_REPO_OWNER}/${process.env.NEXT_PUBLIC_VERCEL_GIT_REPO_SLUG}/blob/main/README.md#how-can-i-remove-the-next-steps-block-from-my-blog`
     : `https://github.com/sanity-io/nextjs-blog-cms-sanity-v3#how-can-i-remove-the-next-steps-block-from-my-blog`
 
@@ -21,6 +24,7 @@ export default function IntroTemplate() {
       setCreatePostURL(
         `${window.location.href}/studio/intent/create/template=post;type=post/`
       )
+      setIsLocalhost(window.location.hostname === 'localhost')
     }
   }, [])
 
@@ -34,12 +38,12 @@ export default function IntroTemplate() {
           </div>
         </div>
 
-        <div className="md:mr-24">
+        <div className="mx-6 md:mx-0 md:mr-24">
           <h2 className="mb-8 text-xl font-bold tracking-wide md:text-5xl">
             Next steps
           </h2>
 
-          {!hasEnvVars && (
+          {!hasEnvFile && (
             <div
               className="mb-6 rounded-lg bg-yellow-100 p-4 text-sm text-yellow-700"
               role="alert"
@@ -59,12 +63,13 @@ export default function IntroTemplate() {
               </p>
             </div>
           )}
+
           <ol>
             <Box
               circleTitle="1"
               element={
                 <div>
-                  <div className="col-span-2 mt-1 mb-2 font-semibold">
+                  <div className="col-span-2 mt-1 mb-2 font-bold">
                     Create content with Sanity Studio
                   </div>
                   <div className="text-xs text-gray-700">
@@ -78,6 +83,7 @@ export default function IntroTemplate() {
                       {studioURL}
                     </a>
                   </div>
+
                   <div className="mt-3">
                     <a
                       className="inline-flex rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-800"
@@ -85,7 +91,7 @@ export default function IntroTemplate() {
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      Go to Sanity Studio
+                      Open Studio to edit content
                     </a>
                   </div>
                 </div>
@@ -100,7 +106,15 @@ export default function IntroTemplate() {
                     Modify and deploy the project
                   </div>
 
-                  {hasEnvVars ? (
+                  {isLocalHost ? (
+                    <div className="text-xs text-gray-700">
+                      Start editing your content structure by changing the post
+                      schema in
+                      <div className="w-fit bg-slate-200 px-2">
+                        <pre>schemas/post.ts</pre>
+                      </div>
+                    </div>
+                  ) : (
                     <>
                       <div className="text-xs text-gray-700">
                         Your code can be found at
@@ -125,18 +139,6 @@ export default function IntroTemplate() {
                         </a>
                       </div>
                     </>
-                  ) : (
-                    <div className="text-xs text-gray-700">
-                      In order to continue with this step, you need to
-                      <a
-                        className="mx-1 underline hover:text-blue-800"
-                        href="https://github.com/sanity-io/nextjs-blog-cms-sanity-v3#step-2-set-up-the-project-locally"
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        set up the project locally
-                      </a>
-                    </div>
                   )}
                 </div>
               }
@@ -149,20 +151,20 @@ export default function IntroTemplate() {
                   <div className="col-span-2 mt-1 mb-3 font-semibold">
                     Learn more and get help
                   </div>
-                  <ul className="mb-3">
-                    <li className="mb-3">
+                  <ul>
+                    <li className="mb-2">
                       <BlueLink
                         href="https://www.sanity.io/docs"
                         text="Documentation for Sanity"
                       />
                     </li>
-                    <li className="mb-3">
+                    <li className="mb-2">
                       <BlueLink
                         href="https://nextjs.org/docs"
                         text="Documentation for Next.js"
                       />
                     </li>
-                    <li className="mb-3">
+                    <li className="mb-2">
                       <BlueLink
                         href="https://slack.sanity.io/"
                         text="Join the Sanity Community"
