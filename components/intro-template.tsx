@@ -69,7 +69,7 @@ export default function IntroTemplate() {
               circleTitle="1"
               element={
                 <div>
-                  <div className="col-span-2 mt-1 mb-2 font-bold">
+                  <div className="col-span-2 mt-1 mb-2 font-semibold">
                     Create content with Sanity Studio
                   </div>
                   <div className="text-xs text-gray-700">
@@ -91,7 +91,7 @@ export default function IntroTemplate() {
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      Open Studio to edit content
+                      Go to Sanity Studio
                     </a>
                   </div>
                 </div>
