@@ -1,5 +1,5 @@
 import { postBySlugQuery } from '../../lib/queries'
-import { previewClient } from '../../lib/sanity.server'
+import { getClient } from '../../lib/sanity.server'
 
 function redirectToPreview(res, Location) {
   // Enable Preview Mode by setting the cookies
@@ -21,7 +21,7 @@ export default async function preview(req, res) {
   }
 
   // Check if the post with the given `slug` exists
-  const post = await previewClient.fetch(postBySlugQuery, {
+  const post = await getClient(true).fetch(postBySlugQuery, {
     slug: req.query.slug,
   })
 

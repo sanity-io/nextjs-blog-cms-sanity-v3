@@ -12,7 +12,7 @@ import PostTitle from '../../components/post-title'
 import SectionSeparator from '../../components/section-separator'
 import { postQuery, postSlugsQuery, settingsQuery } from '../../lib/queries'
 import { urlForImage, usePreviewSubscription } from '../../lib/sanity'
-import { getClient, overlayDrafts, sanityClient } from '../../lib/sanity.server'
+import { getClient, overlayDrafts } from '../../lib/sanity.server'
 import { PostProps } from '../../types'
 
 interface Props {
@@ -99,7 +99,7 @@ export async function getStaticProps({ params, preview = false }) {
 }
 
 export async function getStaticPaths() {
-  const paths = await sanityClient.fetch(postSlugsQuery)
+  const paths = await getClient(false).fetch(postSlugsQuery)
   return {
     paths: paths.map((slug) => ({ params: { slug } })),
     fallback: true,
