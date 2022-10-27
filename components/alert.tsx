@@ -18,10 +18,9 @@ export default function Alert({ preview }) {
               This page is a preview.{' '}
               <Link
                 href="/api/exit-preview"
-                className="underline transition-colors duration-200 hover:text-cyan">
-                
-                  Click here
-                
+                className="underline transition-colors duration-200 hover:text-cyan"
+              >
+                Click here
               </Link>{' '}
               to exit preview mode.
             </>
@@ -29,5 +28,5 @@ export default function Alert({ preview }) {
         </div>
       </Container>
     </div>
-  );
+  )
 }

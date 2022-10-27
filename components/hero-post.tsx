@@ -29,5 +29,5 @@ export default function HeroPost(props: PostProps) {
         </div>
       </div>
     </section>
-  );
+  )
 }

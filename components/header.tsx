@@ -7,5 +7,5 @@ export default function Header({ title }) {
         {title}
       </Link>
     </h2>
-  );
+  )
 }
