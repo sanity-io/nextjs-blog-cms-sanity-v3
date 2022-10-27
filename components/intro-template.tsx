@@ -18,6 +18,8 @@ export default function IntroTemplate() {
     ? `https://${process.env.NEXT_PUBLIC_VERCEL_GIT_PROVIDER}.com/${process.env.NEXT_PUBLIC_VERCEL_GIT_REPO_OWNER}/${process.env.NEXT_PUBLIC_VERCEL_GIT_REPO_SLUG}/blob/main/README.md#how-can-i-remove-the-next-steps-block-from-my-blog`
     : `https://github.com/sanity-io/nextjs-blog-cms-sanity-v3#how-can-i-remove-the-next-steps-block-from-my-blog`
 
+  const [hasUTMtags, setHasUTMtags] = useState(false)
+
   useEffect(() => {
     if (typeof window !== 'undefined') {
       setStudioURL(`${window.location.href}studio`)
@@ -25,8 +27,13 @@ export default function IntroTemplate() {
         `${window.location.href}/studio/intent/create/template=post;type=post/`
       )
       setIsLocalhost(window.location.hostname === 'localhost')
+      setHasUTMtags(window.location.search.includes('utm'))
     }
   }, [])
+
+  if (hasUTMtags) {
+    return
+  }
 
   return (
     <div className="flex justify-center border border-gray-200 bg-gray-50">
