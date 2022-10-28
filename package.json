@@ -30,8 +30,8 @@
     "styled-components": "^5.3.6"
   },
   "devDependencies": {
-    "@types/react": "^18.0.23",
-    "autoprefixer": "^10.4.12",
+    "@types/react": "^18.0.24",
+    "autoprefixer": "^10.4.13",
     "eslint": "^8.26.0",
     "eslint-config-next": "^13.0.0",
     "eslint-plugin-simple-import-sort": "^8.0.0",
