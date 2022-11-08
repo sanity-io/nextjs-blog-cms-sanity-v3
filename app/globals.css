@@ -1,0 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+#sanity {
+  height: 100vh;
+  height: 100dvh;
+}
+
+#sanity > [data-nextjs-scroll-focus-boundary] {
+  height: 100%;
+}
