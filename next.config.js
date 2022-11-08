@@ -3,6 +3,10 @@ module.exports = {
   // @TODO figure out why the swc minifier breaks preview mode
   swcMinify: false,
 
+  experimental: {
+    appDir: true,
+  },
+
   images: {
     remotePatterns: [
       { hostname: 'cdn.sanity.io' },
