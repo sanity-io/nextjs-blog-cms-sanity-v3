@@ -6,10 +6,10 @@ export interface AuthorProps {
 export interface PostProps {
   _id?: string
   title: string
-  coverImage: any
   date: string
   excerpt?: string
-  author: AuthorProps
+  coverImage: any
   slug?: string
+  author: AuthorProps
   content?: any
 }

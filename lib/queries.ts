@@ -2,7 +2,6 @@ import groq from 'groq'
 
 const postFields = groq`
   _id,
-  name,
   title,
   date,
   excerpt,

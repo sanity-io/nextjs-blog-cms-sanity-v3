@@ -1,15 +1,6 @@
 import Link from 'next/link'
 
-import { settingsQuery } from '../../lib/queries'
-import { canUseClient } from '../../lib/sanity.client'
-import { getClient } from '../../lib/sanity.server'
-
-export default async function Header({ level }: { level: 1 | 2 }) {
-  let title = 'Blog.'
-  if (canUseClient()) {
-    const settings = await getClient().fetch(settingsQuery)
-    title = settings?.title || title
-  }
+export default function Header({ title, level }: { title: string, level: 1 | 2 }) {
 
   switch (level) {
     case 1:

@@ -4,7 +4,6 @@
 
 import Container from '../../components/container'
 import IntroTemplate from '../../components/intro-template'
-import Header from './Header'
 
 export default function BlogTemplate({
   children,
@@ -13,11 +12,7 @@ export default function BlogTemplate({
 }) {
   return (
     <>
-      <Container>
-        {/* @ts-expect-error Server Component */}
-        <Header level={1} />
-        {children}
-      </Container>
+      <Container>{children}</Container>
       <IntroTemplate />
     </>
   )
