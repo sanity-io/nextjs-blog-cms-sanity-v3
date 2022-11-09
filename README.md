@@ -112,7 +112,7 @@ In case of any issues or questions, you can post:
 
 ### How can I remove the "Next steps" block from my blog?
 
-You can remove it by deleting the `IntroTemplate` component in `/pages/index.tsx`.
+You can remove it by deleting the `IntroTemplate` component in `/app/(blog)/template.tsx`.
 
 ### How can I set up Incremental Static Revalidation?
 

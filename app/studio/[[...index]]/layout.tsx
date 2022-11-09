@@ -3,7 +3,5 @@ export default function StudioLayout({
 }: {
   children: React.ReactNode
 }) {
-  return (
-    <div id="sanity">{children}</div>
-  )
+  return <div id="sanity">{children}</div>
 }

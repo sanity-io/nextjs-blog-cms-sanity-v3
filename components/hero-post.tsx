@@ -16,7 +16,7 @@ export default function HeroPost(props: PostProps) {
         <div>
           <h3 className="mb-4 text-4xl leading-tight lg:text-6xl">
             <Link href={`/posts/${slug}`} className="hover:underline">
-              {title}
+              {title || 'Untitled'}
             </Link>
           </h3>
           <div className="mb-4 text-lg md:mb-0">
@@ -24,7 +24,7 @@ export default function HeroPost(props: PostProps) {
           </div>
         </div>
         <div>
-          <p className="mb-4 text-lg leading-relaxed">{excerpt}</p>
+          {excerpt && <p className="mb-4 text-lg leading-relaxed">{excerpt}</p>}
           {author && <Avatar name={author.name} picture={author.picture} />}
         </div>
       </div>

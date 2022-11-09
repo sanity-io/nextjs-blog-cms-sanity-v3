@@ -7,7 +7,7 @@ import { createClient } from 'next-sanity'
 
 import { sanityConfig } from './config'
 
-export const getClient = (preview) =>
+export const getClient = (preview?: boolean) =>
   preview
     ? createClient({
         ...sanityConfig,

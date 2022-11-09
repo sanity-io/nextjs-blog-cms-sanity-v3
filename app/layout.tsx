@@ -1,8 +1,5 @@
 import './globals.css'
 
-import RootStyleRegistry from './RootStyleRegistry';
-
-
 export default function RootLayout({
   children,
 }: {
@@ -10,6 +7,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head />
       <body>{children}</body>
     </html>
   )
