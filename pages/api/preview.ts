@@ -3,7 +3,7 @@ import { getClient } from '../../lib/sanity.server'
 
 function redirectToPreview(res, Location) {
   // Enable Preview Mode by setting the cookies
-  res.setPreviewData({})
+  res.setPreviewData({ token: process.env.SANITY_API_READ_TOKEN })
   // Redirect to a preview capable route
   res.writeHead(307, { Location })
   res.end()

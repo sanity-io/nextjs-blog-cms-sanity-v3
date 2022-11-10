@@ -1,8 +1,10 @@
+import { memo } from 'react'
+
 import HeroPost from '../../components/hero-post'
 import MoreStories from '../../components/more-stories'
 import type { PostProps } from '../../types'
 
-export default function IndexPosts({
+export default memo(function IndexPosts({
   hero,
   more,
 }: {
@@ -24,4 +26,4 @@ export default function IndexPosts({
       {more.length > 0 && <MoreStories posts={more} />}
     </>
   )
-}
+})
