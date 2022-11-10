@@ -1,3 +1,6 @@
+// @TODO re-enable after migrating post slug
+// import 'server-only'
+
 /**
  * Server-side Sanity utilities. By having these in a separate file from the
  * utilities we use on the client side, we are able to tree-shake (remove)

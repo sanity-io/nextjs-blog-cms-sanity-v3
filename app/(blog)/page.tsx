@@ -1,12 +1,13 @@
-import { previewData } from 'next/headers'
+// import { previewData } from 'next/headers'
 
-import PreviewSuspense from '../../components/PreviewMode/PreviewSuspense'
+// import PreviewSuspense from '../../components/PreviewMode/PreviewSuspense'
 import Header from './Header'
 import IndexPosts from './IndexPosts'
-import PreviewIndexPosts from './PreviewIndexPosts'
+// import PreviewIndexPosts from './PreviewIndexPosts'
 import { getAllPosts, getTitle } from './utils'
 
 export default async function BlogPage() {
+  /*
   const preview = previewData()
   if (preview) {
     const { token } = preview
@@ -19,7 +20,7 @@ export default async function BlogPage() {
             <div className="mb-8 md:mb-16">
               <div className="flex aspect-[2/1] items-center justify-center">
                 <svg
-                  className="sticky bottom-2 mr-3 -ml-1 h-5 w-5 animate-spin text-inherit"
+                  className="sticky w-5 h-5 mr-3 -ml-1 bottom-2 animate-spin text-inherit"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
@@ -47,6 +48,7 @@ export default async function BlogPage() {
       </PreviewSuspense>
     )
   }
+  // */
 
   // Start fetching early, but don't await, so the queries can run in parallel
   const title = getTitle()
@@ -60,3 +62,6 @@ export default async function BlogPage() {
     </>
   )
 }
+
+// @TODO test if it works
+export const revalidate = 61

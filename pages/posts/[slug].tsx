@@ -1,6 +1,7 @@
 import ErrorPage from 'next/error'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
+import { createPreviewSubscriptionHook } from 'next-sanity'
 
 import Container from '../../components/container'
 import Header from '../../components/header'
@@ -10,10 +11,14 @@ import PostBody from '../../components/post-body'
 import PostHeader from '../../components/post-header'
 import PostTitle from '../../components/post-title'
 import SectionSeparator from '../../components/section-separator'
+import { sanityConfig } from '../../lib/config'
 import { postQuery, postSlugsQuery, settingsQuery } from '../../lib/queries'
-import { urlForImage, usePreviewSubscription } from '../../lib/sanity'
+import { urlForImage } from '../../lib/sanity'
 import { getClient, overlayDrafts } from '../../lib/sanity.server'
 import { PostProps } from '../../types'
+
+const usePreviewSubscription =
+  createPreviewSubscriptionHook(sanityConfig)
 
 interface Props {
   data: { post: PostProps; morePosts: any }

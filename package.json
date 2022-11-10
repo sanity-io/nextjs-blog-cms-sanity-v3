@@ -19,6 +19,7 @@
     "@sanity/vision": "3.0.0-rc.2",
     "@sanity/webhook": "^2.0.0",
     "classnames": "^2.3.2",
+    "client-only": "^0.0.1",
     "date-fns": "^2.29.3",
     "event-source-polyfill": "^1.0.31",
     "next": "^13.0.2",
@@ -28,6 +29,7 @@
     "react-is": "^18.2.0",
     "sanity": "3.0.0-rc.2",
     "sanity-plugin-asset-source-unsplash": "3.0.0-v3-studio.13",
+    "server-only": "^0.0.1",
     "styled-components": "^5.3.6",
     "suspend-react": "^0.0.8"
   },

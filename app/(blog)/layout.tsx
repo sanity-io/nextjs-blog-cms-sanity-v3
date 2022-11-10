@@ -21,4 +21,6 @@ export default function BlogLayout({
  * If webhooks isn't setup then attempt to re-generate in 1 minute intervals, this applies
  * to all route segments within (blog), so the builds for /studio and other routes are unaffected
  */
-export const revalidate = process.env.SANITY_REVALIDATE_SECRET ? false : 60
+// export const revalidate = process.env.SANITY_REVALIDATE_SECRET ? false : 60
+// @TODO test if it works
+export const revalidate = 60

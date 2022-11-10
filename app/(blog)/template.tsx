@@ -17,3 +17,6 @@ export default function BlogTemplate({
     </>
   )
 }
+
+// @TODO test if it works
+export const revalidate = 62

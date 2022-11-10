@@ -1,3 +1,5 @@
+import 'client-only'
+
 import type { GroqStore } from '@sanity/groq-store'
 import { cache, use, useMemo, useSyncExternalStore } from 'react'
 
