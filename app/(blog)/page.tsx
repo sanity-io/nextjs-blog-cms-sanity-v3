@@ -1,4 +1,4 @@
-// import { previewData } from 'next/headers'
+import { previewData } from 'next/headers'
 
 // import PreviewSuspense from '../../components/PreviewMode/PreviewSuspense'
 import Header from './Header'
@@ -7,11 +7,12 @@ import IndexPosts from './IndexPosts'
 import { getAllPosts, getTitle } from './utils'
 
 export default async function BlogPage() {
-  /*
   const preview = previewData()
   if (preview) {
     const { token } = preview
 
+    const {default: PreviewSuspense} = await import('../../components/PreviewMode/PreviewSuspense')
+    const {default: PreviewIndexPosts} = await import('./PreviewIndexPosts')
     return (
       <PreviewSuspense
         fallback={
@@ -48,7 +49,6 @@ export default async function BlogPage() {
       </PreviewSuspense>
     )
   }
-  // */
 
   // Start fetching early, but don't await, so the queries can run in parallel
   const title = getTitle()
