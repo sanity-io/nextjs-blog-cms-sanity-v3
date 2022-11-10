@@ -1,9 +1,9 @@
 import { previewData } from 'next/headers'
 
-// import PreviewSuspense from '../../components/PreviewMode/PreviewSuspense'
+import PreviewSuspense from '../../components/PreviewMode/PreviewSuspense'
 import Header from './Header'
 import IndexPosts from './IndexPosts'
-// import PreviewIndexPosts from './PreviewIndexPosts'
+import PreviewIndexPosts from './PreviewIndexPosts'
 import { getAllPosts, getTitle } from './utils'
 
 export default async function BlogPage() {
@@ -11,17 +11,15 @@ export default async function BlogPage() {
   if (preview) {
     const { token } = preview
 
-    const {default: PreviewSuspense} = await import('../../components/PreviewMode/PreviewSuspense')
-    const {default: PreviewIndexPosts} = await import('./PreviewIndexPosts')
     return (
       <PreviewSuspense
         fallback={
           <>
-            <Header level={1} title="Loading preview…" />
+            <Header level={1} title="Loading…" />
             <div className="mb-8 md:mb-16">
               <div className="flex aspect-[2/1] items-center justify-center">
                 <svg
-                  className="sticky w-5 h-5 mr-3 -ml-1 bottom-2 animate-spin text-inherit"
+                  className="sticky bottom-2 mr-3 -ml-1 h-5 w-5 animate-spin text-inherit"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"

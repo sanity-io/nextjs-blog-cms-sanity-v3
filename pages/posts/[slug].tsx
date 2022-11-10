@@ -17,8 +17,7 @@ import { urlForImage } from '../../lib/sanity'
 import { getClient, overlayDrafts } from '../../lib/sanity.server'
 import { PostProps } from '../../types'
 
-const usePreviewSubscription =
-  createPreviewSubscriptionHook(sanityConfig)
+const usePreviewSubscription = createPreviewSubscriptionHook(sanityConfig)
 
 interface Props {
   data: { post: PostProps; morePosts: any }
