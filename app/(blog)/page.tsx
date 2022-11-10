@@ -2,10 +2,10 @@ import { previewData } from 'next/headers'
 
 import Container from '../../components/container'
 import IntroTemplate from '../../components/intro-template'
-// import PreviewSuspense from '../../components/PreviewMode/PreviewSuspense'
+import PreviewSuspense from '../../components/PreviewMode/PreviewSuspense'
 import Header from './Header'
 import IndexPosts from './IndexPosts'
-// import PreviewIndexPosts from './PreviewIndexPosts'
+import PreviewIndexPosts from './PreviewIndexPosts'
 import { getAllPosts, getTitle } from './server.utils'
 
 export default async function BlogPage({
@@ -17,12 +17,7 @@ export default async function BlogPage({
   if (preview) {
     const { token } = preview
 
-    // @TODO follow up on best practices for lazy loading preview-only components in Next 13
-    // Using await import() to attempt excluding these components from the page bundle when preview mode is disabled
-    const { default: PreviewSuspense } = await import(
-      '../../components/PreviewMode/PreviewSuspense'
-    )
-    const { default: PreviewIndexPosts } = await import('./PreviewIndexPosts')
+    // @TODO follow up on best practices for lazy loading preview-only components in Next 13, as they're still part of the bundle even when preview mode is disabled
     return (
       <>
         <Container>
@@ -33,7 +28,7 @@ export default async function BlogPage({
                 <div className="mb-8 md:mb-16">
                   <div className="flex aspect-[2/1] items-center justify-center">
                     <svg
-                      className="sticky w-5 h-5 mr-3 -ml-1 bottom-2 animate-spin text-inherit"
+                      className="sticky bottom-2 mr-3 -ml-1 h-5 w-5 animate-spin text-inherit"
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
                       viewBox="0 0 24 24"
