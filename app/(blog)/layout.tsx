@@ -24,3 +24,5 @@ export default function BlogLayout({
 // export const revalidate = process.env.SANITY_REVALIDATE_SECRET ? false : 60
 // @TODO test if it works
 export const revalidate = 60
+
+export const fetchCache = 'only-cache'

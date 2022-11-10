@@ -1,3 +1,4 @@
+import { cache } from 'react'
 import 'server-only'
 
 import { indexQuery, settingsQuery } from '../../lib/queries'
@@ -11,16 +12,18 @@ function canUseClient() {
   return !!process.env.NEXT_PUBLIC_SANITY_PROJECT_ID
 }
 
-export async function getTitle() {
+export const getTitle = cache(async function getTitle() {
+  console.count('getTitle')
   let title = 'Blog.'
   if (canUseClient()) {
     const settings = await getClient().fetch(settingsQuery)
     title = settings?.title || title
   }
   return title
-}
+})
 
 export async function getAllPosts(): Promise<PostProps[]> {
+  console.count('getAllPosts')
   if (canUseClient()) {
     return (await getClient().fetch(indexQuery)) || []
   }
