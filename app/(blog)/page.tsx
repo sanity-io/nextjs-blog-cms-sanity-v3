@@ -17,6 +17,8 @@ export default async function BlogPage({
   if (preview) {
     const { token } = preview
 
+    // @TODO follow up on best practices for lazy loading preview-only components in Next 13
+    // Using await import() to attempt excluding these components from the page bundle when preview mode is disabled
     const { default: PreviewSuspense } = await import(
       '../../components/PreviewMode/PreviewSuspense'
     )
@@ -31,7 +33,7 @@ export default async function BlogPage({
                 <div className="mb-8 md:mb-16">
                   <div className="flex aspect-[2/1] items-center justify-center">
                     <svg
-                      className="sticky bottom-2 mr-3 -ml-1 h-5 w-5 animate-spin text-inherit"
+                      className="sticky w-5 h-5 mr-3 -ml-1 bottom-2 animate-spin text-inherit"
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
                       viewBox="0 0 24 24"

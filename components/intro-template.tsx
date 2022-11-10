@@ -7,7 +7,7 @@ import introTemplateImg from '../images/introTemplateImg.png'
 export default function IntroTemplate() {
   const headersList = headers()
   const origin = new URL(
-    `${headersList.get('x-forwarded-proto') || 'http://'}${headersList.get(
+    `${headersList.get('x-forwarded-proto') || 'http'}://${headersList.get(
       'host'
     )}`
   )
