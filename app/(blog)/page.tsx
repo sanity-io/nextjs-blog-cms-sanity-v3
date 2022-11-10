@@ -1,17 +1,16 @@
 import { previewData } from 'next/headers'
-import { lazy } from 'react'
 
 import PreviewSuspense from '../../components/PreviewMode/PreviewSuspense'
 import Header from './Header'
 import IndexPosts from './IndexPosts'
+import PreviewIndexPosts from './PreviewIndexPosts'
 import { getAllPosts, getTitle } from './utils'
-
-const PreviewIndexPosts = lazy(() => import('./PreviewIndexPosts'))
 
 export default async function BlogPage() {
   const preview = previewData()
   if (preview) {
     const { token } = preview
+
     return (
       <PreviewSuspense
         fallback={
@@ -20,7 +19,7 @@ export default async function BlogPage() {
             <div className="mb-8 md:mb-16">
               <div className="flex aspect-[2/1] items-center justify-center">
                 <svg
-                  className="sticky w-5 h-5 mr-3 -ml-1 bottom-2 animate-spin text-inherit"
+                  className="sticky bottom-2 mr-3 -ml-1 h-5 w-5 animate-spin text-inherit"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"

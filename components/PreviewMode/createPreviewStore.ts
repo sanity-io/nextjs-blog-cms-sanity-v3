@@ -1,5 +1,4 @@
-import { type GroqStore, groqStore } from '@sanity/groq-store'
-import { EventSourcePolyfill } from 'event-source-polyfill'
+import type { GroqStore } from '@sanity/groq-store'
 import { cache, use, useMemo, useSyncExternalStore } from 'react'
 
 export type Params = Record<string, unknown>
@@ -36,7 +35,7 @@ export function createPreviewHook({
     }
   }
 
-  let store: ReturnType<typeof groqStore>
+  let store: ReturnType<typeof import('@sanity/groq-store').groqStore>
   return function usePreviewHook<R = any>(
     token: string,
     query: string,
@@ -48,7 +47,23 @@ export function createPreviewHook({
       )
     }
 
+    // @TODO do a getCurrentUser auth check here with the provided token
+
     if (!store) {
+      /*
+      const EventSourcePolyfill = suspend(
+        () => lazyEventSourcePolyfill(),
+        ['next-sanity/preview', 'import', 'event-source-polyfill']
+      )
+      const groqStore = suspend(
+        () => lazyGroqStore(),
+        ['next-sanity/preview', 'import', '@sanity/groq-store']
+      )
+      // */
+      // Lazy load huge libraries
+      const EventSourcePolyfill = use(lazyEventSourcePolyfill())
+      const groqStore = use(lazyGroqStore())
+
       store = groqStore({
         projectId,
         dataset,
@@ -100,3 +115,13 @@ const preload = cache(
     return null
   }
 )
+
+const lazyGroqStore = cache(async () => {
+  const { groqStore } = await import('@sanity/groq-store')
+  return groqStore
+})
+
+const lazyEventSourcePolyfill = cache(async () => {
+  const { EventSourcePolyfill } = await import('event-source-polyfill')
+  return EventSourcePolyfill
+})
