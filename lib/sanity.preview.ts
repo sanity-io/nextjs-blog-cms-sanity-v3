@@ -1,5 +1,3 @@
-// This file should only be imported by client components, it'll throw if imported to a Server Component
-
 import { createPreviewHook } from '../components/PreviewMode/createPreviewStore'
 import { sanityConfig } from './config'
 

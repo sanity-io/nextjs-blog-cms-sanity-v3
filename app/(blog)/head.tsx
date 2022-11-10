@@ -1,5 +1,5 @@
 import BlogMeta from './BlogMeta'
-import { getTitle } from './utils'
+import { getTitle } from './server.utils'
 
 export default async function PageHead() {
   const title = await getTitle()

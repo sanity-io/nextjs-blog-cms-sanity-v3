@@ -1,3 +1,5 @@
+// @TODO rename to sanity.image.ts
+
 import createImageUrlBuilder from '@sanity/image-url'
 
 import { sanityConfig } from './config'

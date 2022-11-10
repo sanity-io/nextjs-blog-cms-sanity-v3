@@ -1,16 +1,16 @@
-'use client'
-
+import { headers } from 'next/headers'
 import Image from 'next/image'
-import { useSearchParams } from 'next/navigation'
-import { memo } from 'react'
+import Link from 'next/link'
 
 import introTemplateImg from '../images/introTemplateImg.png'
 
-export default memo(function IntroTemplate() {
-  const searchParams = useSearchParams()
-  if (searchParams.has('utm')) {
-    return
-  }
+export default function IntroTemplate() {
+  const headersList = headers()
+  const origin = new URL(
+    `${headersList.get('x-forwarded-proto') || 'http://'}${headersList.get(
+      'host'
+    )}`
+  )
 
   const hasEnvFile = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID
   const hasRepoEnvVars =
@@ -21,9 +21,13 @@ export default memo(function IntroTemplate() {
   const removeBlockURL = hasRepoEnvVars
     ? `https://${process.env.NEXT_PUBLIC_VERCEL_GIT_PROVIDER}.com/${process.env.NEXT_PUBLIC_VERCEL_GIT_REPO_OWNER}/${process.env.NEXT_PUBLIC_VERCEL_GIT_REPO_SLUG}/blob/main/README.md#how-can-i-remove-the-next-steps-block-from-my-blog`
     : `https://github.com/sanity-io/nextjs-blog-cms-sanity-v3#how-can-i-remove-the-next-steps-block-from-my-blog`
-  const studioURL = `${window.location.href}studio`
-  const createPostURL = `${window.location.href}/studio/intent/create/template=post;type=post/`
-  const isLocalHost = window.location.hostname === 'localhost'
+
+  const studioURL = new URL('/studio', origin).toString()
+  const createPostURL = new URL(
+    '/studio/intent/create/template=post;type=post/',
+    origin
+  ).toString()
+  const isLocalHost = origin.hostname === 'localhost'
 
   return (
     <div className="flex justify-center border border-gray-200 bg-gray-50">
@@ -71,14 +75,12 @@ export default memo(function IntroTemplate() {
                   </div>
                   <div className="text-xs text-gray-700">
                     Your Sanity Studio is deployed at
-                    <a
+                    <Link
                       className="mx-1 underline hover:text-blue-800"
-                      target="_blank"
-                      rel="noreferrer"
-                      href={studioURL}
+                      href="/studio/desk"
                     >
                       {studioURL}
-                    </a>
+                    </Link>
                   </div>
 
                   <div className="mt-3">
@@ -179,7 +181,7 @@ export default memo(function IntroTemplate() {
       </div>
     </div>
   )
-})
+}
 
 function Box({
   circleTitle,
