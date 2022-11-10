@@ -78,5 +78,3 @@ export default async function BlogPage({
 
 // @TODO test if it works
 export const revalidate = 61
-
-export const runtime = 'experimental-edge'
