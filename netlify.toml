@@ -1,0 +1,8 @@
+[template]
+  incoming-hooks = ["Sanity"]
+
+[template.environment]
+  NEXT_PUBLIC_SANITY_PROJECT_ID="Your Sanity Project Id"
+  NEXT_PUBLIC_SANITY_DATASET="Your Sanity Dataset"
+  SANITY_API_WRITE_TOKEN="Your Sanity API Write Token"
+  SANITY_API_READ_TOKEN="Your Sanity API Read Token"
