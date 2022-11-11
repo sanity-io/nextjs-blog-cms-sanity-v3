@@ -22,7 +22,7 @@
     "client-only": "^0.0.1",
     "date-fns": "^2.29.3",
     "event-source-polyfill": "^1.0.31",
-    "next": "^13.0.2",
+    "next": "13.0.3-canary.2",
     "next-sanity": "^1.0.9",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

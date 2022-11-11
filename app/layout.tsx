@@ -12,5 +12,3 @@ export default function RootLayout({
     </html>
   )
 }
-
-export const fetchCache = 'only-cache'

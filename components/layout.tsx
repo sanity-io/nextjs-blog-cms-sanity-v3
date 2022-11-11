@@ -1,4 +1,3 @@
-import Alert from './alert'
 import Meta from './meta'
 
 export default function Layout({ preview, children }) {
@@ -6,7 +5,6 @@ export default function Layout({ preview, children }) {
     <>
       <Meta />
       <div className="min-h-screen">
-        {preview && <Alert />}
         <main>{children}</main>
       </div>
     </>

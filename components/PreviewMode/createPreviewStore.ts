@@ -3,6 +3,8 @@ import 'client-only'
 import type { GroqStore } from '@sanity/groq-store'
 import { cache, use, useMemo, useSyncExternalStore } from 'react'
 
+// createDefinePreviewHook
+
 export type Params = Record<string, unknown>
 export interface CreatePreviewHookProps {
   projectId: string
@@ -70,8 +72,8 @@ export function createPreviewHook({
         projectId,
         dataset,
         documentLimit,
-        token,
         subscriptionThrottleMs,
+        token,
         EventSource: EventSourcePolyfill,
         listen: true,
         overlayDrafts: true,

@@ -1,8 +1,11 @@
 /* eslint-disable @next/next/no-html-link-for-pages */
+import { previewData } from 'next/headers'
 
 import Container from './container'
 
 export default function Alert() {
+  if (!previewData()) return
+
   return (
     <div className="border-b border-accent-7 bg-accent-7 text-white">
       <Container>

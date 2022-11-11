@@ -75,8 +75,3 @@ export default async function BlogPage({
     </>
   )
 }
-
-export const fetchCache = 'only-cache'
-
-// @TODO test if it works
-export const revalidate = 61
