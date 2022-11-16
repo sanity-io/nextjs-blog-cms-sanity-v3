@@ -66,21 +66,19 @@ Use the Deploy Button below. It will let you deploy the starter using [Vercel](h
 
 If you are using **Netlify**, then you will need to:
 
-- Create a new [Sanity project][sanity-create] and at the end note the values for `--project` and `--dataset`:
+- Create a new [Sanity project][sanity-create]
 
-  ![Screenshot of a screen with a terminal command containing "--project ygjibjo8 --dataset production"](https://user-images.githubusercontent.com/81981/195444377-dd497dc1-db90-4b08-843e-84df50a0231a.png)
-
-In the screenshot above, the `projectId` is `ygjibjo8`, and `dataset` is `production`.
-
-- You will need to copy the projectId and dataset value to the `Your Sanity Project ID` and `Your Sanity Dataset` fields on Netlify
+- You will need four values for this template to deploy: `Project ID`, `Dataset`, `API Write Token` and `API Read Token`.
   ![Screenshot of a screen with the deployment page for Netlify with fields "Your Sanity Project ID", "Your Sanity Dataset", "Your Sanity API Write Token" and "Your Sanity API Read Token"](https://user-images.githubusercontent.com/6951139/201689448-fe90fb8f-7e65-40fd-8da0-62b8fde0d181.png)
+- You can find all of these fields in [Manage][manage-url] once you open the project you created in an earlier step.
 
-- To generate your `Read and Write tokens` you can open [Manage][manage-url] 
-- Once you find your project on the list, click on **API** on the navigation tab, followed by **Tokens** on the sidebar
+  - `Project ID`: you can find the Project ID of this project beneath the title of the project, on the third column with a clipboard for ease of copy next to it.
+  - `Dataset`: opening the third tab **"Datasets"**, pick one of the datasets listed. You can also create a new one.
+  - `Read and Write tokens`: click on **"API"** on the navigation tab, followed by **"Tokens"** on the sidebar
     ![Screenshot of a screen of Sanity Manage on the API tab, with the Tokens section open"](https://user-images.githubusercontent.com/6951139/201691668-8d184e7c-d9f4-4085-bd34-8c2ca329632a.png)
-- From there, you will need to **Add API token** by clicking the button, give it a name and set it as Editor (which has read and write permissions to all datasets in this project)
-- With the token generated, you can return to the Netlify deployment page and inset that token on the "Your Sanity API Write Token" and "Your Sanity API Read Token" fields
+  - From there, you will need to **Add API token** by clicking the button, give it a name and set it as Editor (which has read and write permissions to all datasets in this project)
 
+- With all the necessary values in hand, you can now return to the Netlify deployment page and paste them on the fields.
 
 ### Step 2. Set up the project locally
 
@@ -120,7 +118,7 @@ git commit
 git push
 ```
 
-Alternatively, if you are using vercel, you can deploy without a `git` hosting provider using the Vercel CLI:
+Alternatively, if you are using **Vercel**, you can deploy without a `git` hosting provider using the Vercel CLI:
 
 ```bash
 npx vercel --prod
@@ -153,11 +151,11 @@ Go to the serverless function code in `/pages/api/revalidate.ts`. In the code co
 
 [vercel-deploy]: https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fsanity-io%2Fnextjs-blog-cms-sanity-v3&repository-name=blog-nextjs-sanity&project-name=blog-nextjs-sanity&demo-title=Blog%20with%20Built-in%20Content%20Editing&demo-description=A%20Sanity-powered%20blog%20with%20built-in%20content%20editing%20%26%20instant%20previews&demo-url=https%3A%2F%2Fnextjs-blog.sanity.build%2F%3Futm_source%3Dvercel%26utm_medium%3Dreferral&demo-image=https%3A%2F%2Fuser-images.githubusercontent.com%2F81981%2F197501516-c7c8092d-0305-4abe-afb7-1e896ef7b90a.png&integration-ids=oac_hb2LITYajhRQ0i4QznmKH7gx&external-id=nextjs;template=nextjs-blog-cms-sanity-v3
 [netlify-deploy]: https://app.netlify.com/start/deploy?repository=https://github.com/sanity-io/nextjs-blog-cms-sanity-v3
-[manage-url]: https://www.sanity.io/manage
+[manage-url]: https://www.sanity.io/manage&utm_medium=referral&utm_campaign=nextjs-v3vercelstarter
 [integration]: https://www.sanity.io/docs/vercel-integration?utm_source=github.com&utm_medium=referral&utm_campaign=nextjs-v3vercelstarter
 [`.env.local.example`]: .env.local.example
 [nextjs]: https://github.com/vercel/next.js
-[sanity-create]: https://www.sanity.io/get-started/create-project?utm_source=github.com&utm_medium=referral&utm_campaign=nextjs-v3vercelstarter
+[sanity-create]: https://www.sanity.io/docs/getting-started-with-sanity-cli&utm_medium=referral&utm_campaign=nextjs-v3vercelstarter
 [sanity-deployment]: https://www.sanity.io/docs/deployment?utm_source=github.com&utm_medium=referral&utm_campaign=nextjs-v3vercelstarter
 [sanity-homepage]: https://www.sanity.io?utm_source=github.com&utm_medium=referral&utm_campaign=nextjs-v3vercelstarter
 [sanity-community]: https://slack.sanity.io/
