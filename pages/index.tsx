@@ -1,60 +1,32 @@
-import Head from 'next/head'
+import IndexPage from 'components/IndexPage'
+import { projectId } from 'lib/sanity.api'
+import { createClient } from 'lib/sanity.client'
+import {
+  type Post,
+  type Settings,
+  indexQuery,
+  settingsQuery,
+} from 'lib/sanity.queries'
+import { PreviewSuspense } from 'next-sanity/preview'
+import { lazy } from 'react'
 
-import BlogHeader from '../components/blog-header'
-import Container from '../components/container'
-import HeroPost from '../components/hero-post'
-import IntroTemplate from '../components/intro-template'
-import Layout from '../components/layout'
-import MoreStories from '../components/more-stories'
-import { indexQuery, settingsQuery } from '../lib/sanity.queries'
-import { getClient, overlayDrafts } from '../lib/sanity.server'
+const PreviewIndexPage = lazy(() => import('components/PreviewIndexPage'))
 
-export default function Index({
-  allPosts: initialAllPosts,
-  preview,
-  blogSettings,
-}) {
-  const { data: allPosts } = usePreviewSubscription(indexQuery, {
-    initialData: initialAllPosts,
-    enabled: preview,
-  })
-  const [heroPost, ...morePosts] = allPosts || []
-  const { title = 'Blog.' } = blogSettings || {}
-
-  return (
-    <>
-      <Layout preview={preview}>
-        <Head>
-          <title>{title}</title>
-        </Head>
-        <Container>
-          <BlogHeader title={title} />
-          {heroPost && (
-            <HeroPost
-              title={heroPost.title}
-              coverImage={heroPost.coverImage}
-              date={heroPost.date}
-              author={heroPost.author}
-              slug={heroPost.slug}
-              excerpt={heroPost.excerpt}
-            />
-          )}
-          {morePosts.length > 0 && <MoreStories posts={morePosts} />}
-        </Container>
-        <IntroTemplate />
-      </Layout>
-    </>
-  )
-}
-
-export async function getStaticProps({ preview = false }) {
+export async function getStaticProps({ preview = false, previewData = {} }) {
   /* check if the project id has been defined by fetching the vercel envs */
-  if (process.env.NEXT_PUBLIC_SANITY_PROJECT_ID) {
-    const allPosts = overlayDrafts(await getClient(preview).fetch(indexQuery))
-    const blogSettings = await getClient(preview).fetch(settingsQuery)
+  if (projectId) {
+    const token = (previewData as any)?.token || null
+    const client = createClient()
+    const postsPromise = client.fetch<Post[]>(indexQuery)
+    const settingsPromise = client.fetch<Settings>(settingsQuery)
 
     return {
-      props: { allPosts, preview, blogSettings },
+      props: {
+        preview,
+        token,
+        posts: (await postsPromise) || [],
+        settings: (await settingsPromise) || {},
+      },
       // If webhooks isn't setup then attempt to re-generate in 1 minute intervals
       revalidate: process.env.SANITY_REVALIDATE_SECRET ? undefined : 60,
     }
@@ -62,7 +34,23 @@ export async function getStaticProps({ preview = false }) {
 
   /* when the client isn't set up */
   return {
-    props: {},
+    props: { posts: [], settings: {} },
     revalidate: undefined,
   }
+}
+
+export default function Index({ preview, token, posts, settings }) {
+  if (preview) {
+    return (
+      <PreviewSuspense
+        fallback={
+          <IndexPage preview loading posts={posts} settings={settings} />
+        }
+      >
+        <PreviewIndexPage token={token} />
+      </PreviewSuspense>
+    )
+  }
+
+  return <IndexPage posts={posts} settings={settings} />
 }

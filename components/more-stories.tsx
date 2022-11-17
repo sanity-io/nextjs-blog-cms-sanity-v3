@@ -1,5 +1,6 @@
+import PostPreview from 'components/PostPreview'
+
 import { PostProps } from '../types'
-import PostPreview from './post-preview'
 
 export default function MoreStories({ posts }: { posts: PostProps[] }) {
   return (

@@ -1,11 +1,12 @@
+import AuthorAvatar from 'components/AuthorAvatar'
+import type { Post } from 'lib/sanity.queries'
 import Link from 'next/link'
+import { memo } from 'react'
 
-import { PostProps } from '../types'
-import Avatar from './avatar'
 import CoverImage from './cover-image'
 import Date from './date'
 
-export default function HeroPost(props: PostProps) {
+export default function HeroPost(props: Post) {
   const { title, coverImage, date, excerpt, author, slug } = props
   return (
     <section>
@@ -16,7 +17,7 @@ export default function HeroPost(props: PostProps) {
         <div>
           <h3 className="mb-4 text-4xl leading-tight lg:text-6xl">
             <Link href={`/posts/${slug}`} className="hover:underline">
-              {title}
+              {title || 'Untitled'}
             </Link>
           </h3>
           <div className="mb-4 text-lg md:mb-0">
@@ -24,8 +25,10 @@ export default function HeroPost(props: PostProps) {
           </div>
         </div>
         <div>
-          <p className="mb-4 text-lg leading-relaxed">{excerpt}</p>
-          {author && <Avatar name={author.name} picture={author.picture} />}
+          {excerpt && <p className="mb-4 text-lg leading-relaxed">{excerpt}</p>}
+          {author && (
+            <AuthorAvatar name={author.name} picture={author.picture} />
+          )}
         </div>
       </div>
     </section>

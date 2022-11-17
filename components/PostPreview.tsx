@@ -1,7 +1,8 @@
+import type { Post } from 'lib/sanity.queries'
 import Link from 'next/link'
+import { memo } from 'react'
 
-import { PostProps } from '../types'
-import Avatar from './avatar'
+import Avatar from './AuthorAvatar'
 import CoverImage from './cover-image'
 import Date from './date'
 
@@ -12,7 +13,7 @@ export default function PostPreview({
   excerpt,
   author,
   slug,
-}: PostProps) {
+}: Post) {
   return (
     <div>
       <div className="mb-5">
@@ -31,7 +32,7 @@ export default function PostPreview({
       <div className="mb-4 text-lg">
         <Date dateString={date} />
       </div>
-      <p className="mb-4 text-lg leading-relaxed">{excerpt}</p>
+      {excerpt && <p className="mb-4 text-lg leading-relaxed">{excerpt}</p>}
       {author && <Avatar name={author.name} picture={author.picture} />}
     </div>
   )

@@ -1,10 +1,11 @@
-import { PostProps } from '../types'
-import Avatar from './avatar'
+import Avatar from 'components/AuthorAvatar'
+import type { Post } from 'lib/sanity.queries'
+
 import CoverImage from './cover-image'
 import Date from './date'
 import PostTitle from './post-title'
 
-export default function PostHeader(props: PostProps) {
+export default function PostHeader(props: Post) {
   const { title, coverImage, date, author, slug } = props
   return (
     <>
