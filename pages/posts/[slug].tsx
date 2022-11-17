@@ -1,3 +1,4 @@
+import { urlForImage } from 'lib/sanity.image'
 import ErrorPage from 'next/error'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
@@ -10,8 +11,11 @@ import PostBody from '../../components/post-body'
 import PostHeader from '../../components/post-header'
 import PostTitle from '../../components/post-title'
 import SectionSeparator from '../../components/section-separator'
-import { postQuery, postSlugsQuery, settingsQuery } from '../../lib/queries'
-import { urlForImage, usePreviewSubscription } from '../../lib/sanity'
+import {
+  postQuery,
+  postSlugsQuery,
+  settingsQuery,
+} from '../../lib/sanity.queries'
 import { getClient, overlayDrafts } from '../../lib/sanity.server'
 import { PostProps } from '../../types'
 

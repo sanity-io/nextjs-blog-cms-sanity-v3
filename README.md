@@ -1,4 +1,4 @@
-# A Next.js Blog with a Native Authoring Experience
+# A Next.js Blog with a Native Authoring Experience<!-- omit in toc -->
 
 This starter is a statically generated blog that uses [Next.js][nextjs] for the frontend and [Sanity][sanity-homepage] to handle its content. It comes with a native Sanity Studio that offers features like real-time collaboration, instant side-by-side content previews, and intuitive editing.
 
@@ -42,15 +42,15 @@ The Studio connects to Sanity Content Lake, which gives you hosted content APIs 
 
 ### Important files and folders
 
-| File(s)                                     | Description                                      |
-| ------------------------------------------- | ------------------------------------------------ |
-| `sanity.config.ts`                          |  Config file for Sanity Studio                   |
-| `sanity.cli.ts`                             |  Config file for Sanity CLI                      |
-| `/pages/studio/[[...index]].tsx`            |  Where Sanity Studio is mounted                  |
-| `/pages/api/revalidate.tsx`                 |  Serverless route for triggering ISR             |
-| `/pages/api/preview.tsx`                    |  Serverless route for triggering Preview mode    |
-| `/schemas`                                  |  Where Sanity Studio gets its content types from |
-| `/lib/sanity.server.tsx`, `/lib/config.tsx` | Configuration for the Sanity Content Lake client |
+| File(s)                                       | Description                                      |
+| --------------------------------------------- | ------------------------------------------------ |
+| `sanity.config.ts`                            |  Config file for Sanity Studio                   |
+| `sanity.cli.ts`                               |  Config file for Sanity CLI                      |
+| `/pages/studio/[[...index]].tsx`              |  Where Sanity Studio is mounted                  |
+| `/pages/api/revalidate.tsx`                   |  Serverless route for triggering ISR             |
+| `/pages/api/preview.tsx`                      |  Serverless route for triggering Preview mode    |
+| `/schemas`                                    |  Where Sanity Studio gets its content types from |
+| `/lib/sanity.api.ts`, `/lib/sanity.client.ts` | Configuration for the Sanity Content Lake client |
 
 ## Configuration
 

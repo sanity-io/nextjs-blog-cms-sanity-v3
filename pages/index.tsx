@@ -6,8 +6,7 @@ import HeroPost from '../components/hero-post'
 import IntroTemplate from '../components/intro-template'
 import Layout from '../components/layout'
 import MoreStories from '../components/more-stories'
-import { indexQuery, settingsQuery } from '../lib/queries'
-import { usePreviewSubscription } from '../lib/sanity'
+import { indexQuery, settingsQuery } from '../lib/sanity.queries'
 import { getClient, overlayDrafts } from '../lib/sanity.server'
 
 export default function Index({

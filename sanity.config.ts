@@ -3,25 +3,25 @@
  */
 
 import { visionTool } from '@sanity/vision'
-import { createConfig, Slug } from 'sanity'
+import { PostsPreview } from 'components/Posts/PostsPreview'
+import { apiVersion, dataset, projectId } from 'lib/sanity.api'
+import { defineConfig, Slug } from 'sanity'
 import { deskTool } from 'sanity/desk'
 import { unsplashImageAsset } from 'sanity-plugin-asset-source-unsplash'
+import authorType from 'schemas/author'
+import postType from 'schemas/post'
+import settingsType from 'schemas/settings'
 
-import { PostsPreview } from './components/Posts/PostsPreview'
-import authorType from './schemas/author'
-import postType from './schemas/post'
-import settingsType from './schemas/settings'
+const title =
+  process.env.NEXT_PUBLIC_SANITY_PROJECT_TITLE || 'Next.js Blog with Sanity.io'
 
-// @TODO: update next-sanity/studio to automatically set this when needed
-const basePath = '/studio'
-
-export default createConfig({
-  basePath,
-  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
-  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET,
-  title:
-    process.env.NEXT_PUBLIC_SANITY_PROJECT_TITLE ||
-    'Next.js Blog with Sanity.io',
+export default defineConfig({
+  // @TODO: update next-sanity/studio to automatically set this when needed
+  basePath: '/studio',
+  projectId,
+  dataset,
+  title,
+  subtitle: 'Test?',
   schema: {
     // If you want more content types, you can add them to this array
     types: [settingsType, postType, authorType],
@@ -72,7 +72,7 @@ export default createConfig({
     // Vision lets you query your content with GROQ in the studio
     // https://www.sanity.io/docs/the-vision-plugin
     visionTool({
-      defaultApiVersion: '2022-08-08',
+      defaultApiVersion: apiVersion,
     }),
   ],
   document: {
