@@ -21,7 +21,6 @@ export default defineConfig({
   projectId,
   dataset,
   title,
-  subtitle: 'Test?',
   schema: {
     // If you want more content types, you can add them to this array
     types: [settingsType, postType, authorType],
