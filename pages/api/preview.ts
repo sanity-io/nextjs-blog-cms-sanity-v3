@@ -1,10 +1,10 @@
+import { createClient } from 'lib/sanity.client'
 import { postBySlugQuery } from 'lib/sanity.queries'
-import { getClient } from 'lib/sanity.server'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 function redirectToPreview(
   res: NextApiResponse,
-  Location: `/${string}` | `/posts/${string}`
+  Location: '/' | `/posts/${string}`
 ): void {
   // Enable Preview Mode by setting the cookies
   res.setPreviewData({})
@@ -28,7 +28,13 @@ export default async function preview(
   }
 
   // Check if the post with the given `slug` exists
-  const post = await getClient(true).fetch(postBySlugQuery, {
+  const client = createClient().withConfig({
+    // Fallback to using the WRITE token until https://www.sanity.io/docs/vercel-integration starts shipping a READ token.
+    // As this client only exists on the server and the token is never shared with the browser, we don't risk escalating permissions to untrustworthy users
+    token:
+      process.env.SANITY_API_READ_TOKEN || process.env.SANITY_API_WRITE_TOKEN,
+  })
+  const post = await client.fetch(postBySlugQuery, {
     slug: req.query.slug,
   })
 

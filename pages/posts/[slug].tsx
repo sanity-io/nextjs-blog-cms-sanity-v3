@@ -7,14 +7,14 @@ import {
   postSlugsQuery,
   settingsQuery,
 } from 'lib/sanity.queries'
-import { getClient, overlayDrafts } from 'lib/sanity.server'
 import { PreviewSuspense } from 'next-sanity/preview'
 import { lazy } from 'react'
 
 const PreviewPostPage = lazy(() => import('components/PreviewPostPage'))
 
 export async function getStaticPaths() {
-  const paths = await getClient(false).fetch(postSlugsQuery)
+  const client = createClient()
+  const paths = await client.fetch(postSlugsQuery)
   return {
     paths: paths.map((slug) => ({ params: { slug } })),
     fallback: true,

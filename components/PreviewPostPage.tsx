@@ -14,11 +14,9 @@ export default function PreviewPostPage({
   token: null | string
   slug: string
 }) {
-  const data: { post: Post; morePosts: Post[] } = usePreview(
-    token,
-    postQuery,
-    { slug }
-  )
+  const data: { post: Post; morePosts: Post[] } = usePreview(token, postQuery, {
+    slug,
+  })
   const settings: Settings = usePreview(token, settingsQuery) || {}
 
   return <PostPage preview data={data} settings={settings} />
