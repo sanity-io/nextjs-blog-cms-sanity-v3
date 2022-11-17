@@ -27,7 +27,7 @@ export async function getStaticProps({
   previewData = {},
 }) {
   const token = (previewData as any)?.token || null
-  const client = createClient()
+  const client = createClient().withConfig({ useCdn: preview })
   const dataPromise = client.fetch<Post[]>(postQuery, { slug: params.slug })
   const settingsPromise = client.fetch<Settings>(settingsQuery)
 

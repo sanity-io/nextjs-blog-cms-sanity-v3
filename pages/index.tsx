@@ -16,7 +16,7 @@ export async function getStaticProps({ preview = false, previewData = {} }) {
   /* check if the project id has been defined by fetching the vercel envs */
   if (projectId) {
     const token = (previewData as any)?.token || null
-    const client = createClient()
+    const client = createClient().withConfig({ useCdn: preview })
     const postsPromise = client.fetch<Post[]>(indexQuery)
     const settingsPromise = client.fetch<Settings>(settingsQuery)
 
