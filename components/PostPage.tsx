@@ -1,17 +1,16 @@
 import Container from 'components/container'
 import Header from 'components/header'
 import Layout from 'components/layout'
-import MoreStories from 'components/more-stories'
+import MoreStories from 'components/MoreStories'
+import PostBody from 'components/PostBody'
+import PostHeader from 'components/PostHeader'
+import PostTitle from 'components/PostTitle'
+import SectionSeparator from 'components/SectionSeparator'
 import { urlForImage } from 'lib/sanity.image'
 import type { Post, Settings } from 'lib/sanity.queries'
 import ErrorPage from 'next/error'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-
-import PostBody from './post-body'
-import PostTitle from './post-title'
-import PostHeader from './PostHeader'
-import SectionSeparator from './SectionSeparator'
 
 export default function PostPage(props: {
   preview?: boolean

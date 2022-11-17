@@ -1,10 +1,8 @@
+import Avatar from 'components/AuthorAvatar'
+import CoverImage from 'components/CoverImage'
+import Date from 'components/date'
 import type { Post } from 'lib/sanity.queries'
 import Link from 'next/link'
-import { memo } from 'react'
-
-import Avatar from './AuthorAvatar'
-import CoverImage from './cover-image'
-import Date from './date'
 
 export default function PostPreview({
   title,
