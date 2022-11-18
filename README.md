@@ -42,15 +42,16 @@ The Studio connects to Sanity Content Lake, which gives you hosted content APIs 
 
 ### Important files and folders
 
-| File(s)                                                              | Description                                      |
-| -------------------------------------------------------------------- | ------------------------------------------------ |
-| `sanity.config.ts`                                                   |  Config file for Sanity Studio                   |
-| `sanity.cli.ts`                                                      |  Config file for Sanity CLI                      |
-| `/pages/studio/[[...index]].tsx`                                     |  Where Sanity Studio is mounted                  |
-| `/pages/api/revalidate.tsx`                                          |  Serverless route for triggering ISR             |
-| `/pages/api/preview.tsx`                                             |  Serverless route for triggering Preview mode    |
-| `/schemas`                                                           |  Where Sanity Studio gets its content types from |
-| `/lib/sanity.api.ts`,`/lib/sanity.image.ts`,`/lib/sanity.preview.ts` | Configuration for the Sanity Content Lake client |
+| File(s)                                     | Description                                      |
+| ------------------------------------------- | ------------------------------------------------ |
+| `sanity.config.ts`                          |  Config file for Sanity Studio                   |
+| `sanity.cli.ts`                             |  Config file for Sanity CLI                      |
+| `/pages/studio/[[...index]].tsx`            |  Where Sanity Studio is mounted                  |
+| `/pages/api/revalidate.tsx`                 |  Serverless route for triggering ISR             |
+| `/pages/api/preview.tsx`                    |  Serverless route for triggering Preview mode    |
+| `/schemas`                                  |  Where Sanity Studio gets its content types from |
+| `/lib/sanity.api.ts`,`/lib/sanity.image.ts` | Configuration for the Sanity Content Lake client |
+| `/lib/sanity.preview.ts`                    | Configuration for the live Preview Mode          |
 
 ## Configuration
 
