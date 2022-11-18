@@ -6,6 +6,8 @@ export default defineType({
   title: 'Settings',
   type: 'document',
   icon: CogIcon,
+  // Uncomment below to have edits publish automatically as you type
+  // liveEdit: true,
   fields: [
     {
       name: 'title',

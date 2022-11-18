@@ -9,11 +9,11 @@
  */
 import { PortableText } from '@portabletext/react'
 
-import portableTextStyles from './portable-text-styles.module.css'
+import styles from './PostBody.module.css'
 
 export default function PostBody({ content }) {
   return (
-    <div className={`mx-auto max-w-2xl ${portableTextStyles.portableText}`}>
+    <div className={`mx-auto max-w-2xl ${styles.portableText}`}>
       <PortableText value={content} />
     </div>
   )

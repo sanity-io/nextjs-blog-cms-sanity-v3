@@ -21,13 +21,14 @@
     "classnames": "^2.3.2",
     "date-fns": "^2.29.3",
     "next": "^13.0.3",
-    "next-sanity": "^1.1.0",
+    "next-sanity": "^2.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-is": "^18.2.0",
     "sanity": "3.0.0-rc.2",
     "sanity-plugin-asset-source-unsplash": "3.0.0-v3-studio.13",
-    "styled-components": "^5.3.6"
+    "styled-components": "^5.3.6",
+    "suspend-react": "^0.0.8"
   },
   "devDependencies": {
     "@types/react": "^18.0.25",

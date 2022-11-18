@@ -1,9 +1,9 @@
 import Image from 'next/image'
-import { useEffect, useState } from 'react'
+import { memo, useEffect, useState } from 'react'
 
-import introTemplateImg from '../images/introTemplateImg.png'
+import cover from './cover.png'
 
-export default function IntroTemplate() {
+export default memo(function IntroTemplate() {
   const [studioURL, setStudioURL] = useState(null)
   const [createPostURL, setCreatePostURL] = useState(null)
   const [isLocalHost, setIsLocalhost] = useState(false)
@@ -37,9 +37,12 @@ export default function IntroTemplate() {
 
   return (
     <div className="flex justify-center border border-gray-200 bg-gray-50">
-      <div className="mt-20 mb-8 grid max-w-screen-2xl grid-cols-1 gap-y-20 md:grid-cols-2 md:gap-x-16 md:gap-y-32 lg:gap-x-32	">
+      <div className="mt-20 mb-8 grid max-w-screen-2xl grid-cols-1 gap-y-20 md:grid-cols-2 md:gap-x-16 md:gap-y-32 lg:gap-x-32 ">
         <div className="self-center">
-          <Image alt={'Cover Image IntroTemplate'} src={introTemplateImg} />
+          <Image
+            alt="An illustration of a browser window, a terminal window, the Sanity.io logo and the NextJS logo"
+            src={cover}
+          />
           <div className="mt-10 hidden px-14 text-xs text-gray-700 md:block">
             <RemoveBlock url={removeBlockURL} />
           </div>
@@ -189,7 +192,7 @@ export default function IntroTemplate() {
       </div>
     </div>
   )
-}
+})
 
 function Box({
   circleTitle,

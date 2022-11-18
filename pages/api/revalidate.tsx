@@ -24,9 +24,11 @@
 
  */
 
-import { isValidSignature, SIGNATURE_HEADER_NAME } from '@sanity/webhook'
+// @TODO move the heavy duty body parsing logic into `next-sanity/webhook`
 
-import { getClient } from '../../lib/sanity.server'
+import { isValidSignature, SIGNATURE_HEADER_NAME } from '@sanity/webhook'
+import { apiVersion, dataset, projectId } from 'lib/sanity.api'
+import { createClient } from 'next-sanity'
 
 // Next.js will by default parse the body, which can lead to invalid signatures
 export const config = {
@@ -91,7 +93,8 @@ export default async function revalidate(req, res) {
   }
 
   log(`Querying post slug for _id '${id}', type '${_type}' ..`)
-  const slug = await getClient(false).fetch(getQueryForType(_type), { id })
+  const client = createClient({ projectId, dataset, apiVersion, useCdn: false })
+  const slug = await client.fetch(getQueryForType(_type), { id })
   const slugs = (Array.isArray(slug) ? slug : [slug]).map(
     (_slug) => `/posts/${_slug}`
   )

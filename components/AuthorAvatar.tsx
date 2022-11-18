@@ -1,9 +1,8 @@
+import { urlForImage } from 'lib/sanity.image'
+import type { Author } from 'lib/sanity.queries'
 import Image from 'next/image'
 
-import { urlForImage } from '../lib/sanity'
-import { AuthorProps } from '../types'
-
-export default function Avatar(props: AuthorProps) {
+export default function AuthorAvatar(props: Author) {
   const { name, picture } = props
   return (
     <div className="flex items-center">
@@ -17,7 +16,8 @@ export default function Avatar(props: AuthorProps) {
           className="rounded-full"
           height={96}
           width={96}
-          alt={name}
+          // @TODO add alternative text to avatar image schema
+          alt=""
         />
       </div>
       <div className="text-xl font-bold">{name}</div>
