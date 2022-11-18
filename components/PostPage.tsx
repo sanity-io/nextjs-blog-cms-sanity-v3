@@ -26,7 +26,7 @@ export default function PostPage(props: {
 
   const slug = post?.slug
 
-  if (!router.isFallback && !slug) {
+  if (!router.isFallback && !slug && !preview) {
     return <ErrorPage statusCode={404} />
   }
 
@@ -34,7 +34,7 @@ export default function PostPage(props: {
     <Layout preview={preview} loading={loading}>
       <Container>
         <BlogHeader title={title} level={2} />
-        {router.isFallback ? (
+        {router.isFallback || (preview && !post) ? (
           <PostTitle>Loading…</PostTitle>
         ) : (
           <>

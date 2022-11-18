@@ -1,9 +1,16 @@
 /**
  * This component is responsible for rendering a preview of a post inside the Studio.
  */
-import { Card, Text } from '@sanity/ui'
+import { Box, Card, Flex, Spinner, Text } from '@sanity/ui'
 import { getSecret } from 'plugins/productionUrl/utils'
-import React, { memo, Suspense, useDeferredValue } from 'react'
+import React, {
+  memo,
+  startTransition,
+  Suspense,
+  useDeferredValue,
+  useEffect,
+  useState,
+} from 'react'
 import { useClient } from 'sanity'
 import { suspend } from 'suspend-react'
 
@@ -18,7 +25,6 @@ export default function PostPreviewPane(props: Props) {
   // The useDeferredValue hook helps with reducing the amount of times `/api/preview` gets called if
   // the user is manually typing out the slug instead of using the `Generate` button
   const slug = useDeferredValue(props.slug)
-  console.log('slug', props.slug, slug)
 
   // if the document has no slug for the preview iframe
   if (!slug) {
@@ -32,14 +38,37 @@ export default function PostPreviewPane(props: Props) {
   }
 
   return (
-    <Card scheme="light" style={{ width: '100%', height: '100%' }}>
-      <Suspense fallback="Loading...">
+    <Card
+      scheme="light"
+      style={{ width: '100%', height: '100%', position: 'relative' }}
+    >
+      <Suspense fallback={null}>
         <Iframe
           apiVersion={apiVersion}
           previewSecretId={previewSecretId}
           slug={slug}
         />
       </Suspense>
+      <Flex
+        as={Card}
+        justify="center"
+        align="center"
+        height="fill"
+        direction="column"
+        gap={4}
+        style={{
+          position: 'absolute',
+          top: 0,
+          right: 0,
+          bottom: 0,
+          left: 0,
+          pointerEvents: 'none',
+          zIndex: 0,
+        }}
+      >
+        <Text muted>Loading…</Text>
+        <Spinner muted />
+      </Flex>
     </Card>
   )
 }
@@ -49,15 +78,26 @@ const fetchSecret = Symbol('preview.secret')
 const Iframe = memo(function Iframe(
   props: Omit<Props, 'slug'> & Required<Pick<Props, 'slug'>>
 ) {
-  const { apiVersion, slug, previewSecretId } = props
+  const { apiVersion, previewSecretId } = props
   const client = useClient({ apiVersion })
+  const [slug, setSlug] = useState(props.slug)
 
   const secret = suspend(
     () => getSecret(client, previewSecretId, true),
-    [fetchSecret],
+    ['getSecret', previewSecretId, fetchSecret],
     // The secret fetch has a TTL of 1 minute, just to check if it's necessary to recreate the secret which has a TTL of 60 minutes
     { lifespan: 60000 }
   )
+
+  // Whenever the slug changes there's it's best to wait a little for elastic search to reach eventual consistency
+  // this helps prevent seeing "Invalid slug" or 404 errors while editing the slug manually
+  useEffect(() => {
+    const timeout = setTimeout(
+      () => startTransition(() => setSlug(props.slug)),
+      3000
+    )
+    return () => clearTimeout(timeout)
+  }, [props.slug])
 
   const url = new URL('/api/preview', location.origin)
   url.searchParams.set('slug', slug)
@@ -66,6 +106,9 @@ const Iframe = memo(function Iframe(
   }
 
   return (
-    <iframe style={{ width: '100%', height: '100%' }} src={url.toString()} />
+    <iframe
+      style={{ width: '100%', height: '100%', position: 'relative', zIndex: 1 }}
+      src={url.toString()}
+    />
   )
 })
