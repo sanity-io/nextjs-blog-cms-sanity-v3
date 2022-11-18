@@ -4,7 +4,12 @@ import Date from 'components/PostDate'
 import type { Post } from 'lib/sanity.queries'
 import Link from 'next/link'
 
-export default function HeroPost(props: Pick<Post, 'title' |'coverImage' | 'date' |'excerpt' | 'author' |'slug'>) {
+export default function HeroPost(
+  props: Pick<
+    Post,
+    'title' | 'coverImage' | 'date' | 'excerpt' | 'author' | 'slug'
+  >
+) {
   const { title, coverImage, date, excerpt, author, slug } = props
   return (
     <section>

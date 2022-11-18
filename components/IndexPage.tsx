@@ -1,5 +1,5 @@
-import BlogHeader from 'components/blog-header'
 import Container from 'components/BlogContainer'
+import BlogHeader from 'components/BlogHeader'
 import Layout from 'components/BlogLayout'
 import HeroPost from 'components/HeroPost'
 import MoreStories from 'components/MoreStories'
@@ -24,7 +24,7 @@ export default function IndexPage(props: {
           <title>{title}</title>
         </Head>
         <Container>
-          <BlogHeader title={title} />
+          <BlogHeader title={title} level={1} />
           {heroPost && (
             <HeroPost
               title={heroPost.title}

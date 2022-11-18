@@ -1,6 +1,6 @@
 import Container from 'components/BlogContainer'
+import BlogHeader from 'components/BlogHeader'
 import Layout from 'components/BlogLayout'
-import Header from 'components/header'
 import MoreStories from 'components/MoreStories'
 import PostBody from 'components/PostBody'
 import PostHeader from 'components/PostHeader'
@@ -33,7 +33,7 @@ export default function PostPage(props: {
   return (
     <Layout preview={preview} loading={loading}>
       <Container>
-        <Header title={title} />
+        <BlogHeader title={title} level={2} />
         {router.isFallback ? (
           <PostTitle>Loading…</PostTitle>
         ) : (
