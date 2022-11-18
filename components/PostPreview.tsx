@@ -11,7 +11,7 @@ export default function PostPreview({
   excerpt,
   author,
   slug,
-}: Post) {
+}: Omit<Post, '_id'>) {
   return (
     <div>
       <div className="mb-5">

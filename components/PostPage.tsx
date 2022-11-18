@@ -19,7 +19,7 @@ export default function PostPage(props: {
   settings: Settings
 }) {
   const { preview, loading, data, settings } = props
-  const { post = {}, morePosts = [] } = data || {}
+  const { post = {} as any, morePosts = [] } = data || {}
   const { title = 'Blog.' } = settings || {}
 
   const router = useRouter()

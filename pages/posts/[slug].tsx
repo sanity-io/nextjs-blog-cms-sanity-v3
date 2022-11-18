@@ -64,7 +64,7 @@ export const getStaticProps: GetStaticProps<
     props: {
       preview,
       token,
-      data: (await dataPromise) || { post: {}, morePosts: [] },
+      data: (await dataPromise) || { post: {} as any, morePosts: [] },
       settings: (await settingsPromise) || {},
     },
     // If webhooks isn't setup then attempt to re-generate in 1 minute intervals
