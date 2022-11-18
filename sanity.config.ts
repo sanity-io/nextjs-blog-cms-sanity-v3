@@ -3,8 +3,8 @@
  */
 
 import { visionTool } from '@sanity/vision'
-import { PostsPreview } from 'components/Posts/PostsPreview'
 import { apiVersion, dataset, previewSecretId, projectId } from 'lib/sanity.api'
+import { previewDocumentNode } from 'plugins/previewPane'
 import { productionUrl } from 'plugins/productionUrl'
 import { settingsPlugin, settingsStructure } from 'plugins/settings'
 import { defineConfig } from 'sanity'
@@ -30,22 +30,8 @@ export default defineConfig({
   plugins: [
     deskTool({
       structure: settingsStructure(settingsType),
-
-      // `defaultDocumentNode is responsible for adding a “Preview” tab to the document pane
-      // You can add any React component to `S.view.component` and it will be rendered in the pane
-      // and have access to content in the form in real-time.
-      // It's part of the Studio's “Structure Builder API” and is documented here:
-      // https://www.sanity.io/docs/structure-builder-reference
-      defaultDocumentNode: (S, { schemaType }) => {
-        if (schemaType === 'post') {
-          return S.document().views([
-            S.view.form(),
-            S.view.component(PostsPreview).title('Preview'),
-          ])
-        }
-
-        return null
-      },
+      // `defaultDocumentNode` is responsible for adding a “Preview” tab to the document pane
+      defaultDocumentNode: previewDocumentNode({ apiVersion, previewSecretId }),
     }),
     // Configures the global "new document" button, and document actions, to suit the Settings document singleton
     settingsPlugin({ type: settingsType.name }),

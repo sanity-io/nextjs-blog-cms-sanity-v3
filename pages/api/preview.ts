@@ -1,7 +1,13 @@
-import { previewSecretId } from 'lib/sanity.api'
-import { createClient } from 'lib/sanity.client'
+import {
+  apiVersion,
+  dataset,
+  previewSecretId,
+  projectId,
+  useCdn,
+} from 'lib/sanity.api'
 import { postBySlugQuery } from 'lib/sanity.queries'
 import type { NextApiRequest, NextApiResponse } from 'next'
+import { createClient } from 'next-sanity'
 import { getSecret } from 'plugins/productionUrl/utils'
 
 function redirectToPreview(
@@ -15,6 +21,8 @@ function redirectToPreview(
   res.writeHead(307, { Location })
   res.end()
 }
+
+const _client = createClient({ projectId, dataset, apiVersion, useCdn })
 
 export default async function preview(
   req: NextApiRequest,
@@ -40,7 +48,7 @@ export default async function preview(
         'A secret is provided but there is no `SANITY_API_READ_TOKEN` environment variable setup.'
       )
     }
-    const client = createClient().withConfig({ useCdn: false, token })
+    const client = _client.withConfig({ useCdn: false, token })
     const secret = await getSecret(client, previewSecretId)
     if (req.query.secret !== secret) {
       return res.status(401).json({ message: 'Invalid secret' })
@@ -54,7 +62,7 @@ export default async function preview(
   }
 
   // Check if the post with the given `slug` exists
-  const client = createClient().withConfig({
+  const client = _client.withConfig({
     // Fallback to using the WRITE token until https://www.sanity.io/docs/vercel-integration starts shipping a READ token.
     // As this client only exists on the server and the token is never shared with the browser, we don't risk escalating permissions to untrustworthy users
     token:

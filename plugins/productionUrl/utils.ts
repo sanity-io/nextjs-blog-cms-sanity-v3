@@ -4,6 +4,8 @@ import type { SanityClient } from '@sanity/client'
 const query = (ttl) =>
   /* groq */ `*[_id == $id && dateTime(_updatedAt) > dateTime(now()) - ${ttl}][0].secret`
 
+const tag = 'preview.secret'
+
 export async function getSecret(
   client: SanityClient,
   id: `${string}.${string}`,
@@ -27,7 +29,7 @@ export async function getSecret(
         .transaction()
         .createIfNotExists({ _id: id, _type: id })
         .patch(patch)
-        .commit()
+        .commit({ tag })
       return newSecret
     } catch (err) {
       console.error(

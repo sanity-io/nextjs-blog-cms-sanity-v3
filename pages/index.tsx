@@ -1,22 +1,32 @@
 import IndexPage from 'components/IndexPage'
-import { projectId } from 'lib/sanity.api'
-import { createClient } from 'lib/sanity.client'
+import { apiVersion, dataset, projectId } from 'lib/sanity.api'
 import {
   type Post,
   type Settings,
   indexQuery,
   settingsQuery,
 } from 'lib/sanity.queries'
+import type { GetStaticProps, InferGetStaticPropsType } from 'next'
+import { createClient } from 'next-sanity'
 import { PreviewSuspense } from 'next-sanity/preview'
 import { lazy } from 'react'
 
 const PreviewIndexPage = lazy(() => import('components/PreviewIndexPage'))
 
-export async function getStaticProps({ preview = false, previewData = {} }) {
+export const getStaticProps: GetStaticProps<
+  { preview: boolean; token: string | null; posts: Post[]; settings: Settings },
+  any,
+  { token?: string }
+> = async ({ preview = false, previewData = {} }) => {
   /* check if the project id has been defined by fetching the vercel envs */
   if (projectId) {
-    const token = (previewData as any)?.token || null
-    const client = createClient().withConfig({ useCdn: preview })
+    const token = previewData?.token || null
+    const client = createClient({
+      projectId,
+      dataset,
+      apiVersion,
+      useCdn: preview,
+    })
     const postsPromise = client.fetch<Post[]>(indexQuery)
     const settingsPromise = client.fetch<Settings>(settingsQuery)
 
@@ -34,12 +44,17 @@ export async function getStaticProps({ preview = false, previewData = {} }) {
 
   /* when the client isn't set up */
   return {
-    props: { posts: [], settings: {} },
+    props: { preview: false, token: null, posts: [], settings: {} },
     revalidate: undefined,
   }
 }
 
-export default function Index({ preview, token, posts, settings }) {
+export default function IndexRoute({
+  preview,
+  token,
+  posts,
+  settings,
+}: InferGetStaticPropsType<typeof getStaticProps>) {
   if (preview) {
     return (
       <PreviewSuspense

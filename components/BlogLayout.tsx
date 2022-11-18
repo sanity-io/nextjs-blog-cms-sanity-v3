@@ -2,7 +2,7 @@ import AlertBanner from 'components/AlertBanner'
 import BlogMeta from 'components/BlogMeta'
 import Head from 'next/head'
 
-export default function Layout({
+export default function BlogLayout({
   preview,
   loading,
   children,

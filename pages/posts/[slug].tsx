@@ -1,5 +1,5 @@
 import PostPage from 'components/PostPage'
-import { createClient } from 'lib/sanity.client'
+import { apiVersion, dataset, projectId } from 'lib/sanity.api'
 import {
   type Post,
   type Settings,
@@ -7,31 +7,57 @@ import {
   postSlugsQuery,
   settingsQuery,
 } from 'lib/sanity.queries'
+import type {
+  GetStaticPaths,
+  GetStaticProps,
+  InferGetStaticPropsType,
+} from 'next'
+import { createClient } from 'next-sanity'
 import { PreviewSuspense } from 'next-sanity/preview'
 import { lazy } from 'react'
 
 const PreviewPostPage = lazy(() => import('components/PreviewPostPage'))
 
-export async function getStaticPaths() {
-  const client = createClient()
-  const paths = await client.fetch(postSlugsQuery)
+export const getStaticPaths: GetStaticPaths = async () => {
+  let paths = []
+  if (projectId) {
+    const client = createClient({
+      projectId,
+      dataset,
+      apiVersion,
+      useCdn: false,
+    })
+    paths = await client.fetch(postSlugsQuery)
+  }
+
   return {
     paths: paths.map((slug) => ({ params: { slug } })),
     fallback: true,
   }
 }
 
-export async function getStaticProps({
-  params,
-  preview = false,
-  previewData = {},
-}) {
-  const token = (previewData as any)?.token || null
-  const client = createClient().withConfig({
+export const getStaticProps: GetStaticProps<
+  {
+    preview?: boolean
+    token: null | string
+    data: { post: Post; morePosts: Post[] }
+    settings: Settings
+  },
+  { slug: string },
+  { token?: string }
+> = async ({ params, preview = false, previewData = {} }) => {
+  const token = previewData?.token || null
+  const client = createClient({
+    projectId,
+    dataset,
+    apiVersion,
     useCdn: preview,
     token: token || undefined,
   })
-  const dataPromise = client.fetch<Post[]>(postQuery, { slug: params.slug })
+  const dataPromise = client.fetch<{ post: Post; morePosts: Post[] }>(
+    postQuery,
+    { slug: params.slug }
+  )
   const settingsPromise = client.fetch<Settings>(settingsQuery)
 
   return {
@@ -46,12 +72,9 @@ export async function getStaticProps({
   }
 }
 
-export default function Post(props: {
-  preview?: boolean
-  token: null | string
-  data: { post: Post; morePosts: Post[] }
-  settings: Settings
-}) {
+export default function PostRoute(
+  props: InferGetStaticPropsType<typeof getStaticProps>
+) {
   const { preview, token, data, settings } = props
 
   if (preview) {
