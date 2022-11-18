@@ -1,13 +1,12 @@
 /**
  * This component is responsible for rendering a preview of a post inside the Studio.
  */
-import { Box, Card, Flex, Spinner, Text } from '@sanity/ui'
+import { Card, Flex, Spinner, Text } from '@sanity/ui'
 import { getSecret } from 'plugins/productionUrl/utils'
 import React, {
   memo,
   startTransition,
   Suspense,
-  useDeferredValue,
   useEffect,
   useState,
 } from 'react'
@@ -22,9 +21,16 @@ type Props = {
 
 export default function PostPreviewPane(props: Props) {
   const { previewSecretId, apiVersion } = props
-  // The useDeferredValue hook helps with reducing the amount of times `/api/preview` gets called if
-  // the user is manually typing out the slug instead of using the `Generate` button
-  const slug = useDeferredValue(props.slug)
+  // Whenever the slug changes there's it's best to wait a little for elastic search to reach eventual consistency
+  // this helps prevent seeing "Invalid slug" or 404 errors while editing the slug manually
+  const [slug, setSlug] = useState(props.slug)
+  useEffect(() => {
+    const timeout = setTimeout(
+      () => startTransition(() => setSlug(props.slug)),
+      3000
+    )
+    return () => clearTimeout(timeout)
+  }, [props.slug])
 
   // if the document has no slug for the preview iframe
   if (!slug) {
@@ -78,9 +84,10 @@ const fetchSecret = Symbol('preview.secret')
 const Iframe = memo(function Iframe(
   props: Omit<Props, 'slug'> & Required<Pick<Props, 'slug'>>
 ) {
-  const { apiVersion, previewSecretId } = props
+  const { apiVersion, previewSecretId, slug } = props
   const client = useClient({ apiVersion })
-  const [slug, setSlug] = useState(props.slug)
+
+  
 
   const secret = suspend(
     () => getSecret(client, previewSecretId, true),
@@ -89,15 +96,7 @@ const Iframe = memo(function Iframe(
     { lifespan: 60000 }
   )
 
-  // Whenever the slug changes there's it's best to wait a little for elastic search to reach eventual consistency
-  // this helps prevent seeing "Invalid slug" or 404 errors while editing the slug manually
-  useEffect(() => {
-    const timeout = setTimeout(
-      () => startTransition(() => setSlug(props.slug)),
-      3000
-    )
-    return () => clearTimeout(timeout)
-  }, [props.slug])
+  
 
   const url = new URL('/api/preview', location.origin)
   url.searchParams.set('slug', slug)
