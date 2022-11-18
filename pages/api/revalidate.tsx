@@ -88,6 +88,9 @@ export default async function revalidate(req, res) {
     return res.status(400).json({ message: invalidId })
   }
 
+  log('Wait a second to give Elastic Search time to reach eventual consistency')
+  await new Promise((resolve) => setTimeout(resolve, 1000))
+
   log(`Querying post slug for _id '${id}', type '${_type}' ..`)
   const client = createClient({ projectId, dataset, apiVersion, useCdn: false })
   const slug = await client.fetch(getQueryForType(_type), { id })
