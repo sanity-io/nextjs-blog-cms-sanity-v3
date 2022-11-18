@@ -4,24 +4,20 @@
  * It is set up to receive a validated GROQ-powered Webhook from Sanity.io:
  * https://www.sanity.io/docs/webhooks
  *
- * You can quickly add the webhook configuration to your Sanity project with this URL:
-
-  https://www.sanity.io/manage/webhooks/share?name=On-demand+Revalidation&description=Webhook+configuration+for+a+Next.js+blog+with+an+Incremental+Static+Revalidation+serverless+route+set+up.+Remember+to+update+the+URL+for+your+hosted+site%2C+as+well+as+a+secret+that+you+copy+to+the+environment+variables+where+your+Next.js+site+is+hosted+%28SANITY_REVALIDATE_SECRET%29.&url=https%3A%2F%2FYOUR_NEXTJS_SITE_URL%2Fapi%2Frevalidate&on=create&on=update&on=delete&filter=%5B%22post%22%2C+%22author%22%2C+%22settings%22%5D+in+_type&projection=&httpMethod=POST&apiVersion=v2021-03-25&includeDrafts=&headers=%7B%7D
-
-* MANUAL SETUP:
-  * 1. Go to the API section of your Sanity project on sanity.io/manage
-  * 2. Click "Create webhook"
-  * 3. Set the URL to https://YOUR_NEXTJS_SITE_URL/api/revalidate
-  * 4. Trigger on: "Create", "Update", and "Delete"
-  * 5. Filter: ["post", "author", "settings"] in _type
-  * 6. Projection: Leave empty
-  * 7. HTTP method: POST
-  * 8. API version: v2021-03-25
-  * 9. Include drafts: No
-  * 10. HTTP Headers: Leave empty
-  * 11. Secret: Set to the same value as SANITY_REVALIDATE_SECRET (create a random one if you haven't)
-  * 12. Save the cofiguration
-
+ * 1. Go to the API section of your Sanity project on sanity.io/manage or run `npx sanity hook create`
+ * 2. Click "Create webhook"
+ * 3. Set the URL to https://YOUR_NEXTJS_SITE_URL/api/revalidate
+ * 4. Trigger on: "Create", "Update", and "Delete"
+ * 5. Filter: _type == "post" || _type == "author" || _type == "settings"
+ * 6. Projection: Leave empty
+ * 7. HTTP method: POST
+ * 8. API version: v2021-03-25
+ * 9. Include drafts: No
+ * 10. HTTP Headers: Leave empty
+ * 11. Secret: Set to the same value as SANITY_REVALIDATE_SECRET (create a random one if you haven't)
+ * 12. Save the cofiguration
+ * 13. Add the secret to Vercel: `npx vercel env add SANITY_REVALIDATE_SECRET`
+ * 14. Redeploy with `npx vercel --prod` to apply the new environment variable
  */
 
 // @TODO move the heavy duty body parsing logic into `next-sanity/webhook`
