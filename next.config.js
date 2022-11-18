@@ -1,8 +1,5 @@
 /** @type {import('next').NextConfig} */
 module.exports = {
-  // @TODO figure out why the swc minifier breaks preview mode
-  swcMinify: false,
-
   images: {
     remotePatterns: [
       { hostname: 'cdn.sanity.io' },
