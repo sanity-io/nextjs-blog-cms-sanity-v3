@@ -87,16 +87,12 @@ const Iframe = memo(function Iframe(
   const { apiVersion, previewSecretId, slug } = props
   const client = useClient({ apiVersion })
 
-  
-
   const secret = suspend(
     () => getSecret(client, previewSecretId, true),
     ['getSecret', previewSecretId, fetchSecret],
     // The secret fetch has a TTL of 1 minute, just to check if it's necessary to recreate the secret which has a TTL of 60 minutes
     { lifespan: 60000 }
   )
-
-  
 
   const url = new URL('/api/preview', location.origin)
   url.searchParams.set('slug', slug)
