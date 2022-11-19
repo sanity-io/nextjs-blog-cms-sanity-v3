@@ -10,13 +10,9 @@ export const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET
 export const apiVersion =
   process.env.NEXT_PUBLIC_SANITY_API_VERSION || '2022-11-15'
 // useCdn == true gives fast, cheap responses using a globally distributed cache.
-// When in production the Sanity API is only queried on build-time, and on-demand when responding to webhooks.
-// Thus the data need to be fresh and API response time is less important.
-// When in development/working locally, it's more important to keep costs down as hot reloading can incurr a lot of API calls
-// And every page load calls getStaticProps.
-// To get the lowest latency, lowest cost, and latest data, use the Instant Preview mode
-export const useCdn =
-  typeof document !== 'undefined' && process.env.NODE_ENV === 'production'
+// It makes sense to use the CDN if the GROQ webhook outlined in `pages/api/revalidate.ts` isn't setup yet.
+// With the hook setup though it's more important to newer return stale data since the request count is so low, especially after removing the `export const revalidate = 1` statements in `page.tsx` files.
+export const useCdn = process.env.SANITY_REVALIDATE_SECRET ? false : true
 
 // This is the document id used for the preview secret that's stored in your dataset.
 // The secret protects against unauthorized access to your draft content and have a lifetime of 60 minutes, to protect against bruteforcing.

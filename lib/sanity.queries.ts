@@ -10,14 +10,14 @@ const postFields = groq`
   "author": author->{name, picture},
 `
 
-export const settingsQuery = groq`*[_type == "settings"][0]{title}`
+export const settingsQuery = groq`*[_type == "settings"][0]`
 
 export const indexQuery = groq`
 *[_type == "post"] | order(date desc, _updatedAt desc) {
   ${postFields}
 }`
 
-export const postQuery = groq`
+export const postAndMoreStoriesQuery = groq`
 {
   "post": *[_type == "post" && slug.current == $slug] | order(_updatedAt desc) [0] {
     content,
@@ -57,4 +57,8 @@ export interface Post {
 
 export interface Settings {
   title?: string
+  description?: any[]
+  ogImage?: {
+    title?: string
+  }
 }
