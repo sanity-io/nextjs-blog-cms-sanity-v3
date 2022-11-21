@@ -1,6 +1,9 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 
-export default function exit(_req: NextApiRequest, res: NextApiResponse): void {
+export default function exit(
+  _req: NextApiRequest,
+  res: NextApiResponse<void>
+): void {
   // Exit the current user from "Preview Mode".
   res.clearPreviewData()
 

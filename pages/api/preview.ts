@@ -11,7 +11,7 @@ import { createClient } from 'next-sanity'
 import { getSecret } from 'plugins/productionUrl/utils'
 
 function redirectToPreview(
-  res: NextApiResponse,
+  res: NextApiResponse<string | void>,
   previewData: { token?: string },
   Location: '/' | `/posts/${string}`
 ): void {
@@ -26,7 +26,7 @@ const _client = createClient({ projectId, dataset, apiVersion, useCdn })
 
 export default async function preview(
   req: NextApiRequest,
-  res: NextApiResponse
+  res: NextApiResponse<string | void>
 ) {
   const previewData: { token?: string } = {}
   // If you want to require preview mode sessions to be started from the Studio, set the SANITY_REQUIRE_PREVIEW_SECRET
@@ -37,7 +37,7 @@ export default async function preview(
     process.env.SANITY_REQUIRE_PREVIEW_SECRET === 'true' &&
     !req.query.secret
   ) {
-    return res.status(401).json({ message: 'Invalid secret' })
+    return res.status(401).send('Invalid secret')
   }
 
   // If a secret is present in the URL, verify it and if valid we upgrade to token based preview mode, which works in Safari and Incognito mode
@@ -51,7 +51,7 @@ export default async function preview(
     const client = _client.withConfig({ useCdn: false, token })
     const secret = await getSecret(client, previewSecretId)
     if (req.query.secret !== secret) {
-      return res.status(401).json({ message: 'Invalid secret' })
+      return res.status(401).send('Invalid secret')
     }
     previewData.token = token
   }
@@ -74,7 +74,7 @@ export default async function preview(
 
   // If the slug doesn't exist prevent preview mode from being enabled
   if (!post) {
-    return res.status(401).json({ message: 'Invalid slug' })
+    return res.status(401).send('Invalid slug')
   }
 
   // Redirect to the path from the fetched post
