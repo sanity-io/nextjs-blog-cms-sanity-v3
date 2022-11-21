@@ -1,5 +1,5 @@
 /** @type {import('next').NextConfig} */
-module.exports = {
+const config = {
   images: {
     remotePatterns: [
       { hostname: 'cdn.sanity.io' },
@@ -15,3 +15,5 @@ module.exports = {
     ignoreDuringBuilds: process.env.VERCEL_ENV === 'production',
   },
 }
+
+export default config
