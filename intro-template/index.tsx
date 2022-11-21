@@ -22,9 +22,9 @@ export default memo(function IntroTemplate() {
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      setStudioURL(`${window.location.href}studio`)
+      setStudioURL(`${window.location.origin}/studio`)
       setCreatePostURL(
-        `${window.location.href}/studio/intent/create/template=post;type=post/`
+        `${window.location.origin}/studio/intent/create/template=post;type=post/`
       )
       setIsLocalhost(window.location.hostname === 'localhost')
       setHasUTMtags(window.location.search.includes('utm'))
