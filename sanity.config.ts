@@ -18,7 +18,6 @@ const title =
   process.env.NEXT_PUBLIC_SANITY_PROJECT_TITLE || 'Next.js Blog with Sanity.io'
 
 export default defineConfig({
-  // @TODO: update next-sanity/studio to automatically set this when needed
   basePath: '/studio',
   projectId,
   dataset,
