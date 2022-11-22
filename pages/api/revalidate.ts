@@ -42,14 +42,13 @@ export default async function revalidate(
       return res.status(401).send(message)
     }
 
-    const { _id, _type } = body
-    if (typeof _id !== 'string' || !_id) {
+    if (typeof body._id !== 'string' || !body._id) {
       const invalidId = 'Invalid _id'
       console.error(invalidId, { body })
       return res.status(400).send(invalidId)
     }
 
-    const staleRoutes = await queryStaleRoutes({ _id, _type })
+    const staleRoutes = await queryStaleRoutes(body as any)
     await Promise.all(staleRoutes.map((route) => res.revalidate(route)))
 
     const updatedRoutes = `Updated routes: ${staleRoutes.join(', ')}`
@@ -64,9 +63,32 @@ export default async function revalidate(
 type StaleRoute = '/' | `/posts/${string}`
 
 async function queryStaleRoutes(
-  body: Pick<ParseBody['body'], '_type' | '_id'>
+  body: Pick<ParseBody['body'], '_type' | '_id' | 'date' | 'slug'>
 ): Promise<StaleRoute[]> {
   const client = createClient({ projectId, dataset, apiVersion, useCdn: false })
+
+  // Handle possible deletions
+  if (body._type === 'post') {
+    const exists = await client.fetch(groq`*[_id == $id][0]`, { id: body._id })
+    if (!exists) {
+      let staleRoutes: StaleRoute[] = ['/']
+      if ((body.slug as any)?.current) {
+        staleRoutes.push(`/posts/${(body.slug as any).current}`)
+      }
+      // Assume that the post document was deleted. Query the datetime used to sort "More stories" to determine if the post was in the list.
+      const moreStories = await client.fetch(
+        groq`count(
+          *[_type == "post"] | order(date desc, _updatedAt desc) [0...3] [dateTime(date) > dateTime($date)]
+        )`,
+        { date: body.date }
+      )
+      // If there's less than 3 posts with a newer date, we need to revalidate everything
+      if (moreStories < 3) {
+        return [...new Set([...(await queryAllRoutes(client)), ...staleRoutes])]
+      }
+      return staleRoutes
+    }
+  }
 
   switch (body._type) {
     case 'author':

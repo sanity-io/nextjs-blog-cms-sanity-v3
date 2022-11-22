@@ -1,5 +1,5 @@
 import { UserIcon } from '@sanity/icons'
-import { defineType } from 'sanity'
+import { defineField, defineType } from 'sanity'
 
 export default defineType({
   name: 'author',
@@ -7,18 +7,18 @@ export default defineType({
   icon: UserIcon,
   type: 'document',
   fields: [
-    {
+    defineField({
       name: 'name',
       title: 'Name',
       type: 'string',
       validation: (Rule) => Rule.required(),
-    },
-    {
+    }),
+    defineField({
       name: 'picture',
       title: 'Picture',
       type: 'image',
       options: { hotspot: true },
       validation: (Rule) => Rule.required(),
-    },
+    }),
   ],
 })
