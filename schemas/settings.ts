@@ -1,5 +1,5 @@
 import { CogIcon } from '@sanity/icons'
-import { defineType } from 'sanity'
+import { defineField, defineType } from 'sanity'
 
 export default defineType({
   name: 'settings',
@@ -9,13 +9,13 @@ export default defineType({
   // Uncomment below to have edits publish automatically as you type
   // liveEdit: true,
   fields: [
-    {
+    defineField({
       name: 'title',
       description: 'This field is the title of your blog.',
       title: 'Title',
       type: 'string',
       initialValue: 'Blog.',
       validation: (rule) => rule.required(),
-    },
+    }),
   ],
 })
