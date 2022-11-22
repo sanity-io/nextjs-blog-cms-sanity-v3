@@ -63,6 +63,7 @@ export default defineType({
       type: 'datetime',
     },
     {
+      initialValue: () => new Date().toISOString(),
       name: 'author',
       title: 'Author',
       type: 'reference',
