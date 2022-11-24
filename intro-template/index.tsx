@@ -1,4 +1,7 @@
+'use client'
+
 import Image from 'next/image'
+import Link from 'next/link'
 import { memo, useEffect, useState } from 'react'
 
 import cover from './cover.png'
@@ -31,7 +34,7 @@ export default memo(function IntroTemplate() {
     }
   }, [])
 
-  if (hasUTMtags) {
+  if (hasUTMtags || !studioURL) {
     return
   }
 
@@ -84,25 +87,21 @@ export default memo(function IntroTemplate() {
                   </div>
                   <div className="text-xs text-gray-700">
                     Your Sanity Studio is deployed at
-                    <a
+                    <Link
                       className="mx-1 underline hover:text-blue-800"
-                      target="_blank"
-                      rel="noreferrer"
                       href={studioURL}
                     >
                       {studioURL}
-                    </a>
+                    </Link>
                   </div>
 
                   <div className="mt-3">
-                    <a
+                    <Link
                       className="inline-flex rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-800"
                       href={createPostURL}
-                      target="_blank"
-                      rel="noopener noreferrer"
                     >
                       Go to Sanity Studio
-                    </a>
+                    </Link>
                   </div>
                 </div>
               }

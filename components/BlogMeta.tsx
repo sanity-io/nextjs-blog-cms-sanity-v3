@@ -28,10 +28,6 @@ export default function BlogMeta() {
       <meta name="msapplication-TileColor" content="#000000" />
       <meta name="msapplication-config" content="/favicon/browserconfig.xml" />
       <meta name="theme-color" content="#000" />
-      <meta
-        name="description"
-        content={`A statically generated blog example using Next.js and Sanity.`}
-      />
     </>
   )
 }

@@ -24,7 +24,7 @@ export default defineConfig({
   title,
   schema: {
     // If you want more content types, you can add them to this array
-    types: [settingsType, postType, authorType],
+    types: [authorType, postType, settingsType],
   },
   plugins: [
     deskTool({

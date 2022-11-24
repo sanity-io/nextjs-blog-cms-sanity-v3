@@ -7,8 +7,13 @@ import {
 } from 'lib/sanity.api'
 import { postBySlugQuery } from 'lib/sanity.queries'
 import type { NextApiRequest, NextApiResponse } from 'next'
+import type { PageConfig } from 'next/types'
 import { createClient } from 'next-sanity'
 import { getSecret } from 'plugins/productionUrl/utils'
+
+// res.setPreviewData only exists in the nodejs runtime, setting the config here allows changing the global runtime
+// option in next.config.mjs without breaking preview mode
+export const config: PageConfig = { runtime: 'nodejs' }
 
 function redirectToPreview(
   res: NextApiResponse<string | void>,
@@ -18,7 +23,11 @@ function redirectToPreview(
   // Enable Preview Mode by setting the cookies
   res.setPreviewData(previewData)
   // Redirect to a preview capable route
-  res.writeHead(307, { Location })
+  // FIXME: https://github.com/sanity-io/nextjs-blog-cms-sanity-v3/issues/95
+  // res.writeHead(307, { Location })
+  res.writeHead(307, {
+    Location: Location === '/' ? '/preview' : `/preview${Location}`,
+  })
   res.end()
 }
 
