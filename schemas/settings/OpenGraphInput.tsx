@@ -2,12 +2,7 @@ import { Card, Skeleton, Stack } from '@sanity/ui'
 import { height, OpenGraphImage, width } from 'components/OpenGraphImage'
 import { createIntlSegmenterPolyfill } from 'intl-segmenter-polyfill'
 import type { Settings } from 'lib/sanity.queries'
-import React, {  cache,
-  Suspense,
-  use,
-  useDeferredValue,
-  useMemo,
-} from 'react'
+import React, { cache, Suspense, use, useDeferredValue, useMemo } from 'react'
 import { type ObjectInputProps } from 'sanity'
 import _satori, { type SatoriOptions } from 'satori'
 import styled from 'styled-components'
