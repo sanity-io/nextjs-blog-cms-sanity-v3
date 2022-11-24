@@ -5,7 +5,6 @@ import {
   getSettings,
 } from 'lib/sanity.client'
 
-
 export async function generateStaticParams() {
   return await getAllPostsSlugs()
 }
