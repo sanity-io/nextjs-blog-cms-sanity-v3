@@ -16,7 +16,7 @@ export default async function SlugHead({
     <>
       <title>{post.title ? `${post.title} | ${title}` : title}</title>
       <BlogMeta />
-      {post.coverImage.asset?._ref && (
+      {post.coverImage?.asset?._ref && (
         <meta
           property="og:image"
           content={urlForImage(post.coverImage)
