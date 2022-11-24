@@ -4,9 +4,7 @@ import {
   getPostAndMoreStories,
   getSettings,
 } from 'lib/sanity.client'
-import { lazy } from 'react'
 
-const PreviewPostPage = lazy(() => import('components/PreviewPostPage'))
 
 export async function generateStaticParams() {
   return await getAllPostsSlugs()
