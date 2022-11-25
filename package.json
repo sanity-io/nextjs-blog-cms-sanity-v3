@@ -39,7 +39,7 @@
     "@types/react": "^18.0.25",
     "autoprefixer": "^10.4.13",
     "eslint": "^8.28.0",
-    "eslint-config-next": "13.0.6-canary.0",
+    "eslint-config-next": "13.0.6-canary.1",
     "eslint-plugin-simple-import-sort": "^8.0.0",
     "postcss": "^8.4.19",
     "prettier": "^2.8.0",
