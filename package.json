@@ -13,6 +13,9 @@
     "semi": false,
     "singleQuote": true
   },
+  "engines": {
+    "node": ">=16"
+  },
   "dependencies": {
     "@portabletext/react": "^2.0.0",
     "@sanity/image-url": "^1.0.1",
