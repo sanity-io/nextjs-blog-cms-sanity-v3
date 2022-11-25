@@ -1,11 +1,12 @@
 import PostPage from 'components/PostPage'
+import PreviewPostPage from 'components/PreviewPostPage'
 import { PreviewSuspense } from 'components/PreviewSuspense'
 import { getPostAndMoreStories, getSettings } from 'lib/sanity.client'
 import { previewData } from 'next/headers'
 import { redirect } from 'next/navigation'
-import { lazy } from 'react'
 
-const PreviewPostPage = lazy(() => import('components/PreviewPostPage'))
+// FIXME: https://github.com/vercel/next.js/issues/43147
+// const PreviewPostPage = lazy(() => import('components/PreviewPostPage'))
 
 // FIXME: https://github.com/sanity-io/nextjs-blog-cms-sanity-v3/issues/95
 
