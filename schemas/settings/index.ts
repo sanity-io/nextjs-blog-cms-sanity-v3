@@ -9,6 +9,7 @@ export default defineType({
   title: 'Settings',
   type: 'document',
   icon: CogIcon,
+  preview: { select: { title: 'title', subtitle: 'description' } },
   // Uncomment below to have edits publish automatically as you type
   // liveEdit: true,
   fields: [
