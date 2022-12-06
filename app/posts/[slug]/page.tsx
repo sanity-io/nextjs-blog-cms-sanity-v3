@@ -12,7 +12,11 @@ export async function generateStaticParams() {
   return await getAllPostsSlugs()
 }
 
-export default async function SlugRoute({params}: {params: { slug: string }}) {
+export default async function SlugRoute({
+  params,
+}: {
+  params: { slug: string }
+}) {
   // Start fetching settings early, so it runs in parallel with the post query
   const settings = getSettings()
 
