@@ -23,11 +23,7 @@ function redirectToPreview(
   // Enable Preview Mode by setting the cookies
   res.setPreviewData(previewData)
   // Redirect to a preview capable route
-  // FIXME: https://github.com/sanity-io/nextjs-blog-cms-sanity-v3/issues/95
-  // res.writeHead(307, { Location })
-  res.writeHead(307, {
-    Location: Location === '/' ? '/preview' : `/preview${Location}`,
-  })
+  res.writeHead(307, { Location })
   res.end()
 }
 
