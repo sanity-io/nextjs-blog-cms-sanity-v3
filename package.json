@@ -16,7 +16,7 @@
   "dependencies": {
     "@portabletext/react": "^2.0.0",
     "@sanity/image-url": "^1.0.1",
-    "@sanity/vision": "^3.0.5",
+    "@sanity/vision": "^3.0.6",
     "@vercel/og": "^0.0.21",
     "classnames": "^2.3.2",
     "date-fns": "^2.29.3",
@@ -26,7 +26,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-is": "^18.2.0",
-    "sanity": "^3.0.5",
+    "sanity": "^3.0.6",
     "sanity-plugin-asset-source-unsplash": "^1.0.1",
     "server-only": "^0.0.1",
     "styled-components": "^5.3.6",
