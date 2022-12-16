@@ -8,7 +8,7 @@ export default function Alert({
   preview?: boolean
   loading?: boolean
 }) {
-  if (!preview) return
+  if (!preview) return null
 
   return (
     <div className="border-b border-accent-7 bg-accent-7 text-white">
