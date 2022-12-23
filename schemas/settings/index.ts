@@ -37,7 +37,7 @@ export default defineType({
           marks: {
             decorators: [],
             annotations: [
-              defineType({
+              defineField({
                 type: 'object',
                 name: 'link',
                 fields: [
