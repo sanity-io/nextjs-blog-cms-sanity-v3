@@ -1,17 +1,15 @@
 import BlogMeta from 'components/BlogMeta'
 import * as demo from 'lib/demo.data'
-import { getPostBySlug, getSettings } from 'lib/sanity.client'
 import { urlForImage } from 'lib/sanity.image'
+import { Post, Settings } from 'lib/sanity.queries'
 
-export default async function SlugHead({
-  params,
-}: {
-  params: { slug: string }
-}) {
-  const [{ title = demo.title }, post] = await Promise.all([
-    getSettings(),
-    getPostBySlug(params.slug),
-  ])
+export interface PostPageHeadProps {
+  settings: Settings
+  post: Post
+}
+
+export default function PostPageHead({ settings, post }: PostPageHeadProps) {
+  const title = settings.title ?? demo.title
   return (
     <>
       <title>{post.title ? `${post.title} | ${title}` : title}</title>

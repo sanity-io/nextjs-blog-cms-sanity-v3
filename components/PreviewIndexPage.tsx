@@ -1,5 +1,3 @@
-'use client'
-
 import IndexPage from 'components/IndexPage'
 import { usePreview } from 'lib/sanity.preview'
 import {

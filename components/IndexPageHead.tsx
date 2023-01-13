@@ -1,14 +1,18 @@
 import BlogMeta from 'components/BlogMeta'
 import MetaDescription from 'components/MetaDescription'
 import * as demo from 'lib/demo.data'
-import { getSettings } from 'lib/sanity.client'
+import { Settings } from 'lib/sanity.queries'
 
-export default async function PageHead() {
+export interface IndexPageHeadProps {
+  settings: Settings
+}
+
+export default function IndexPageHead({ settings }: IndexPageHeadProps) {
   const {
     title = demo.title,
     description = demo.description,
     ogImage = {},
-  } = await getSettings()
+  } = settings
   const ogImageTitle = ogImage?.title || demo.ogImageTitle
 
   return (

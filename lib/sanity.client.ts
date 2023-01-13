@@ -1,5 +1,3 @@
-import 'server-only'
-
 import { apiVersion, dataset, projectId, useCdn } from 'lib/sanity.api'
 import {
   type Post,
