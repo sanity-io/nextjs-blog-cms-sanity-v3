@@ -1,29 +1,25 @@
-'use client'
-
-import PostPage from 'components/PostPage'
+import PostPage, { PostPageProps } from 'components/PostPage'
 import { usePreview } from 'lib/sanity.preview'
-import {
-  type Post,
-  type Settings,
-  postAndMoreStoriesQuery,
-  settingsQuery,
-} from 'lib/sanity.queries'
+import { type Post, postAndMoreStoriesQuery } from 'lib/sanity.queries'
 
 export default function PreviewPostPage({
   token,
-  slug,
+  post,
+  settings,
 }: {
   token: null | string
-  slug: string
-}) {
-  const data: { post: Post; morePosts: Post[] } = usePreview(
-    token,
-    postAndMoreStoriesQuery,
-    {
-      slug,
-    }
-  ) || { post: null, morePosts: [] }
-  const settings: Settings = usePreview(token, settingsQuery) || {}
+} & PostPageProps) {
+  const { post: postPreview, morePosts }: { post: Post; morePosts: Post[] } =
+    usePreview(token, postAndMoreStoriesQuery, {
+      slug: post.slug,
+    }) || { post: null, morePosts: [] }
 
-  return <PostPage preview data={data} settings={settings} />
+  return (
+    <PostPage
+      preview
+      post={postPreview}
+      morePosts={morePosts}
+      settings={settings}
+    />
+  )
 }
