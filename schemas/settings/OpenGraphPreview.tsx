@@ -25,26 +25,6 @@ const setupSegmenter = (_: undefined) => {
   }
 }
 
-const fontFetcher = (params: string) => {
-  const { name, style, weight, url } = JSON.parse(params)
-  return fetch(new URL(url))
-    .then((res) => res.arrayBuffer())
-    .then((arrayBuffer) => {
-      return { name, data: arrayBuffer, style, weight }
-    })
-}
-
-const useFont = (name, style, weight, url) => {
-  const { data, error, isLoading } = useSWR(
-    JSON.stringify({ name, style, weight, url }),
-    fontFetcher
-  )
-  return {
-    font: data,
-    isLoading,
-    isError: error,
-  }
-}
 // this fetcher function is highly specific, but otherwise NextJS does not "notice" we are importing a file from the public dir
 const interFetcher = () =>
   fetch('/Inter-Bold.woff')
