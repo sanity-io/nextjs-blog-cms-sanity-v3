@@ -2,48 +2,36 @@ import { Card } from '@sanity/ui'
 import { height, OpenGraphImage, width } from 'components/OpenGraphImage'
 import { createIntlSegmenterPolyfill } from 'intl-segmenter-polyfill'
 import type { Settings } from 'lib/sanity.queries'
-import React, { useMemo } from 'react'
 import satori, { type SatoriOptions } from 'satori'
 import styled from 'styled-components'
-import useSWR from 'swr'
+import useSWR, {preload} from 'swr'
 
-// we wrap the segmenter setup in SWR to enable caching
-const useSegmenter = () => {
-  const { data, error, isLoading } = useSWR(undefined, setupSegmenter)
-  return { data, isError: error, isLoading }
-}
-
-const setupSegmenter = (_: undefined) => {
+let fonts: SatoriOptions['fonts'] | undefined
+async function init(): Promise<SatoriOptions['fonts']> {
+  if(fonts) {
+    // Use the cached fonts if we already loaded them
+    return fonts
+  }
   if (!globalThis?.Intl?.Segmenter) {
     console.debug('Polyfilling Intl.Segmenter')
     //@ts-expect-error
     globalThis.Intl = globalThis.Intl || {}
-    return fetch(new URL('public/break_iterator.wasm', import.meta.url)).then(
-      //@ts-expect-error
-      (res) => (globalThis.Intl.Segmenter = createIntlSegmenterPolyfill(res))
+    //@ts-expect-error
+    globalThis.Intl.Segmenter = await createIntlSegmenterPolyfill(
+      fetch(new URL('public/break_iterator.wasm', import.meta.url))
     )
   }
+
+  const fontData = await fetch(
+    new URL('public/Inter-Bold.woff', import.meta.url)
+  ).then((res) => res.arrayBuffer())
+
+  fonts = [{ name: 'Inter', data: fontData, style: 'normal', weight: 700 }]
+  return fonts
 }
 
-// this fetcher function is highly specific, but otherwise NextJS does not "notice" we are importing a file from the public dir
-const interFetcher = () =>
-  fetch('/Inter-Bold.woff')
-    .then((res) => res.arrayBuffer())
-    .then((arrayBuffer) => [
-      { name: 'Inter', data: arrayBuffer, style: 'normal', weight: 700 },
-    ]) satisfies Promise<SatoriOptions['fonts']>
-
-const useInter = () => {
-  const { data: fonts, isLoading } = useSWR('Inter', interFetcher)
-  return {
-    fonts,
-    isLoading,
-  }
-}
-
-const satoriFetcher = (element, options) => {
-  return satori(element, options)
-}
+// preload fonts and polyfill
+preload('OpenGraphPreview.init', init)
 
 const OpenGraphSvg = styled(Card).attrs({
   radius: 3,
@@ -65,24 +53,13 @@ const OpenGraphSvg = styled(Card).attrs({
 `
 
 export default function OpenGraphPreview(props: Settings['ogImage']) {
-  const { fonts, isLoading: isFontLoading } = useInter()
-  const { isLoading: isSegmenterLoading } = useSegmenter()
+  // we wrap the segmenter setup and font loading in SWR to enable caching
+  const {data: fonts} = useSWR('OpenGraphPreview.init', init, {suspense: true})
 
-  const satoriElement = useMemo(
-    () => <OpenGraphImage title={props.title || ''} />,
-    [props.title]
-  )
-  const satoriOptions = { width, height, fonts: fonts }
-
-  const {
-    data: __html,
-    isLoading: isSatoriLoading,
-    error,
-  } = useSWR([satoriElement, satoriOptions], ([element, options]) => {
-    return satoriFetcher(element, options)
-  })
-
-  if (error || isSegmenterLoading) return null
+  // Also handle the satori render call in SWR to enable caching and only re-render when the title changes or fonts hot reload
+  const {data: __html} = useSWR([props.title, fonts satisfies SatoriOptions['fonts']], ([title, fonts]) => {
+    return satori(<OpenGraphImage title={title || ''} />, {width, height, fonts})
+  }, {suspense: true})
 
   return <OpenGraphSvg dangerouslySetInnerHTML={{ __html }} />
 }
