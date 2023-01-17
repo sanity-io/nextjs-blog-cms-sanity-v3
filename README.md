@@ -152,4 +152,4 @@ Go to the serverless function code in `/pages/api/revalidate.ts`. In the code co
 [vercel-isr]: https://nextjs.org/blog/next-12-1#on-demand-incremental-static-regeneration-beta
 [vercel]: https://vercel.com
 [vercel-github]: https://github.com/vercel/next.js/discussions
-[app-dir]: (https://beta.nextjs.org/docs/routing/fundamentals#the-app-directory)
+[app-dir]: https://beta.nextjs.org/docs/routing/fundamentals#the-app-directory
