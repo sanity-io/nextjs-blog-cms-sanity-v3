@@ -12,7 +12,6 @@ import type { Post, Settings } from 'lib/sanity.queries'
 import Head from 'next/head'
 import { notFound } from 'next/navigation'
 
-
 export interface PostPageProps {
   preview?: boolean
   loading?: boolean
