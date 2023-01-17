@@ -39,7 +39,7 @@
     "autoprefixer": "^10.4.13",
     "eslint": "^8.32.0",
     "eslint-config-next": "^13.1.2",
-    "eslint-plugin-simple-import-sort": "^8.0.0",
+    "eslint-plugin-simple-import-sort": "^9.0.0",
     "postcss": "^8.4.21",
     "prettier": "^2.8.3",
     "prettier-plugin-packagejson": "^2.4.0",
