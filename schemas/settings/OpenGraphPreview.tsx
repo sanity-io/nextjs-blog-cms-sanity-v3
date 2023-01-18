@@ -6,7 +6,6 @@ import satori, { type SatoriOptions } from 'satori'
 import styled from 'styled-components'
 import useSWR from 'swr/immutable'
 
-
 async function init(): Promise<SatoriOptions['fonts']> {
   if (!globalThis?.Intl?.Segmenter) {
     console.debug('Polyfilling Intl.Segmenter')
@@ -57,7 +56,11 @@ export default function OpenGraphPreview(props: Settings['ogImage']) {
   const { data: __html } = useSWR(
     [props.title, fonts satisfies SatoriOptions['fonts']],
     ([title, fonts]) => {
-      return satori(<OpenGraphImage title={title || ''} />, {width,height,fonts,})
+      return satori(<OpenGraphImage title={title || ''} />, {
+        width,
+        height,
+        fonts,
+      })
     },
     { suspense: true }
   )
