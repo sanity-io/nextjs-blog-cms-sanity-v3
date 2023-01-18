@@ -4,14 +4,10 @@ import { createIntlSegmenterPolyfill } from 'intl-segmenter-polyfill'
 import type { Settings } from 'lib/sanity.queries'
 import satori, { type SatoriOptions } from 'satori'
 import styled from 'styled-components'
-import useSWR, { preload } from 'swr'
+import useSWR from 'swr/immutable'
 
-let fonts: SatoriOptions['fonts'] | undefined
+
 async function init(): Promise<SatoriOptions['fonts']> {
-  if (fonts) {
-    // Use the cached fonts if we already loaded them
-    return fonts
-  }
   if (!globalThis?.Intl?.Segmenter) {
     console.debug('Polyfilling Intl.Segmenter')
     //@ts-expect-error
@@ -26,12 +22,11 @@ async function init(): Promise<SatoriOptions['fonts']> {
     new URL('public/Inter-Bold.woff', import.meta.url)
   ).then((res) => res.arrayBuffer())
 
-  fonts = [{ name: 'Inter', data: fontData, style: 'normal', weight: 700 }]
-  return fonts
+  return [{ name: 'Inter', data: fontData, style: 'normal', weight: 700 }]
 }
 
 // preload fonts and polyfill
-preload('OpenGraphPreview.init', init)
+const fontsPromise = init()
 
 const OpenGraphSvg = styled(Card).attrs({
   radius: 3,
@@ -54,7 +49,7 @@ const OpenGraphSvg = styled(Card).attrs({
 
 export default function OpenGraphPreview(props: Settings['ogImage']) {
   // we wrap the segmenter setup and font loading in SWR to enable caching
-  const { data: fonts } = useSWR('OpenGraphPreview.init', init, {
+  const { data: fonts } = useSWR('OpenGraphPreview.init', () => fontsPromise, {
     suspense: true,
   })
 
@@ -62,11 +57,7 @@ export default function OpenGraphPreview(props: Settings['ogImage']) {
   const { data: __html } = useSWR(
     [props.title, fonts satisfies SatoriOptions['fonts']],
     ([title, fonts]) => {
-      return satori(<OpenGraphImage title={title || ''} />, {
-        width,
-        height,
-        fonts,
-      })
+      return satori(<OpenGraphImage title={title || ''} />, {width,height,fonts,})
     },
     { suspense: true }
   )
