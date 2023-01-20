@@ -15,20 +15,20 @@
   },
   "dependencies": {
     "@portabletext/react": "^2.0.0",
-    "@sanity/image-url": "^1.0.1",
+    "@sanity/image-url": "^1.0.2",
     "@sanity/vision": "^3.2.4",
     "@vercel/og": "^0.0.27",
     "classnames": "^2.3.2",
     "date-fns": "^2.29.3",
     "intl-segmenter-polyfill": "^0.4.4",
     "next": "^13.1.2",
-    "next-sanity": "^4.1.0",
+    "next-sanity": "^4.1.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "sanity": "^3.2.4",
     "sanity-plugin-asset-source-unsplash": "^1.0.6",
     "suspend-react": "^0.0.9",
-    "swr": "^2.0.0"
+    "swr": "^2.0.1"
   },
   "devDependencies": {
     "@types/react": "^18.0.26",
