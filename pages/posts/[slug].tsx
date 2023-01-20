@@ -53,13 +53,7 @@ export default function ProjectSlugRoute(props: PageProps) {
     )
   }
 
-  return (
-    <PostPage
-      post={post}
-      morePosts={morePosts}
-      settings={settings}
-    />
-  )
+  return <PostPage post={post} morePosts={morePosts} settings={settings} />
 }
 
 export const getStaticProps: GetStaticProps<
