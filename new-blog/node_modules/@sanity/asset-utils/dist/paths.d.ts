@@ -1,0 +1,81 @@
+import type { FileUrlBuilderOptions, ImageUrlBuilderOptions, PathBuilderOptions, SanityAssetSource, SanityFileUrlParts, SanityImageUrlParts } from './types';
+/**
+ * Builds the base image path from the minimal set of parts required to assemble it
+ *
+ * @param asset - An asset-like shape defining ID, dimensions and extension
+ * @param options - Project ID and dataset the image belongs to, along with other options
+ * @return string
+ */
+export declare function buildImagePath(asset: ImageUrlBuilderOptions | SanityImageUrlParts, options?: PathBuilderOptions): string;
+/**
+ * Builds the base image URL from the minimal set of parts required to assemble it
+ *
+ * @param asset - An asset-like shape defining ID, dimensions and extension
+ * @param options - Project ID and dataset the image belongs to
+ * @return string
+ */
+export declare function buildImageUrl(asset: ImageUrlBuilderOptions | SanityImageUrlParts, options?: PathBuilderOptions): string;
+/**
+ * Builds the base file path from the minimal set of parts required to assemble it
+ *
+ * @param asset - An asset-like shape defining ID, dimensions and extension
+ * @param options - Project ID and dataset the file belongs to, along with other options
+ * @return string
+ */
+export declare function buildFilePath(asset: FileUrlBuilderOptions | SanityFileUrlParts, options?: PathBuilderOptions): string;
+/**
+ * Builds the base file URL from the minimal set of parts required to assemble it
+ *
+ * @param asset - An asset-like shape defining ID and extension
+ * @param options - Project ID and dataset the file belongs to, along with other options
+ * @return string
+ */
+export declare function buildFileUrl(asset: FileUrlBuilderOptions, project?: PathBuilderOptions): string;
+/**
+ * Tries to get the asset path from a given asset source
+ *
+ * @param src - The source image to infer an asset path from
+ * @returns A path if resolvable, undefined otherwise
+ */
+export declare function tryGetAssetPath(src: SanityAssetSource): string | undefined;
+/**
+ * Strips the CDN URL and query params from a URL, eg:
+ * `https://cdn.sanity.io/images/project/dataset/filename-200x200.jpg?foo=bar` =>
+ * `images/project/dataset/filename-200x200.jpg`
+ *
+ * @param url - URL to get path name from
+ * @returns The path of a CDN URL
+ * @throws If URL is not a valid Sanity asset URL
+ */
+export declare function getUrlPath(url: string): string;
+/**
+ * See {@link getUrlPath}
+ *
+ * @inheritFrom {@link getUrlPath}
+ * @returns Returns `undefined` instead of throwing if a value cannot be resolved
+ */
+export declare const tryGetUrlPath: (url: string) => any;
+/**
+ * Strips the CDN URL, path and query params from a URL, eg:
+ * `https://cdn.sanity.io/images/project/dataset/filename-200x200.jpg?foo=bar` =>
+ * `filename-200x200.jpg`
+ *
+ * @param url - URL to get filename from
+ * @returns The filename of an URL, if URL matches the CDN URL
+ * @throws If URL is not a valid Sanity asset URL
+ */
+export declare function getUrlFilename(url: string): string;
+/**
+ * See {@link getUrlFilename}
+ *
+ * @inheritFrom {@link getUrlFilename}
+ * @returns Returns `undefined` instead of throwing if a value cannot be resolved
+ */
+export declare const tryGetUrlFilename: (url: string) => any;
+/**
+ * Checks whether or not a given filename matches the expected Sanity asset filename pattern
+ *
+ * @param filename - Filename to check for validity
+ * @returns Whether or not the specified filename is valid
+ */
+export declare function isValidFilename(filename: string): boolean;

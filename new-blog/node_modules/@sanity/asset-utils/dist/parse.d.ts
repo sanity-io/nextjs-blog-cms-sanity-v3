@@ -1,0 +1,68 @@
+import type { SanityAssetIdParts, SanityFileAssetIdParts, SanityImageAssetIdParts, SanityAssetUrlParts, SanityFileUrlParts, SanityImageUrlParts } from './types';
+/**
+ * Parses a Sanity asset document ID into individual parts (type, id, extension, width/height etc)
+ *
+ * @param documentId - Document ID to parse into named parts
+ * @returns Object of named properties
+ * @throws If document ID is invalid
+ */
+export declare function parseAssetId(documentId: string): SanityAssetIdParts;
+/**
+ * Parses a Sanity file asset document ID into individual parts (type, id, extension)
+ *
+ * @param documentId - File asset document ID to parse into named parts
+ * @returns Object of named properties
+ * @throws If document ID invalid
+ */
+export declare function parseFileAssetId(documentId: string): SanityFileAssetIdParts;
+/**
+ * Parses a Sanity image asset document ID into individual parts (type, id, extension, width, height)
+ *
+ * @param documentId - Image asset document ID to parse into named parts
+ * @returns Object of named properties
+ * @throws If document ID invalid
+ */
+export declare function parseImageAssetId(documentId: string): SanityImageAssetIdParts;
+/**
+ * Parses a Sanity asset filename into individual parts (type, id, extension, width, height)
+ *
+ * @param filename - Filename to parse into named parts
+ * @returns Object of named properties
+ * @throws If image/filename is invalid
+ */
+export declare function parseAssetFilename(filename: string): SanityAssetIdParts;
+/**
+ * Parses a full Sanity asset URL into individual parts
+ * (type, project ID, dataset, id, extension, width, height)
+ *
+ * @param url - Full URL to parse into named parts
+ * @returns Object of named properties
+ * @throws If URL is invalid or not a Sanity asset URL
+ */
+export declare function parseAssetUrl(url: string): SanityAssetUrlParts;
+/**
+ * Parses a full Sanity image asset URL into individual parts
+ * (type, project ID, dataset, id, extension, width, height)
+ *
+ * @param url - Full URL to parse into named parts
+ * @returns Object of named properties
+ * @throws If URL is invalid or not a Sanity image asset URL
+ */
+export declare function parseImageAssetUrl(url: string): SanityImageUrlParts;
+/**
+ * Parses a full Sanity file asset URL into individual parts
+ * (type, project ID, dataset, id, extension, width, height)
+ *
+ * @param url - Full URL to parse into named parts
+ * @returns Object of named properties
+ * @throws If URL is invalid or not a Sanity file asset URL
+ */
+export declare function parseFileAssetUrl(url: string): SanityFileUrlParts;
+/**
+ * Validates that a given URL is a Sanity asset URL, and returns the asset type if valid.
+ *
+ * @param url URL to extract asset type from
+ * @returns Asset type if valid URL, false otherwise
+ * @internal
+ */
+export declare function getAssetUrlType(url: string): 'image' | 'file' | false;

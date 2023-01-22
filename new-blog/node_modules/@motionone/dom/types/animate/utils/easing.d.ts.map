@@ -1,0 +1,1 @@
+{"version":3,"file":"easing.d.ts","sourceRoot":"","sources":["../../../src/animate/utils/easing.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,gBAAgB,EAAE,MAAM,EAAE,cAAc,EAAE,MAAM,kBAAkB,CAAA;AAOhF,eAAO,MAAM,0BAA0B,WAC7B,cAAc,YACZ,MAAM,KACf,MASF,CAAA;AAED,eAAO,MAAM,aAAa,WAChB,MAAM,GAAG,cAAc,YACrB,MAAM,KACf,MAQF,CAAA;AAED,eAAO,MAAM,mBAAmB,4CACQ,CAAA"}

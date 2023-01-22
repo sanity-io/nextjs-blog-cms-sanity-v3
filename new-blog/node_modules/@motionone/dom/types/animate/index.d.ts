@@ -1,0 +1,2 @@
+export declare const animate: (elements: import("..").ElementOrSelector, keyframes: import("./types").MotionKeyframesDefinition, options?: import("./types").AnimationOptionsWithOverrides) => import("@motionone/types").AnimationControls;
+//# sourceMappingURL=index.d.ts.map

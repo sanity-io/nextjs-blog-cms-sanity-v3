@@ -1,0 +1,24 @@
+{
+  "root": true,
+  "project": {
+    "name": "blog"
+  },
+  "api": {
+    "projectId": "d6brmw0b",
+    "dataset": "production"
+  },
+  "plugins": [
+    "@sanity/base",
+    "@sanity/default-layout",
+    "@sanity/default-login",
+    "@sanity/desk-tool"
+  ],
+  "env": {
+    "development": {
+      "plugins": []
+    }
+  },
+  "parts": [
+
+  ]
+}

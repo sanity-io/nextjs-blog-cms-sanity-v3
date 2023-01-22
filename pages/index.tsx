@@ -3,9 +3,13 @@ import IndexPage from 'components/IndexPage'
 import { getAllPosts, getSettings } from 'lib/sanity.client'
 import { Post, Settings } from 'lib/sanity.queries'
 import { GetStaticProps } from 'next'
-import { lazy } from 'react'
+import dynamic from 'next/dynamic'
 
-const PreviewIndexPage = lazy(() => import('components/PreviewIndexPage'))
+// React style lazy loading
+// const PreviewIndexPage = lazy(() => import('components/PreviewIndexPage'))
+
+// Next.js style lazy loading
+const PreviewIndexPage = dynamic(() => import('components/PreviewIndexPage'))
 
 interface PageProps {
   posts: Post[]

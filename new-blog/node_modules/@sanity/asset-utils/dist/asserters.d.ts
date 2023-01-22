@@ -1,0 +1,85 @@
+import type { SanityAssetIdStub, SanityAssetObjectStub, SanityAssetPathStub, SanityAssetUrlStub, SanityFileAsset, SanityImageAsset, SanityReference } from './types';
+/**
+ * Checks whether or not the given source is a Sanity reference
+ * (an object containing _ref string key)
+ *
+ * @param ref - Possible reference
+ * @returns Whether or not the passed object is a reference
+ */
+export declare function isReference(ref: unknown): ref is SanityReference;
+/**
+ * Checks whether or not the given source is an asset ID stub
+ * (an object containing an `_id` property)
+ *
+ * @param stub - Possible asset id stub
+ * @returns Whether or not the passed object is an object id stub
+ */
+export declare function isAssetIdStub(stub: unknown): stub is SanityAssetIdStub;
+/**
+ * Checks whether or not the given source is an asset path stub
+ * (an object containing a `path` property)
+ *
+ * @param stub - Possible asset path stub
+ * @returns Whether or not the passed object is an object path stub
+ */
+export declare function isAssetPathStub(stub: unknown): stub is SanityAssetPathStub;
+/**
+ * Checks whether or not the given source is an asset URL stub
+ * (an object containing a `url` property)
+ *
+ * @param stub - Possible asset url stub
+ * @returns Whether or not the passed object is an object url stub
+ */
+export declare function isAssetUrlStub(stub: unknown): stub is SanityAssetUrlStub;
+/**
+ * Checks whether or not the given source is a (partial) sanity file asset document.
+ * Only checks the `_type` property, all other properties _may_ be missing
+ *
+ * @param src - Source to check
+ * @returns Whether or not the given source is a file asset
+ */
+export declare function isSanityFileAsset(src: unknown): src is SanityFileAsset;
+/**
+ * Checks whether or not the given source is a (partial) sanity image asset document.
+ * Only checks the `_type` property, all other properties _may_ be missing
+ *
+ * @param src - Source to check
+ * @returns Whether or not the given source is a file asset
+ */
+export declare function isSanityImageAsset(src: unknown): src is SanityImageAsset;
+/**
+ * Checks whether or not the given document ID is a valid Sanity image asset document ID
+ *
+ * @param documentId - Document ID to check
+ * @returns Whether or not the given document ID is a Sanity image asset document ID
+ */
+export declare function isImageAssetId(documentId: string): boolean;
+/**
+ * Checks whether or not the given document ID is a valid Sanity file asset document ID
+ *
+ * @param documentId - Document ID to check
+ * @returns Whether or not the given document ID is a Sanity file asset document ID
+ */
+export declare function isFileAssetId(documentId: string): boolean;
+/**
+ * Checks whether or not the given document ID is a valid Sanity asset document ID (file or image)
+ *
+ * @param documentId - Document ID to check
+ * @returns Whether or not the given document ID is a Sanity asset document ID (file or image)
+ */
+export declare function isAssetId(documentId: string): boolean;
+/**
+ * Checks whether or not the given source is an asset object stub
+ *
+ * @param stub - Possible asset object stub
+ * @returns Whether or not the passed object is an object stub
+ */
+export declare function isAssetObjectStub(stub: unknown): stub is SanityAssetObjectStub;
+/**
+ * Checks whether or not the passed object is an object (and not `null`)
+ *
+ * @param obj Item to check whether or not is an object
+ * @returns Whether or not `obj` is an object
+ * @internal
+ */
+export declare function isObject(obj: unknown): obj is object;

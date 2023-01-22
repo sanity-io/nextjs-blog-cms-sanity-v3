@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@portabletext/react": "^2.0.0",
+    "@sanity/core": "^2.35.0",
     "@sanity/image-url": "^1.0.2",
     "@sanity/vision": "^3.2.4",
     "@vercel/og": "^0.0.27",
@@ -27,6 +28,7 @@
     "react-dom": "^18.2.0",
     "sanity": "^3.2.4",
     "sanity-plugin-asset-source-unsplash": "^1.0.6",
+    "styled-components": "^5.3.6",
     "suspend-react": "^0.0.9",
     "swr": "^2.0.1"
   },
