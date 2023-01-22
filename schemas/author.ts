@@ -1,6 +1,7 @@
 import { UserIcon } from '@sanity/icons'
 import { defineField, defineType } from 'sanity'
 
+// current examples seem to define types without calling this function
 export default defineType({
   name: 'author',
   title: 'Author',
