@@ -1,5 +1,6 @@
 import { PreviewSuspense } from '@sanity/preview-kit'
 import IndexPage from 'components/IndexPage'
+import { motion } from 'framer-motion'
 import { getAllPosts, getSettings } from 'lib/sanity.client'
 import { Post, Settings } from 'lib/sanity.queries'
 import { GetStaticProps } from 'next'
@@ -40,8 +41,17 @@ export default function Page(props: PageProps) {
       </PreviewSuspense>
     )
   }
-
-  return <IndexPage posts={posts} settings={settings} />
+  return (
+    <>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1 }}
+      >
+        <IndexPage posts={posts} settings={settings} />
+      </motion.div>
+    </>
+  )
 }
 
 export const getStaticProps: GetStaticProps<

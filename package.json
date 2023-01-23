@@ -21,6 +21,7 @@
     "@vercel/og": "^0.0.27",
     "classnames": "^2.3.2",
     "date-fns": "^2.29.3",
+    "framer-motion": "^8.5.0",
     "intl-segmenter-polyfill": "^0.4.4",
     "next": "^13.1.2",
     "next-sanity": "^4.1.1",
