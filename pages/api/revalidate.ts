@@ -22,7 +22,7 @@
 
 import { apiVersion, dataset, projectId } from 'lib/sanity.api'
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { type SanityClient, createClient, groq } from 'next-sanity'
+import { createClient, groq,type SanityClient } from 'next-sanity'
 import { type ParseBody, parseBody } from 'next-sanity/webhook'
 
 export { config } from 'next-sanity/webhook'
