@@ -94,5 +94,6 @@ export const getStaticPaths = async () => {
   return {
     paths: slugs?.map(({ slug }) => `/posts/${slug}`) || [],
     fallback: false,
+    revalidate: 10,
   }
 }
