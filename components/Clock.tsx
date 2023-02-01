@@ -1,3 +1,4 @@
+// @ts-nocheck
 import useCountdown from '@bradgarropy/use-countdown'
 import { format } from 'date-fns'
 import { motion } from 'framer-motion'
@@ -8,18 +9,6 @@ function Clock() {
   const [clockInTime, setClockInTime] = useState(null)
   const [totalHours, setTotalHours] = useState(0)
   const [totalMinutes, setTotalMinutes] = useState(0)
-  const [intervalId, setIntervalId] = useState(null)
-
-  useEffect(() => {
-    const id = setInterval(() => setTime(new Date()), 1000)
-    setIntervalId(id)
-
-    return () => {
-      if (intervalId) {
-        clearInterval(intervalId)
-      }
-    }
-  }, [])
 
   function clockIn() {
     setClockInTime(time)
@@ -34,7 +23,12 @@ function Clock() {
     setClockInTime(null)
   }
 
-  const timer = useCountdown({ seconds: 10 })
+  const timer = useCountdown({
+    seconds: 10,
+    onCompleted: () => {
+      // alert("Timer Complete")
+    },
+  })
 
   return (
     <div className="flex h-screen flex-col justify-center gap-2 gap-y-8 bg-blue-800 p-8 text-center">
