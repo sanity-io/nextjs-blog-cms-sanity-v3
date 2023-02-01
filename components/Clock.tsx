@@ -23,12 +23,20 @@ function Clock() {
     setClockInTime(null)
   }
 
+  //remaining hours and do something when they run out
   const timer = useCountdown({
     seconds: 10,
     onCompleted: () => {
       // alert("Timer Complete")
     },
   })
+
+  useEffect(() => {
+    // update clock
+    setInterval(() => {
+      setTime(new Date())
+    }, 1000)
+  }, [])
 
   return (
     <div className="flex h-screen flex-col justify-center gap-2 gap-y-8 bg-blue-800 p-8 text-center">
