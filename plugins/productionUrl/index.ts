@@ -4,7 +4,7 @@
  * @TODO the code in this plugin is a candidate for moving into `@sanity/preview-kit/studio`
  */
 
-import { type Slug, definePlugin } from 'sanity'
+import { definePlugin,type Slug } from 'sanity'
 
 import { getSecret } from './utils'
 
