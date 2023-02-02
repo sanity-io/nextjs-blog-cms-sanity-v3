@@ -1,5 +1,5 @@
 import { PortableText } from '@portabletext/react'
-import { motion } from 'framer-motion'
+import { motion, spring } from 'framer-motion'
 import Link from 'next/link'
 
 import styles from './BlogHeader.module.css'
@@ -23,9 +23,20 @@ export default function BlogHeader({
             transition={{ duration: 1 }}
           >
             <header className="mt-16 mb-10 flex flex-col items-center md:mb-12 md:flex-row md:justify-between">
-              <h1 className="text-6xl font-bold leading-tight tracking-tighter md:pr-8 md:text-8xl">
+              <motion.h1
+                initial={{ y: -100 }}
+                animate={{ y: 0, scale: 1.3 }}
+                transition={{ duration: 1, type: 'spring', bounce: 0.1 }}
+                className="text-6xl font-bold leading-tight tracking-tighter md:pr-8 md:text-8xl"
+              >
                 {title}
-              </h1>
+              </motion.h1>
+              <motion.div
+                animate={{ rotateX: 0, rotateZ: 0, rotateY: 360 }}
+                className="mx-auto flex items-center justify-center rounded-full border p-4"
+              >
+                <p>🧙🏾‍♂️</p>
+              </motion.div>
               <h4
                 className={`mt-5 text-center text-lg md:pl-8 md:text-left ${styles.portableText}`}
               >

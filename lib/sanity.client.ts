@@ -58,6 +58,7 @@ export async function getPostAndMoreStories(
       useCdn,
       token: token || undefined,
     })
+    console.log(slug)
     return await client.fetch(postAndMoreStoriesQuery, { slug })
   }
   return { post: null, morePosts: [] }
