@@ -1,6 +1,7 @@
 import { PortableText } from '@portabletext/react'
 import { motion, spring, useAnimationControls } from 'framer-motion'
 import Link from 'next/link'
+import { useState } from 'react'
 
 import styles from './BlogHeader.module.css'
 
@@ -17,10 +18,14 @@ export default function BlogHeader({
     hidden: { opacity: 0, transition: { duration: 2 } },
     turnLeft: { rotateY: 180 },
     turnRight: { rotateY: -180 },
-    jump: { y: -10, transition: { repeat: Infinity, type: 'reverse' } },
+    jump: {
+      y: 0,
+      transition: { repeat: 1, type: 'reverse' },
+    },
   }
 
   const controls = useAnimationControls()
+  const [direction, setDirection] = useState(true)
 
   switch (level) {
     case 1:
@@ -50,18 +55,19 @@ export default function BlogHeader({
                   opacity: 1,
                   padding: 20,
                 }}
-                className="mx-auto flex items-center justify-center rounded-full border p-4 shadow-xl"
+                className="mx-auto flex items-center justify-center rounded-full border p-4 shadow-xl md:hidden"
               >
                 <motion.a
                   // animate={{ rotateY: 180, opacity: 1 }}
                   animate={controls}
                   variants={mageVariants}
                   // href="/studio"
-                  className=" "
+                  className=""
                   onClick={() => {
-                    controls.start('jump')
-                    controls.start('turnLeft')
-                    controls.set('hidden')
+                    setDirection(!direction)
+                    direction
+                      ? controls.start('turnLeft')
+                      : controls.start('turnRight')
                   }}
                 >
                   🧙🏾‍♂️
