@@ -33,27 +33,32 @@ export default function ProjectSlugRoute(props: PageProps) {
 
   const router = useRouter()
 
+  // If pages haven't been built yet we use this catch all
+  //We simply show use this catch-all until the path has been built
   if (router.isFallback) {
+    return <div>Loading....</div>
+  }
+
+  if (preview) {
     return (
-      <div>Loading...</div>
-      // <PreviewSuspense
-      //   fallback={
-      //     <PostPage
-      //       loading
-      //       preview
-      //       post={post}
-      //       morePosts={morePosts}
-      //       settings={settings}
-      //     />
-      //   }
-      // >
-      //   <PreviewPostPage
-      //     token={token}
-      //     post={post}
-      //     morePosts={morePosts}
-      //     settings={settings}
-      //   />
-      // </PreviewSuspense>
+      <PreviewSuspense
+        fallback={
+          <PostPage
+            loading
+            preview
+            post={post}
+            morePosts={morePosts}
+            settings={settings}
+          />
+        }
+      >
+        <PreviewPostPage
+          token={token}
+          post={post}
+          morePosts={morePosts}
+          settings={settings}
+        />
+      </PreviewSuspense>
     )
   }
 
