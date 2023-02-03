@@ -1,9 +1,10 @@
 import { PortableText } from '@portabletext/react'
-import { motion, spring, useAnimationControls } from 'framer-motion'
+import { motion, useAnimationControls } from 'framer-motion'
 import Link from 'next/link'
 import { useState } from 'react'
 
 import styles from './BlogHeader.module.css'
+import Mage from './Mage'
 
 export default function BlogHeader({
   title,
@@ -14,16 +15,6 @@ export default function BlogHeader({
   description?: any[]
   level: 1 | 2
 }) {
-  const mageVariants = {
-    hidden: { opacity: 0, transition: { duration: 2 } },
-    turnLeft: { rotateY: 180 },
-    turnRight: { rotateY: -180 },
-    jump: {
-      y: 0,
-      transition: { repeat: 1, type: 'reverse' },
-    },
-  }
-
   const controls = useAnimationControls()
   const [direction, setDirection] = useState(true)
 
@@ -45,34 +36,7 @@ export default function BlogHeader({
               >
                 {title}
               </motion.h1>
-              <motion.div
-                animate={{
-                  rotateX: 0,
-                  rotateZ: 0,
-                  rotateY: 360,
-                  x: 0,
-                  z: -10,
-                  opacity: 1,
-                  padding: 20,
-                }}
-                className="mx-auto flex items-center justify-center rounded-full border p-4 shadow-xl md:hidden"
-              >
-                <motion.a
-                  // animate={{ rotateY: 180, opacity: 1 }}
-                  animate={controls}
-                  variants={mageVariants}
-                  // href="/studio"
-                  className=""
-                  onClick={() => {
-                    setDirection(!direction)
-                    direction
-                      ? controls.start('turnLeft')
-                      : controls.start('turnRight')
-                  }}
-                >
-                  🧙🏾‍♂️
-                </motion.a>
-              </motion.div>
+              <Mage controls={controls} />
               <h4
                 className={`mt-5 text-center text-lg md:pl-8 md:text-left ${styles.portableText}`}
               >

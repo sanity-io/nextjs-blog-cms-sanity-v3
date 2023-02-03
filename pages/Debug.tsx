@@ -7,8 +7,9 @@ type Props = {}
 
 export default function debug({}: Props) {
   return (
-    <div>
+    <div className="h-screen max-h-screen w-full max-w-[100vh] ">
       {/* <Header /> */}
+      <Clock />
       <Clock />
     </div>
   )
