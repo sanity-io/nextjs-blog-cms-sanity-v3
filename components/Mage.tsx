@@ -8,19 +8,27 @@ type Props = { controls: any }
 export default function Mage({ controls }: Props) {
   const [mousePosition, setMousePosition] = useState(null)
 
-  useEffect(() => {
-    window.addEventListener('mousemove', (event) => {
-      setMousePosition(event.clientX)
-      // console.log('mouse', mousePosition)
-      // console.log('window', window.innerWidth / 2)
-      mousePosition > window.innerWidth / 2
-        ? controls.start('turnLeft')
-        : controls.start('turnRight')
-    })
-    return () => {
-      window.removeEventListener('mousemove', setMousePosition)
-    }
-  }, [mousePosition, controls])
+  const handleUserKeyPress = useCallback((event) => {
+    const { key, keyCode } = event
+    // console.log(key)
+    // console.log(keyCode)
+  }, [])
+
+  // useEffect(() => {
+  //   window.addEventListener('mousemove', (event) => {
+  //     setMousePosition(event.screenX)
+  //   })
+  //   // console.log(mousePosition)
+  //   if (mousePosition > window.innerWidth / 2) {
+  //     turn()
+  //   }
+  //   if (mousePosition < window.innerWidth / 2) {
+  //     turn()
+  //   }
+  //   return () => {
+  //     window.removeEventListener('mousemove', setMousePosition)
+  //   }
+  // }, [mousePosition, turn])
 
   const mageVariants = {
     show: { opacity: 1, scale: 1 },
@@ -44,6 +52,15 @@ export default function Mage({ controls }: Props) {
     hidden: { opacity: 0, scale: 0 },
     big: { opacity: 1, scale: 1.2 },
   }
+
+  const [direction, setDirection] = useState(false)
+
+  // const turn = () => {
+  //   mousePosition < window.innerWidth / 2
+  //     ? controls.start('turnRight')
+  //     : controls.start('turnLeft')
+  //   setDirection(!direction)
+  // }
 
   return (
     <motion.div

@@ -7,7 +7,7 @@ import {
 } from 'lib/sanity.client'
 import { Post, Settings } from 'lib/sanity.queries'
 import { GetStaticProps } from 'next'
-import useRouter from 'next/router'
+import { useRouter } from 'next/router'
 import { lazy } from 'react'
 
 const PreviewPostPage = lazy(() => import('components/PreviewPostPage'))
@@ -31,26 +31,29 @@ interface PreviewData {
 export default function ProjectSlugRoute(props: PageProps) {
   const { settings, post, morePosts, preview, token } = props
 
-  if (preview) {
+  const router = useRouter()
+
+  if (router.isFallback) {
     return (
-      <PreviewSuspense
-        fallback={
-          <PostPage
-            loading
-            preview
-            post={post}
-            morePosts={morePosts}
-            settings={settings}
-          />
-        }
-      >
-        <PreviewPostPage
-          token={token}
-          post={post}
-          morePosts={morePosts}
-          settings={settings}
-        />
-      </PreviewSuspense>
+      <div>Loading...</div>
+      // <PreviewSuspense
+      //   fallback={
+      //     <PostPage
+      //       loading
+      //       preview
+      //       post={post}
+      //       morePosts={morePosts}
+      //       settings={settings}
+      //     />
+      //   }
+      // >
+      //   <PreviewPostPage
+      //     token={token}
+      //     post={post}
+      //     morePosts={morePosts}
+      //     settings={settings}
+      //   />
+      // </PreviewSuspense>
     )
   }
 
@@ -62,7 +65,7 @@ export const getStaticPaths = async () => {
 
   return {
     paths: slugs?.map(({ slug }) => `/posts/${slug}`) || [],
-    fallback: false,
+    fallback: true,
   }
 }
 

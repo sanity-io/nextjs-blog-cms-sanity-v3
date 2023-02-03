@@ -6,6 +6,8 @@ import { Post, Settings } from 'lib/sanity.queries'
 import { GetStaticProps } from 'next'
 import dynamic from 'next/dynamic'
 
+import { getStaticPaths } from './posts/[slug]'
+
 // React style lazy loading
 // const PreviewIndexPage = lazy(() => import('components/PreviewIndexPage'))
 

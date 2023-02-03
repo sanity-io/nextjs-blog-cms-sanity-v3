@@ -16,7 +16,6 @@
   "dependencies": {
     "@bradgarropy/use-countdown": "^1.5.2",
     "@portabletext/react": "^2.0.0",
-    "@sanity/core": "^2.35.0",
     "@sanity/image-url": "^1.0.2",
     "@sanity/vision": "^3.2.4",
     "@vercel/og": "^0.0.27",
@@ -28,13 +27,14 @@
     "next-sanity": "^4.1.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "sanity": "^3.2.4",
+    "sanity": "^3.2.6",
     "sanity-plugin-asset-source-unsplash": "^1.0.6",
     "styled-components": "^5.3.6",
     "suspend-react": "^0.0.9",
     "swr": "^2.0.1"
   },
   "devDependencies": {
+    "@types/node": "18.11.18",
     "@types/react": "^18.0.27",
     "autoprefixer": "^10.4.13",
     "eslint": "^8.32.0",
@@ -49,5 +49,11 @@
   },
   "engines": {
     "node": ">=16"
-  }
+  },
+  "name": "nextjs-blog-cms-sanity-v3",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/itripleg/nextjs-blog-cms-sanity-v3.git",
+  "author": "Joshua Bell <joshua.bell.828@gmail.com>",
+  "license": "MIT"
 }
