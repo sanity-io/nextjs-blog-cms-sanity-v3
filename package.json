@@ -16,6 +16,8 @@
   "dependencies": {
     "@bradgarropy/use-countdown": "^1.5.2",
     "@portabletext/react": "^2.0.0",
+    "@react-three/drei": "^9.56.12",
+    "@react-three/fiber": "^8.10.4",
     "@sanity/image-url": "^1.0.2",
     "@sanity/vision": "^3.2.4",
     "@vercel/og": "^0.0.27",
@@ -31,7 +33,8 @@
     "sanity-plugin-asset-source-unsplash": "^1.0.6",
     "styled-components": "^5.3.6",
     "suspend-react": "^0.0.9",
-    "swr": "^2.0.1"
+    "swr": "^2.0.1",
+    "three": "^0.149.0"
   },
   "devDependencies": {
     "@types/node": "18.11.18",

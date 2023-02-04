@@ -1,8 +1,15 @@
+import {
+  Environment,
+  OrbitControls,
+  PerspectiveCamera,
+} from '@react-three/drei'
+import { Canvas } from '@react-three/fiber'
 import Avatar from 'components/AuthorAvatar'
 import CoverImage from 'components/CoverImage'
 import Date from 'components/PostDate'
 import { motion, useAnimation, useInView } from 'framer-motion'
 import type { Post } from 'lib/sanity.queries'
+import House from 'models/House'
 import Link from 'next/link'
 import { useEffect, useRef } from 'react'
 
@@ -27,22 +34,52 @@ export default function PostPreview({
       transition: { duration: 1, type: 'spring', bounce: 0.5 },
     },
   }
-
+  console.log(title)
   return (
     // <motion.div className="" animate={{ opacity: 1 }}>
     <motion.div className="" animate={{ opacity: 1, scale: 1 }}>
-      <motion.div
-        className="mb-5 shadow-2xl"
-        variants={headerVariants}
-        whileInView={'image'}
-      >
-        <CoverImage
-          slug={slug}
-          title={title}
-          image={coverImage}
-          priority={false}
-        />
-      </motion.div>
+      {title.includes('3d') || title.includes('3D') ? (
+        <div className="mb-8 h-[250px] flex-shrink-0 sm:mx-0 md:mb-16 md:h-[135px] lg:h-[185px] xl:h-[316px]">
+          {/* <CoverImage title={title} image={coverImage} priority slug={slug} /> */}
+          {/* <div>this page is 3d</div> */}
+          <div className="h-full w-auto">
+            <Canvas>
+              <Environment preset="sunset" />
+              <House scale={0.1} position={[0, -75, 0]} />
+              <OrbitControls
+                enablePan={false}
+                enableZoom={false}
+                // target={camRef}
+                autoRotate={true}
+                autoRotateSpeed={0.5}
+                makeDefault
+                rotateSpeed={0.2}
+                maxAzimuthAngle={Infinity}
+                maxPolarAngle={1.9}
+                // minPolarAngle={-180}
+                maxDistance={400}
+                minDistance={-10}
+              />
+              {/* @ts-ignore */}
+              <PerspectiveCamera
+                makeDefault
+                position={[-5000, 2000, -1000]}
+                zoom={1}
+              />
+            </Canvas>
+          </div>
+        </div>
+      ) : (
+        <motion.div
+          className="mb-5 "
+          variants={headerVariants}
+          whileInView={'image'}
+        >
+          <div className="mb-8 sm:mx-0 md:mb-16">
+            <CoverImage title={title} image={coverImage} priority slug={slug} />
+          </div>
+        </motion.div>
+      )}
       <motion.h3
         className="mb-3 text-3xl leading-snug"
         variants={headerVariants}
