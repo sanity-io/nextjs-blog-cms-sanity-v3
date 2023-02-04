@@ -11,3 +11,5 @@
     @apply p-4 bg-green-800 rounded-sm w-[200px]
   }
 }
+
+a{@apply cursor-pointer}
