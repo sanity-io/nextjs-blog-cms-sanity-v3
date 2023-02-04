@@ -10,9 +10,10 @@ import CoverImage from 'components/CoverImage'
 import Date from 'components/PostDate'
 import PostTitle from 'components/PostTitle'
 import type { Post } from 'lib/sanity.queries'
-import Bakery from 'models/Bakery'
-import House from 'models/House'
-import Office from 'models/Office'
+import dynamic from 'next/dynamic'
+const Bakery = dynamic(() => import('../models/Bakery'))
+const House = dynamic(() => import('../models/House'))
+const Office = dynamic(() => import('../models/Office'))
 
 export default function PostHeader(
   props: Pick<Post, 'title' | 'coverImage' | 'date' | 'author' | 'slug'>
