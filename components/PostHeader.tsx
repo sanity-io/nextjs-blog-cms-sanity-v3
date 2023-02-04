@@ -10,7 +10,9 @@ import CoverImage from 'components/CoverImage'
 import Date from 'components/PostDate'
 import PostTitle from 'components/PostTitle'
 import type { Post } from 'lib/sanity.queries'
+import Bakery from 'models/Bakery'
 import House from 'models/House'
+import Office from 'models/Office'
 
 export default function PostHeader(
   props: Pick<Post, 'title' | 'coverImage' | 'date' | 'author' | 'slug'>
@@ -29,7 +31,19 @@ export default function PostHeader(
           <div className="h-full w-auto">
             <Canvas>
               <Environment preset="sunset" />
-              <House scale={0.1} position={[0, -75, 0]} />
+              {/* <House scale={0.1} position={[0, -75, 0]} /> */}
+              {/* <House scale={0.001} position={[0, 0, 0]} /> */}
+              {title.includes('office') ? (
+                <Office scale={7} position={[0, -20, 0]} />
+              ) : title.includes('bakery') ? (
+                <Bakery scale={10} position={[0, -5, 0]} />
+              ) : (
+                <House
+                  scale={0.01}
+                  rotation={[0, 45, 0]}
+                  position={[0, -5, 0]}
+                />
+              )}
               <OrbitControls
                 // target={camRef}
                 autoRotate={true}
@@ -40,14 +54,17 @@ export default function PostHeader(
                 maxPolarAngle={1.9}
                 // minPolarAngle={-180}
                 maxDistance={400}
-                minDistance={-10}
+                minDistance={-0.1}
                 panSpeed={0.1}
+                target={[0, 1, 0]}
               />
               {/* @ts-ignore */}
               <PerspectiveCamera
                 makeDefault
-                position={[-5000, 2000, -1000]}
-                zoom={1.2}
+                // position={[-5000, 2000, -1000]}
+                // position={[-1, 3, 1]}
+                position={[0, 20, 20]}
+                zoom={1}
               />
             </Canvas>
           </div>
