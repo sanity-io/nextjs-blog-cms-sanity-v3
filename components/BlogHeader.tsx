@@ -36,7 +36,19 @@ export default function BlogHeader({
               >
                 {title}
               </motion.h1>
-              <Mage controls={controls} />
+              {/* mobile mage */}
+              <div className="md:hidden">
+                <Mage controls={controls} />
+              </div>
+              {/* big mage */}
+              <motion.div
+                animate={{ x: 10, scale: 2 }}
+                transition={{ duration: 2 }}
+                className="hidden 2xl:block"
+              >
+                <Mage controls={controls} />
+              </motion.div>
+
               <h4
                 className={`mt-5 text-center text-lg md:pl-8 md:text-left ${styles.portableText}`}
               >
