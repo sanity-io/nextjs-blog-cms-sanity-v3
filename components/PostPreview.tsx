@@ -47,46 +47,44 @@ export default function PostPreview({
           {/* <CoverImage title={title} image={coverImage} priority slug={slug} /> */}
           {/* <div>this page is 3d</div> */}
           <div className="h-full w-auto">
-            <Suspense fallback={<div>Loading...</div>}>
-              <Canvas>
-                <Environment preset="sunset" />
-                {title.includes('office') ? (
-                  <Office
-                    scale={30}
-                    position={[-100, -70, 100]}
-                    rotation={[0, 0, 20]}
-                  />
-                ) : title.includes('bakery') ? (
-                  <Bakery
-                    scale={130}
-                    position={[0, -75, 0]}
-                    rotation={[0, 11, 0]}
-                  />
-                ) : (
-                  <House scale={0.07} position={[0, -50, 0]} />
-                )}
-                <OrbitControls
-                  enablePan={false}
-                  enableZoom={false}
-                  // target={camRef}
-                  autoRotate={false}
-                  autoRotateSpeed={0.1}
-                  makeDefault
-                  rotateSpeed={0.1}
-                  maxAzimuthAngle={Infinity}
-                  maxPolarAngle={1.75}
-                  // minPolarAngle={-180}
-                  maxDistance={400}
-                  minDistance={-10}
+            <Canvas>
+              <Environment preset="sunset" />
+              {title.includes('office') ? (
+                <Office
+                  scale={30}
+                  position={[-100, -70, 100]}
+                  rotation={[0, 0, 20]}
                 />
-                {/* @ts-ignore */}
-                <PerspectiveCamera
-                  makeDefault
-                  position={[-5000, 2000, -1000]}
-                  zoom={2}
+              ) : title.includes('bakery') ? (
+                <Bakery
+                  scale={130}
+                  position={[0, -75, 0]}
+                  rotation={[0, 11, 0]}
                 />
-              </Canvas>
-            </Suspense>
+              ) : (
+                <House scale={0.07} position={[0, -50, 0]} />
+              )}
+              <OrbitControls
+                enablePan={false}
+                enableZoom={false}
+                // target={camRef}
+                autoRotate={false}
+                autoRotateSpeed={0.1}
+                makeDefault
+                rotateSpeed={0.1}
+                maxAzimuthAngle={Infinity}
+                maxPolarAngle={1.75}
+                // minPolarAngle={-180}
+                maxDistance={400}
+                minDistance={-10}
+              />
+              {/* @ts-ignore */}
+              <PerspectiveCamera
+                makeDefault
+                position={[-5000, 2000, -1000]}
+                zoom={2}
+              />
+            </Canvas>
           </div>
         </div>
       ) : (
