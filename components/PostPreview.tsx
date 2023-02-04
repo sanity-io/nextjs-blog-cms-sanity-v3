@@ -9,11 +9,13 @@ import CoverImage from 'components/CoverImage'
 import Date from 'components/PostDate'
 import { motion, useAnimation, useInView } from 'framer-motion'
 import type { Post } from 'lib/sanity.queries'
-import Bakery from 'models/Bakery'
-import House from 'models/House'
-import Office from 'models/Office'
+import dynamic from 'next/dynamic'
 import Link from 'next/link'
-import { useEffect, useRef } from 'react'
+import { Suspense, useEffect, useRef } from 'react'
+
+const Bakery = dynamic(() => import('../models/Bakery'))
+const House = dynamic(() => import('../models/House'))
+const Office = dynamic(() => import('../models/Office'))
 
 export default function PostPreview({
   title,
@@ -45,40 +47,46 @@ export default function PostPreview({
           {/* <CoverImage title={title} image={coverImage} priority slug={slug} /> */}
           {/* <div>this page is 3d</div> */}
           <div className="h-full w-auto">
-            <Canvas>
-              <Environment preset="sunset" />
-              {title.includes('office') ? (
-                <Office scale={30} position={[-100, -70, 100]} />
-              ) : title.includes('bakery') ? (
-                <Bakery
-                  scale={130}
-                  position={[0, -75, 0]}
-                  rotation={[0, 16, 0]}
+            <Suspense fallback={<div>Loading...</div>}>
+              <Canvas>
+                <Environment preset="sunset" />
+                {title.includes('office') ? (
+                  <Office
+                    scale={30}
+                    position={[-100, -70, 100]}
+                    rotation={[0, 0, 20]}
+                  />
+                ) : title.includes('bakery') ? (
+                  <Bakery
+                    scale={130}
+                    position={[0, -75, 0]}
+                    rotation={[0, 11, 0]}
+                  />
+                ) : (
+                  <House scale={0.07} position={[0, -50, 0]} />
+                )}
+                <OrbitControls
+                  enablePan={false}
+                  enableZoom={false}
+                  // target={camRef}
+                  autoRotate={false}
+                  autoRotateSpeed={0.1}
+                  makeDefault
+                  rotateSpeed={0.1}
+                  maxAzimuthAngle={Infinity}
+                  maxPolarAngle={1.75}
+                  // minPolarAngle={-180}
+                  maxDistance={400}
+                  minDistance={-10}
                 />
-              ) : (
-                <House scale={0.07} position={[0, -50, 0]} />
-              )}
-              <OrbitControls
-                enablePan={false}
-                enableZoom={false}
-                // target={camRef}
-                autoRotate={true}
-                autoRotateSpeed={0.5}
-                makeDefault
-                rotateSpeed={0.1}
-                maxAzimuthAngle={Infinity}
-                maxPolarAngle={1.75}
-                // minPolarAngle={-180}
-                maxDistance={400}
-                minDistance={-10}
-              />
-              {/* @ts-ignore */}
-              <PerspectiveCamera
-                makeDefault
-                position={[-5000, 2000, -1000]}
-                zoom={2}
-              />
-            </Canvas>
+                {/* @ts-ignore */}
+                <PerspectiveCamera
+                  makeDefault
+                  position={[-5000, 2000, -1000]}
+                  zoom={2}
+                />
+              </Canvas>
+            </Suspense>
           </div>
         </div>
       ) : (
