@@ -54,6 +54,20 @@ export default function Mage({ controls }: Props) {
   }
 
   const [direction, setDirection] = useState(false)
+  const [showIcons, setShowIcons] = useState('hidden')
+  const [menuIcon, setMenuIcon] = useState('')
+
+  const toggleMenu = () => {
+    if (menuIcon) {
+      setMenuIcon('')
+      setShowIcons('hidden')
+      controls.start('turnLeft')
+    } else {
+      setMenuIcon('hidden')
+      setShowIcons('')
+      controls.start('turnRight')
+    }
+  }
 
   // const turn = () => {
   //   mousePosition < window.innerWidth / 2
@@ -73,18 +87,71 @@ export default function Mage({ controls }: Props) {
         opacity: 1,
         padding: 12,
       }}
-      onClick={() => turn()}
-      className="mx-auto flex items-center justify-center rounded-full border shadow-xl md:hidden"
+      className="mx-auto grid min-w-[75px] grid-cols-2 items-center justify-center rounded-full border text-center shadow-xl"
     >
       <motion.a
         // animate={{ rotateY: 180, opacity: 1 }}
+        initial={{ rotateY: 180 }}
         animate={controls}
         variants={mageVariants}
-        // href="/studio"
         className=""
-        onClick={() => {}}
+        onClick={() => {
+          toggleMenu()
+        }}
       >
         🧙🏾‍♂️
+      </motion.a>
+      <motion.a
+        // animate={{ rotateY: 180, opacity: 1 }}
+        // initial={{ rotateY: 180 }}
+        // animate={{ hidden }}
+        variants={orbVariants}
+        href="/Game"
+        className={`${showIcons}`}
+        onClick={() => {
+          controls.start('jump')
+        }}
+      >
+        🚀
+      </motion.a>
+      <motion.a
+        // animate={{ rotateY: 180, opacity: 1 }}
+        // initial={{ rotateY: 180 }}
+        // animate={{ hidden }}
+        variants={mageVariants}
+        className={`${menuIcon}`}
+        onClick={() => {
+          toggleMenu()
+          controls.start('jump')
+        }}
+      >
+        🔮
+      </motion.a>
+      <motion.a
+        // animate={{ rotateY: 180, opacity: 1 }}
+        // initial={{ rotateY: 180 }}
+        animate={{}}
+        variants={mageVariants}
+        href="https://buncombe.tech/Chart"
+        className={`${showIcons}`}
+        onClick={() => {
+          controls.start('jump')
+        }}
+      >
+        📈
+      </motion.a>
+      <motion.a
+        // animate={{ rotateY: 180, opacity: 1 }}
+        // initial={{ rotateY: 180 }}
+        animate={{}}
+        variants={mageVariants}
+        href="/studio"
+        className={`${showIcons}`}
+        onClick={() => {
+          controls.start('jump')
+        }}
+      >
+        📝
       </motion.a>
     </motion.div>
   )
