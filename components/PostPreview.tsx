@@ -9,7 +9,9 @@ import CoverImage from 'components/CoverImage'
 import Date from 'components/PostDate'
 import { motion, useAnimation, useInView } from 'framer-motion'
 import type { Post } from 'lib/sanity.queries'
+import Bakery from 'models/Bakery'
 import House from 'models/House'
+import Office from 'models/Office'
 import Link from 'next/link'
 import { useEffect, useRef } from 'react'
 
@@ -45,7 +47,17 @@ export default function PostPreview({
           <div className="h-full w-auto">
             <Canvas>
               <Environment preset="sunset" />
-              <House scale={0.1} position={[0, -75, 0]} />
+              {title.includes('office') ? (
+                <Office scale={30} position={[-100, -70, 100]} />
+              ) : title.includes('bakery') ? (
+                <Bakery
+                  scale={130}
+                  position={[0, -75, 0]}
+                  rotation={[0, 16, 0]}
+                />
+              ) : (
+                <House scale={0.07} position={[0, -50, 0]} />
+              )}
               <OrbitControls
                 enablePan={false}
                 enableZoom={false}
@@ -53,9 +65,9 @@ export default function PostPreview({
                 autoRotate={true}
                 autoRotateSpeed={0.5}
                 makeDefault
-                rotateSpeed={0.2}
+                rotateSpeed={0.1}
                 maxAzimuthAngle={Infinity}
-                maxPolarAngle={1.9}
+                maxPolarAngle={1.75}
                 // minPolarAngle={-180}
                 maxDistance={400}
                 minDistance={-10}
@@ -64,7 +76,7 @@ export default function PostPreview({
               <PerspectiveCamera
                 makeDefault
                 position={[-5000, 2000, -1000]}
-                zoom={1}
+                zoom={2}
               />
             </Canvas>
           </div>
