@@ -9,7 +9,6 @@ import PostTitle from 'components/PostTitle'
 import SectionSeparator from 'components/SectionSeparator'
 import * as demo from 'lib/demo.data'
 import type { Post, Settings } from 'lib/sanity.queries'
-import Head from 'next/head'
 import { notFound } from 'next/navigation'
 
 export interface PostPageProps {
@@ -34,9 +33,7 @@ export default function PostPage(props: PostPageProps) {
 
   return (
     <>
-      <Head>
-        <PostPageHead settings={settings} post={post} />
-      </Head>
+      <PostPageHead settings={settings} post={post} />
 
       <Layout preview={preview} loading={loading}>
         <Container>
