@@ -1,8 +1,4 @@
-import {
-  Environment,
-  OrbitControls,
-  PerspectiveCamera,
-} from '@react-three/drei'
+import { OrbitControls, PerspectiveCamera } from '@react-three/drei'
 import { Canvas } from '@react-three/fiber'
 import Avatar from 'components/AuthorAvatar'
 import CoverImage from 'components/CoverImage'
@@ -11,7 +7,6 @@ import { motion, useAnimation, useInView } from 'framer-motion'
 import type { Post } from 'lib/sanity.queries'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
-import { Suspense, useEffect, useRef } from 'react'
 
 const Bakery = dynamic(() => import('../models/Bakery'))
 const House = dynamic(() => import('../models/House'))
@@ -48,7 +43,8 @@ export default function PostPreview({
           {/* <div>this page is 3d</div> */}
           <div className="h-full w-auto">
             <Canvas>
-              <Environment preset="sunset" />
+              {/* <Environment preset="sunset" /> */}
+              <ambientLight intensity=".4" />
               {title.includes('office') ? (
                 <Office
                   scale={30}
@@ -67,7 +63,6 @@ export default function PostPreview({
               <OrbitControls
                 enablePan={false}
                 enableZoom={false}
-                // target={camRef}
                 autoRotate={false}
                 autoRotateSpeed={0.1}
                 makeDefault

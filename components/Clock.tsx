@@ -5,7 +5,7 @@ import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 
-import Mage from '../components/Mage'
+import Mage from '../mages/old.Mage'
 
 function Clock() {
   const [time, setTime] = useState(new Date())

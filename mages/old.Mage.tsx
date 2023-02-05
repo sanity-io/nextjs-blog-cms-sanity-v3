@@ -63,18 +63,11 @@ export default function Mage({ controls }: Props) {
       setShowIcons('hidden')
       controls.start('turnLeft')
     } else {
-      setMenuIcon('hidden')
+      // setMenuIcon('hidden')
       setShowIcons('')
       controls.start('turnRight')
     }
   }
-
-  // const turn = () => {
-  //   mousePosition < window.innerWidth / 2
-  //     ? controls.start('turnRight')
-  //     : controls.start('turnLeft')
-  //   setDirection(!direction)
-  // }
 
   return (
     <motion.div
@@ -87,7 +80,7 @@ export default function Mage({ controls }: Props) {
         opacity: 1,
         padding: 12,
       }}
-      className="mx-auto grid min-w-[75px] grid-cols-2 items-center justify-center rounded-full border text-center shadow-xl"
+      className="mx-auto grid min-w-[75px] grid-cols-3 items-center justify-center rounded-full border text-center shadow-xl"
     >
       <motion.a
         // animate={{ rotateY: 180, opacity: 1 }}
@@ -126,6 +119,18 @@ export default function Mage({ controls }: Props) {
         }}
       >
         🔮
+      </motion.a>
+      <motion.a
+        // animate={{ rotateY: 180, opacity: 1 }}
+        initial={{ rotateY: 180 }}
+        animate={controls}
+        variants={mageVariants}
+        className=""
+        onClick={() => {
+          toggleMenu()
+        }}
+      >
+        🧙🏾‍♀️
       </motion.a>
       <motion.a
         // animate={{ rotateY: 180, opacity: 1 }}

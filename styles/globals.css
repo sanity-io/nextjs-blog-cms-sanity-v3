@@ -8,7 +8,7 @@
   }
 
   button {
-    @apply p-4 bg-green-800 rounded-sm w-[200px]
+    @apply rounded-full p-4 shadow-lg
   }
 }
 
