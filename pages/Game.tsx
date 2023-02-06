@@ -139,9 +139,9 @@ function Game({}: Props) {
   }
 
   return (
-    <div className="flex h-screen flex-col place-content-between items-center bg-purple-800/50 ">
+    <div className="flex h-screen flex-col place-content-between items-center bg-black">
       <div className="flex h-screen w-full flex-col place-content-between items-center gap-16 bg-gradient-to-br from-blue-800 py-20">
-        <div className="w-[550px]">
+        <div className="w-[550px] border">
           <OuijAi />
         </div>
         <motion.h1
