@@ -3,8 +3,8 @@ import { motion, useAnimationControls } from 'framer-motion'
 import Link from 'next/link'
 import { useState } from 'react'
 
-import styles from './BlogHeader.module.css'
 import Mage from '../mages/old.Mage'
+import styles from './BlogHeader.module.css'
 
 export default function BlogHeader({
   title,

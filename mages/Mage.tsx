@@ -20,7 +20,7 @@ const variants = {
   jump: {
     y: -15,
     transition: {
-      repeat: 3,
+      repeat: 1,
       repeatType: 'reverse',
       duration: 0.1,
       type: 'spring',

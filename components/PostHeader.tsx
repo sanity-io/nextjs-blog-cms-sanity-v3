@@ -29,9 +29,10 @@ export default function PostHeader(
         <div className="mb-8 h-[400px] sm:mx-0 md:mb-16">
           {/* <CoverImage title={title} image={coverImage} priority slug={slug} /> */}
           {/* <div>this page is 3d</div> */}
-          <div className="h-full w-auto">
+          <div className="h-full w-auto bg-[#5562DA]">
             <Canvas>
-              <Environment preset="sunset" />
+              <ambientLight />
+              {/* <Environment preset="sunset" /> */}
               {/* <House scale={0.1} position={[0, -75, 0]} /> */}
               {/* <House scale={0.001} position={[0, 0, 0]} /> */}
               {title.includes('office') ? (

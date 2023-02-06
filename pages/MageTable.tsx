@@ -84,6 +84,7 @@ function MageTable({}: Props) {
         {/* the table */}
         <div className="m-6 grid grid-cols-5 rounded-full  bg-white/20 p-8">
           <div className="col-span-2 col-start-1 row-start-2 flex flex-col  p-2">
+            <div text-white>Boss</div>
             <Mage
               emoji="🧙🏾‍♂️"
               controls={bMageControls}
