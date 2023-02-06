@@ -4,8 +4,8 @@ import {
   motion,
   useAnimationControls,
 } from 'framer-motion'
-import React, { useEffect, useRef, useState } from 'react'
-import { setEnvironmentData } from 'worker_threads'
+import OuijAi from 'ouija/OuijAi'
+import { useState, useEffect } from 'react'
 
 type Props = {}
 
@@ -141,15 +141,18 @@ function Game({}: Props) {
   return (
     <div className="flex h-screen flex-col place-content-between items-center bg-purple-800/50 ">
       <div className="flex h-screen w-full flex-col place-content-between items-center gap-16 bg-gradient-to-br from-blue-800 py-20">
+        <div className="w-[550px]">
+          <OuijAi />
+        </div>
         <motion.h1
           animate={{ opacity: 1 }}
           initial={{ opacity: 0 }}
           transition={{ delay: 0.5 }}
-          className="text-center text-2xl uppercase tracking-widest text-white"
+          className="hidden text-center text-2xl uppercase tracking-widest text-white"
         >
           {title}
         </motion.h1>
-        <div className="flex justify-items-center">
+        <div className="flex  justify-items-center">
           <motion.div
             //   @ts-ignore
             variants={emojiVariants}
