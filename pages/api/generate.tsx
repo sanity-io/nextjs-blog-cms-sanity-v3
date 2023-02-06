@@ -6,6 +6,7 @@ const configuration = new Configuration({
 
 const openai = new OpenAIApi(configuration)
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default async function (req: any, res: any) {
   if (!configuration.apiKey) {
     res.status(500).json({

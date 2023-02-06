@@ -5,7 +5,7 @@ import {
   useAnimationControls,
 } from 'framer-motion'
 import OuijAi from 'ouija/OuijAi'
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 type Props = {}
 

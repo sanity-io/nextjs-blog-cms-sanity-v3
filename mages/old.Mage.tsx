@@ -1,11 +1,13 @@
 // @ts-nocheck
 import { motion, useAnimationControls } from 'framer-motion'
+import Link from 'next/link'
 import React, { useState } from 'react'
 import { useCallback, useEffect } from 'react'
 
 type Props = { controls: any }
 
 export default function Mage({ controls }: Props) {
+  const [icon, setIcon] = useState('')
   const [mousePosition, setMousePosition] = useState(null)
 
   const handleUserKeyPress = useCallback((event) => {
@@ -56,14 +58,19 @@ export default function Mage({ controls }: Props) {
   const [direction, setDirection] = useState(false)
   const [showIcons, setShowIcons] = useState('hidden')
   const [menuIcon, setMenuIcon] = useState('')
+  const [counter, setCounter] = useState(0)
 
   const toggleMenu = () => {
     if (menuIcon) {
       setMenuIcon('')
       setShowIcons('hidden')
       controls.start('turnLeft')
+      setCounter(counter + 1)
+      if (counter == 2) {
+        setCounter(0)
+      }
     } else {
-      // setMenuIcon('hidden')
+      setMenuIcon('hidden')
       setShowIcons('')
       controls.start('turnRight')
     }
@@ -76,11 +83,12 @@ export default function Mage({ controls }: Props) {
         rotateZ: 0,
         rotateY: 360,
         x: 0,
-        z: -10,
+        z: 0,
         opacity: 1,
         padding: 12,
       }}
-      className="mx-auto grid min-w-[75px] grid-cols-3 items-center justify-center rounded-full border text-center shadow-xl"
+      // className="mx-auto grid min-w-[75px] grid-cols-2 items-center justify-center rounded-full border text-center shadow-xl"
+      className="flex gap-2 md:gap-20"
     >
       <motion.a
         // animate={{ rotateY: 180, opacity: 1 }}
@@ -94,60 +102,26 @@ export default function Mage({ controls }: Props) {
       >
         🧙🏾‍♂️
       </motion.a>
+      {/* Orb */}
       <motion.a
         // animate={{ rotateY: 180, opacity: 1 }}
         // initial={{ rotateY: 180 }}
         // animate={{ hidden }}
-        variants={orbVariants}
-        href="/Game"
-        className={`${showIcons}`}
-        onClick={() => {
-          controls.start('jump')
-        }}
-      >
-        🚀
-      </motion.a>
-      <motion.a
-        // animate={{ rotateY: 180, opacity: 1 }}
-        // initial={{ rotateY: 180 }}
-        // animate={{ hidden }}
-        variants={mageVariants}
-        className={`${menuIcon}`}
+        // variants={mageVariants}
+        // className={`${menuIcon}`}
         onClick={() => {
           toggleMenu()
-          controls.start('jump')
+          controls.start('jump').then(() => {
+            // controls.start()
+          })
+          // setShowIcons()
         }}
       >
         🔮
       </motion.a>
+
+      {/* Hydration error... */}
       <motion.a
-        // animate={{ rotateY: 180, opacity: 1 }}
-        initial={{ rotateY: 180 }}
-        animate={controls}
-        variants={mageVariants}
-        className=""
-        onClick={() => {
-          toggleMenu()
-        }}
-      >
-        🧙🏾‍♀️
-      </motion.a>
-      <motion.a
-        // animate={{ rotateY: 180, opacity: 1 }}
-        // initial={{ rotateY: 180 }}
-        animate={{}}
-        variants={mageVariants}
-        href="https://buncombe.tech/Chart"
-        className={`${showIcons}`}
-        onClick={() => {
-          controls.start('jump')
-        }}
-      >
-        📈
-      </motion.a>
-      <motion.a
-        // animate={{ rotateY: 180, opacity: 1 }}
-        // initial={{ rotateY: 180 }}
         animate={{}}
         variants={mageVariants}
         href="/studio"
@@ -156,7 +130,16 @@ export default function Mage({ controls }: Props) {
           controls.start('jump')
         }}
       >
-        📝
+        {/* {menuIcon == 'game' ? '🚀' : 'edit' ? '📝' : '😅'} */}
+        {counter == 0 ? (
+          <Link href="/Game">🚀</Link>
+        ) : counter == 1 ? (
+          <Link href="/Studio">📝</Link>
+        ) : counter == 2 ? (
+          <Link href="https://super-bubblegum-fd734f.netlify.app/">😎</Link>
+        ) : (
+          'error'
+        )}
       </motion.a>
     </motion.div>
   )

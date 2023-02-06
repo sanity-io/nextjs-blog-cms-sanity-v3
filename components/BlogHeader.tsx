@@ -42,9 +42,10 @@ export default function BlogHeader({
               </div>
               {/* big mage */}
               <motion.div
-                animate={{ x: 10 }}
-                transition={{ delay: 3, duration: 1 }}
-                className="hidden 2xl:block"
+                animate={{ x: 0 }}
+                transition={{ delay: 0, duration: 1 }}
+                // className="hidden 2xl:block"
+                className="hidden md:block"
               >
                 <Mage controls={controls} />
               </motion.div>
