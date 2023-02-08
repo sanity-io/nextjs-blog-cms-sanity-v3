@@ -20,7 +20,11 @@ export default function IndexPageHead({ settings }: IndexPageHeadProps) {
     <Head>
       <title>{title}</title>
       <BlogMeta />
-      <meta key="description" name="description" content={toPlainText(description)} />
+      <meta
+        key="description"
+        name="description"
+        content={toPlainText(description)}
+      />
       <meta
         property="og:image"
         // Because OG images must have a absolute URL, we use the
