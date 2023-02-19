@@ -7,15 +7,25 @@ on:
   workflow_dispatch:
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
+  group: ${{ github.workflow }}-${{ github.ref_name }}
   cancel-in-progress: true
+
+permissions:
+  contents: read
 
 jobs:
   run:
     name: Can the code be prettier? 🤔
     runs-on: ubuntu-latest
+    # workflow_dispatch always lets you select the branch ref, even though in this case we only ever want to run the action on `main` this we need an if check
+    if: ${{ github.ref_name == 'main' }}
+    permissions:
+      contents: write # for gr2m/create-or-update-pull-request-action to push local changes
+      pull-requests: write # for gr2m/create-or-update-pull-request-action to create a PR
     steps:
       - uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c # v3
+        with:
+          persist-credentials: false
       - uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # v3
         with:
           cache: npm
@@ -25,10 +35,15 @@ jobs:
         with:
           path: node_modules/.cache/prettier/.prettier-cache
           key: prettier-${{ hashFiles('package-lock.json') }}-${{ hashFiles('.gitignore') }}
-      - run: npx prettier --ignore-path .gitignore --cache --write .
+      - run: npm run format
       - run: git restore .github/workflows
-      - uses: EndBug/add-and-commit@61a88be553afe4206585b31aa72387c64295d08b # tag=v9
+      - uses: gr2m/create-or-update-pull-request-action@v1.x
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_PR_TOKEN }}
         with:
-          default_author: github_actions
-          commit: --no-verify
-          message: 'chore(prettier): 🤖 ✨'
+          author: github-actions <41898282+github-actions[bot]@users.noreply.github.com>
+          branch: actions/prettier-if-needed
+          title: 'chore(prettier): fix unformatted files'
+          body: A robot ran `npm run format` and made this PR.
+          commit-message: 'chore(prettier): 🤖 ✨'
+          labels: automation
