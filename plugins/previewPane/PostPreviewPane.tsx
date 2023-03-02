@@ -21,7 +21,7 @@ type Props = {
 
 export default function PostPreviewPane(props: Props) {
   const { previewSecretId, apiVersion } = props
-  // Whenever the slug changes, wait a 3 seconds for elastic search to reach eventual consistency.
+  // Whenever the slug changes, wait 3 seconds for elastic search to reach eventual consistency.
   // This helps to prevent displaying "Invalid slug" or returning 404 errors while editing the slug manually.
   const [slug, setSlug] = useState(props.slug)
   useEffect(() => {
