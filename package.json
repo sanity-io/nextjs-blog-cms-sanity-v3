@@ -17,7 +17,7 @@
     "@portabletext/react": "2.0.2",
     "@sanity/image-url": "1.0.2",
     "@sanity/vision": "3.7.1",
-    "@vercel/og": "0.4.0",
+    "@vercel/og": "0.4.1",
     "classnames": "^2.3.2",
     "date-fns": "^2.29.3",
     "intl-segmenter-polyfill": "0.4.4",
@@ -28,7 +28,7 @@
     "sanity": "3.7.1",
     "sanity-plugin-asset-source-unsplash": "1.0.6",
     "suspend-react": "0.0.9",
-    "swr": "2.1.0"
+    "swr": "2.1.1"
   },
   "devDependencies": {
     "@types/react": "^18.0.28",
