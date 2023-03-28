@@ -19,13 +19,8 @@ jobs:
     runs-on: ubuntu-latest
     # workflow_dispatch always lets you select the branch ref, even though in this case we only ever want to run the action on `main` this we need an if check
     if: ${{ github.ref_name == 'main' }}
-    permissions:
-      contents: write # for gr2m/create-or-update-pull-request-action to push local changes
-      pull-requests: write # for gr2m/create-or-update-pull-request-action to create a PR
     steps:
       - uses: actions/checkout@v3
-        with:
-          persist-credentials: false
       - uses: actions/setup-node@v3
         with:
           cache: npm
@@ -37,13 +32,17 @@ jobs:
           key: prettier-${{ hashFiles('package-lock.json') }}-${{ hashFiles('.gitignore') }}
       - run: npm run format
       - run: git restore .github/workflows
-      - uses: gr2m/create-or-update-pull-request-action@v1.x
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_PR_TOKEN }}
+      - uses: tibdex/github-app-token@b62528385c34dbc9f38e5f4225ac829252d1ea92 # v1
+        id: generate-token
+        with:
+          app_id: ${{ secrets.ECOSPARK_APP_ID }}
+          private_key: ${{ secrets.ECOSPARK_APP_PRIVATE_KEY }}
+      - uses: peter-evans/create-pull-request@38e0b6e68b4c852a5500a94740f0e535e0d7ba54 # v4
         with:
           author: github-actions <41898282+github-actions[bot]@users.noreply.github.com>
+          body: I ran `npm run format` 🧑‍💻
           branch: actions/prettier-if-needed
-          title: 'chore(prettier): fix unformatted files'
-          body: A robot ran `npm run format` and made this PR.
           commit-message: 'chore(prettier): 🤖 ✨'
-          labels: automation
+          labels: 🤖 bot
+          title: 'chore(prettier): 🤖 ✨'
+          token: ${{ steps.generate-token.outputs.token }}
