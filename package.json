@@ -17,7 +17,7 @@
     "@portabletext/react": "2.0.2",
     "@sanity/image-url": "1.0.2",
     "@sanity/vision": "3.8.2",
-    "@vercel/og": "0.4.1",
+    "@vercel/og": "0.5.0",
     "classnames": "^2.3.2",
     "date-fns": "^2.29.3",
     "intl-segmenter-polyfill": "0.4.4",
