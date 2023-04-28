@@ -14,7 +14,7 @@
     "singleQuote": true
   },
   "dependencies": {
-    "@portabletext/react": "2.0.2",
+    "@portabletext/react": "3.0.0",
     "@sanity/image-url": "1.0.2",
     "@sanity/vision": "3.9.0",
     "@vercel/og": "0.5.3",
