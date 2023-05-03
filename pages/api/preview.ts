@@ -1,3 +1,4 @@
+import { createClient } from '@sanity/client'
 import {
   apiVersion,
   dataset,
@@ -8,7 +9,6 @@ import {
 import { postBySlugQuery } from 'lib/sanity.queries'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import type { PageConfig } from 'next/types'
-import { createClient } from 'next-sanity'
 import { getSecret } from 'plugins/productionUrl/utils'
 
 // res.setPreviewData only exists in the nodejs runtime, setting the config here allows changing the global runtime
@@ -17,11 +17,10 @@ export const config: PageConfig = { runtime: 'nodejs' }
 
 function redirectToPreview(
   res: NextApiResponse<string | void>,
-  previewData: { token?: string },
   Location: '/' | `/posts/${string}`
 ): void {
   // Enable Preview Mode by setting the cookies
-  res.setPreviewData(previewData)
+  res.setPreviewData({})
   // Redirect to a preview capable route
   res.writeHead(307, { Location })
   res.end()
@@ -33,15 +32,7 @@ export default async function preview(
   req: NextApiRequest,
   res: NextApiResponse<string | void>
 ) {
-  const previewData: { token?: string } = {}
-  // If you want to require preview mode sessions to be started from the Studio, set the SANITY_REQUIRE_PREVIEW_SECRET
-  // environment variable to 'true'. The benefit of doing this that unauthorized users attempting to brute force into your
-  // preview mode won't make it past the secret check, and only legitimate users are able to bypass the statically generated pages and load up
-  // the serverless-powered preview mode.
-  if (
-    process.env.SANITY_REQUIRE_PREVIEW_SECRET === 'true' &&
-    !req.query.secret
-  ) {
+  if (!req.query.secret) {
     return res.status(401).send('Invalid secret')
   }
 
@@ -58,12 +49,11 @@ export default async function preview(
     if (req.query.secret !== secret) {
       return res.status(401).send('Invalid secret')
     }
-    previewData.token = token
   }
 
   // If no slug is provided open preview mode on the frontpage
   if (!req.query.slug) {
-    return redirectToPreview(res, previewData, '/')
+    return redirectToPreview(res, '/')
   }
 
   // Check if the post with the given `slug` exists
@@ -84,5 +74,5 @@ export default async function preview(
 
   // Redirect to the path from the fetched post
   // We don't redirect to req.query.slug as that might lead to open redirect vulnerabilities
-  redirectToPreview(res, previewData, `/posts/${post.slug}`)
+  redirectToPreview(res, `/posts/${post.slug}`)
 }

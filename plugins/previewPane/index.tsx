@@ -4,7 +4,9 @@
 // It's part of the Studio's “Structure Builder API” and is documented here:
 // https://www.sanity.io/docs/structure-builder-reference
 
-import { DefaultDocumentNodeResolver } from 'sanity/desk'
+import type { SanityDocument } from 'sanity'
+import type { DefaultDocumentNodeResolver } from 'sanity/desk'
+import Iframe from 'sanity-plugin-iframe-pane'
 import authorType from 'schemas/author'
 import postType from 'schemas/post'
 
@@ -45,6 +47,19 @@ export const previewDocumentNode = ({
               />
             ))
             .title('Preview'),
+          S.view
+            .component(Iframe)
+            .options({
+              url: async (doc: SanityDocument) => {
+                const url = new URL('/api/preview', location.origin)
+                url.searchParams.set(
+                  'slug',
+                  (doc.slug as any)?.current as string
+                )
+                return url.toString()
+              },
+            })
+            .title('Super Preview'),
         ])
 
       default:

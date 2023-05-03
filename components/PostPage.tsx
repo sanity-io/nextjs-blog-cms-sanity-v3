@@ -13,7 +13,6 @@ import { notFound } from 'next/navigation'
 
 export interface PostPageProps {
   preview?: boolean
-  loading?: boolean
   post: Post
   morePosts: Post[]
   settings: Settings
@@ -22,7 +21,7 @@ export interface PostPageProps {
 const NO_POSTS: Post[] = []
 
 export default function PostPage(props: PostPageProps) {
-  const { preview, loading, morePosts = NO_POSTS, post, settings } = props
+  const { preview, morePosts = NO_POSTS, post, settings } = props
   const { title = demo.title } = settings || {}
 
   const slug = post?.slug
@@ -35,7 +34,7 @@ export default function PostPage(props: PostPageProps) {
     <>
       <PostPageHead settings={settings} post={post} />
 
-      <Layout preview={preview} loading={loading}>
+      <Layout preview={preview}>
         <Container>
           <BlogHeader title={title} level={2} />
           {preview && !post ? (

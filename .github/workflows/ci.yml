@@ -1,3 +1,4 @@
+---
 name: CI
 
 on:
@@ -12,7 +13,12 @@ concurrency:
 
 jobs:
   build:
+    name: dataset=${{ vars.NEXT_PUBLIC_SANITY_DATASET }} csm=${{matrix.csm}}
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        csm: [true, false]
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
@@ -22,3 +28,12 @@ jobs:
       - run: npm ci
       - run: npm run type-check
       - run: npm run lint -- --max-warnings 0
+      - run: npm run build
+        env:
+          NEXT_PUBLIC_SANITY_PROJECT_ID: ${{ vars.NEXT_PUBLIC_SANITY_PROJECT_ID }}
+          NEXT_PUBLIC_SANITY_DATASET: ${{ vars.NEXT_PUBLIC_SANITY_DATASET }}
+          NEXT_PUBLIC_SANITY_API_VERSION: ${{ vars.NEXT_PUBLIC_SANITY_API_VERSION }}
+          # Tokens should always be stripped from the logs
+          SANITY_API_READ_TOKEN: ${{ secrets.SANITY_API_READ_TOKEN }}
+          # Run in the matrix, with, and without to ensure the template works properly in both modes
+          SANITY_ENABLE_CONTENT_SOURCE_MAP: ${{ matrix.csm }}
