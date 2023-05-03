@@ -22,12 +22,11 @@ export async function getSecret(
         ? Math.random().toString(36).slice(2)
         : createIfNotExists()
     try {
-      const patch = (client as import('sanity').SanityClient)
-        .patch(id)
-        .set({ secret: newSecret })
-      await (client as import('sanity').SanityClient)
+      const patch = client.patch(id).set({ secret: newSecret })
+      await client
         .transaction()
         .createIfNotExists({ _id: id, _type: id })
+        // @ts-expect-error - until `sanity` supports v6 of `@sanity/client`
         .patch(patch)
         .commit({ tag })
       return newSecret
