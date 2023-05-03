@@ -22,8 +22,10 @@ export async function getSecret(
         ? Math.random().toString(36).slice(2)
         : createIfNotExists()
     try {
-      const patch = client.patch(id).set({ secret: newSecret })
-      await client
+      const patch = (client as import('sanity').SanityClient)
+        .patch(id)
+        .set({ secret: newSecret })
+      await (client as import('sanity').SanityClient)
         .transaction()
         .createIfNotExists({ _id: id, _type: id })
         .patch(patch)
