@@ -7,17 +7,19 @@
  * 1. Go to the API section of your Sanity project on sanity.io/manage or run `npx sanity hook create`
  * 2. Click "Create webhook"
  * 3. Set the URL to https://YOUR_NEXTJS_SITE_URL/api/revalidate
- * 4. Trigger on: "Create", "Update", and "Delete"
- * 5. Filter: _type == "post" || _type == "author" || _type == "settings"
- * 6. Projection: Leave empty
- * 7. HTTP method: POST
- * 8. API version: v2021-03-25
- * 9. Include drafts: No
+ * 4. Dataset: Choose desired dataset or leave at default "all datasets"
+ * 5. Trigger on: "Create", "Update", and "Delete"
+ * 6. Filter: _type == "post" || _type == "author" || _type == "settings"
+ * 7. Projection: Leave empty
+ * 8. Status: Enable webhook
+ * 9. HTTP method: POST
  * 10. HTTP Headers: Leave empty
- * 11. Secret: Set to the same value as SANITY_REVALIDATE_SECRET (create a random one if you haven't)
- * 12. Save the cofiguration
- * 13. Add the secret to Vercel: `npx vercel env add SANITY_REVALIDATE_SECRET`
- * 14. Redeploy with `npx vercel --prod` to apply the new environment variable
+ * 11. API version: v2021-03-25
+ * 12. Include drafts: No
+ * 13. Secret: Set to the same value as SANITY_REVALIDATE_SECRET (create a random secret if you haven't yet)
+ * 14. Save the cofiguration
+ * 15. Add the secret to Vercel: `npx vercel env add SANITY_REVALIDATE_SECRET`
+ * 16. Redeploy with `npx vercel --prod` to apply the new environment variable
  */
 
 import { apiVersion, dataset, projectId } from 'lib/sanity.api'
