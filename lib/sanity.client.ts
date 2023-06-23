@@ -17,6 +17,8 @@ const client = projectId
   ? createClient({ projectId, dataset, apiVersion, useCdn })
   : null
 
+export const getSanityImageConfig = () => client
+
 export async function getSettings(): Promise<Settings> {
   if (client) {
     return (await client.fetch(settingsQuery)) || {}
