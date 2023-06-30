@@ -11,17 +11,20 @@ export default function Alert({
   if (!preview) return null
 
   return (
-    <div className="border-b border-accent-7 bg-accent-7 text-white">
+    <div
+      className={`${
+        loading ? 'animate-pulse' : ''
+      } border-b border-accent-7 bg-accent-7 text-white`}
+    >
       <Container>
         <div className="py-2 text-center text-sm">
-          {loading ? 'Loading... ' : 'This page is a preview. '}
+          {'Previewing draft content. '}
           <a
-            href="/api/exit-preview"
+            href="/api/disable-draft"
             className="underline transition-colors duration-200 hover:text-cyan"
           >
-            Click here
-          </a>{' '}
-          to exit preview mode.
+            Disable draft mode
+          </a>
         </div>
       </Container>
     </div>
