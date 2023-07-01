@@ -55,11 +55,11 @@ The Studio connects to Sanity Content Lake, which gives you hosted content APIs 
 | `sanity.cli.ts`                             |  Config file for Sanity CLI                              |
 | `/pages/studio/[[...index]].tsx`            |  Where Sanity Studio is mounted                          |
 | `/pages/api/revalidate.ts`                  |  Serverless route for triggering ISR                     |
-| `/pages/api/preview.ts`                     |  Serverless route for triggering Preview mode            |
+| `/pages/api/draft.ts`                       |  Serverless route for triggering Draft mode              |
 | `/schemas`                                  |  Where Sanity Studio gets its content types from         |
 | `/plugins`                                  |  Where the advanced Sanity Studio customization is setup |
 | `/lib/sanity.api.ts`,`/lib/sanity.image.ts` | Configuration for the Sanity Content Lake client         |
-| `/lib/sanity.preview.ts`                    | Configuration for the live Preview Mode                  |
+| `/components/PreviewProvider.tsx`           | Configuration for the live Preview Mode                  |
 
 ## Configuration
 

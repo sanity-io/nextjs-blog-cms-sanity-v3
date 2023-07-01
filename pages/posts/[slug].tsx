@@ -1,73 +1,45 @@
-import { PreviewSuspense } from '@sanity/preview-kit'
 import PostPage from 'components/PostPage'
+import PreviewPostPage from 'components/PreviewPostPage'
+import { readToken } from 'lib/sanity.api'
 import {
   getAllPostsSlugs,
+  getClient,
   getPostAndMoreStories,
   getSettings,
 } from 'lib/sanity.client'
 import { Post, Settings } from 'lib/sanity.queries'
 import { GetStaticProps } from 'next'
-import { lazy } from 'react'
+import type { SharedPageProps } from 'pages/_app'
 
-const PreviewPostPage = lazy(() => import('components/PreviewPostPage'))
-
-interface PageProps {
+interface PageProps extends SharedPageProps {
   post: Post
   morePosts: Post[]
   settings?: Settings
-  preview: boolean
-  token: string | null
 }
 
 interface Query {
   [key: string]: string
 }
 
-interface PreviewData {
-  token?: string
-}
-
 export default function ProjectSlugRoute(props: PageProps) {
-  const { settings, post, morePosts, preview, token } = props
+  const { settings, post, morePosts, draftMode } = props
 
-  if (preview) {
+  if (draftMode) {
     return (
-      <PreviewSuspense
-        fallback={
-          <PostPage
-            loading
-            preview
-            post={post}
-            morePosts={morePosts}
-            settings={settings}
-          />
-        }
-      >
-        <PreviewPostPage
-          token={token}
-          post={post}
-          morePosts={morePosts}
-          settings={settings}
-        />
-      </PreviewSuspense>
+      <PreviewPostPage post={post} morePosts={morePosts} settings={settings} />
     )
   }
 
   return <PostPage post={post} morePosts={morePosts} settings={settings} />
 }
 
-export const getStaticProps: GetStaticProps<
-  PageProps,
-  Query,
-  PreviewData
-> = async (ctx) => {
-  const { preview = false, previewData = {}, params = {} } = ctx
-
-  const token = previewData.token
+export const getStaticProps: GetStaticProps<PageProps, Query> = async (ctx) => {
+  const { draftMode = false, params = {} } = ctx
+  const client = getClient(draftMode ? { token: readToken } : undefined)
 
   const [settings, { post, morePosts }] = await Promise.all([
-    getSettings(),
-    getPostAndMoreStories(params.slug, token),
+    getSettings(client),
+    getPostAndMoreStories(client, params.slug),
   ])
 
   if (!post) {
@@ -81,8 +53,8 @@ export const getStaticProps: GetStaticProps<
       post,
       morePosts,
       settings,
-      preview,
-      token: previewData.token ?? null,
+      draftMode,
+      token: draftMode ? readToken : '',
     },
   }
 }

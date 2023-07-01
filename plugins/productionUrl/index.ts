@@ -29,7 +29,7 @@ export const productionUrl = definePlugin<{
     name: 'productionUrl',
     document: {
       productionUrl: async (prev, { document, getClient }) => {
-        const url = new URL('/api/preview', location.origin)
+        const url = new URL('/api/draft', location.origin)
 
         const client = getClient({ apiVersion })
         const secret = await getSecret(client, previewSecretId, true)
