@@ -12,7 +12,7 @@ interface Props {
 export const SanityImage = (props: Props) => {
   const { asset, alt, caption } = props
   const imageProps = useNextSanityImage(getSanityImageConfig(), asset)
-
+  console.log(imageProps);
   if (!imageProps) return null
 
   return (
