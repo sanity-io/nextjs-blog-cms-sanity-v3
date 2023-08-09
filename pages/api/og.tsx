@@ -12,7 +12,7 @@ import { Settings, settingsQuery } from 'lib/sanity.queries'
 
 export default async function og(req: NextRequest, res: NextResponse) {
   const font = fetch(new URL('public/Inter-Bold.woff', import.meta.url)).then(
-    (res) => res.arrayBuffer()
+    (res) => res.arrayBuffer(),
   )
   const { searchParams } = new URL(req.url)
 
@@ -41,6 +41,6 @@ export default async function og(req: NextRequest, res: NextResponse) {
           weight: 700,
         },
       ],
-    }
+    },
   )
 }

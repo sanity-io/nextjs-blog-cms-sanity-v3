@@ -42,7 +42,7 @@ export default function BlogHeader({
       throw new Error(
         `Invalid level: ${
           JSON.stringify(level) || typeof level
-        }, only 1 or 2 are allowed`
+        }, only 1 or 2 are allowed`,
       )
   }
 }
