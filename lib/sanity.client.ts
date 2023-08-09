@@ -50,14 +50,14 @@ export async function getAllPostsSlugs(): Promise<Pick<Post, 'slug'>[]> {
 
 export async function getPostBySlug(
   client: SanityClient,
-  slug: string
+  slug: string,
 ): Promise<Post> {
   return (await client.fetch(postBySlugQuery, { slug })) || ({} as any)
 }
 
 export async function getPostAndMoreStories(
   client: SanityClient,
-  slug: string
+  slug: string,
 ): Promise<{ post: Post; morePosts: Post[] }> {
   return await client.fetch(postAndMoreStoriesQuery, { slug })
 }

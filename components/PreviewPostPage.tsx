@@ -16,11 +16,11 @@ export default function PreviewPostPage(props: PostPageProps) {
     postAndMoreStoriesQuery,
     {
       slug: props.post.slug,
-    }
+    },
   )
   const [settings, loadingSettings] = useLiveQuery<Settings>(
     props.settings,
-    settingsQuery
+    settingsQuery,
   )
 
   return (

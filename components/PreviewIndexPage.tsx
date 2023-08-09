@@ -11,7 +11,7 @@ export default function PreviewIndexPage(props: IndexPageProps) {
   const [posts, loadingPosts] = useLiveQuery<Post[]>(props.posts, indexQuery)
   const [settings, loadingSettings] = useLiveQuery<Settings>(
     props.settings,
-    settingsQuery
+    settingsQuery,
   )
 
   return (

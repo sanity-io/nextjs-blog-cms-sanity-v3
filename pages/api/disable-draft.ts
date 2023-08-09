@@ -2,7 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 
 export default function exit(
   _req: NextApiRequest,
-  res: NextApiResponse<void>
+  res: NextApiResponse<void>,
 ): void {
   // Exit the current user from "Draft Mode".
   res.setDraftMode({ enable: false })

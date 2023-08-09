@@ -23,7 +23,7 @@ const urlResolver = defineUrlResolver({
 const iframeOptions = {
   url: urlResolver,
   urlSecretId: previewSecretId,
-  reload: {button: true},
+  reload: { button: true },
 } satisfies IframeOptions
 
 export const previewDocumentNode = (): DefaultDocumentNodeResolver => {

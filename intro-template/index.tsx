@@ -25,7 +25,7 @@ export default memo(function IntroTemplate() {
     if (typeof window !== 'undefined') {
       setStudioURL(`${window.location.origin}/studio`)
       setCreatePostURL(
-        `${window.location.origin}/studio/intent/create/template=post;type=post/`
+        `${window.location.origin}/studio/intent/create/template=post;type=post/`,
       )
       setIsLocalhost(window.location.hostname === 'localhost')
       setHasUTMtags(window.location.search.includes('utm'))
