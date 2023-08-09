@@ -1,5 +1,8 @@
 /* eslint-disable @next/next/no-html-link-for-pages */
 import Container from 'components/BlogContainer'
+import { useSyncExternalStore } from 'react'
+
+const subscribe = () => () => {}
 
 export default function Alert({
   preview,
@@ -8,7 +11,13 @@ export default function Alert({
   preview?: boolean
   loading?: boolean
 }) {
-  if (!preview) return null
+  const shouldShow = useSyncExternalStore(
+    subscribe,
+    () => window.top === window,
+    () => false,
+  )
+
+  if (!shouldShow || !preview) return null
 
   return (
     <div
@@ -18,12 +27,12 @@ export default function Alert({
     >
       <Container>
         <div className="py-2 text-center text-sm">
-          {'Previewing draft content. '}
+          {'Previewing drafts. '}
           <a
             href="/api/disable-draft"
             className="underline transition-colors duration-200 hover:text-cyan"
           >
-            Disable draft mode
+            Back to published
           </a>
         </div>
       </Container>

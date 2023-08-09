@@ -55,7 +55,7 @@ export default defineType({
               name: 'caption',
               type: 'string',
               title: 'Image caption',
-              description: 'Caption displayed below the image.'
+              description: 'Caption displayed below the image.',
             },
             {
               name: 'alt',
@@ -64,7 +64,7 @@ export default defineType({
               description: 'Important for SEO and accessiblity.',
             },
           ],
-        }
+        },
       ],
     }),
     defineField({

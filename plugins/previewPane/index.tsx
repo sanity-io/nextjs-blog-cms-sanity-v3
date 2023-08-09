@@ -4,20 +4,29 @@
 // It's part of the Studio's “Structure Builder API” and is documented here:
 // https://www.sanity.io/docs/structure-builder-reference
 
+import { DRAFT_MODE_ROUTE, previewSecretId } from 'lib/sanity.api'
 import { DefaultDocumentNodeResolver } from 'sanity/desk'
+import {
+  defineUrlResolver,
+  Iframe,
+  type IframeOptions,
+} from 'sanity-plugin-iframe-pane'
 import authorType from 'schemas/author'
 import postType from 'schemas/post'
 
 import AuthorAvatarPreviewPane from './AuthorAvatarPreviewPane'
-import PostPreviewPane from './PostPreviewPane'
 
-export const previewDocumentNode = ({
-  apiVersion,
-  previewSecretId,
-}: {
-  apiVersion: string
-  previewSecretId: `${string}.${string}`
-}): DefaultDocumentNodeResolver => {
+const urlResolver = defineUrlResolver({
+  base: DRAFT_MODE_ROUTE,
+  requiresSlug: [postType.name],
+})
+const iframeOptions = {
+  url: urlResolver,
+  urlSecretId: previewSecretId,
+  reload: {button: true},
+} satisfies IframeOptions
+
+export const previewDocumentNode = (): DefaultDocumentNodeResolver => {
   return (S, { schemaType }) => {
     switch (schemaType) {
       case authorType.name:
@@ -36,17 +45,8 @@ export const previewDocumentNode = ({
       case postType.name:
         return S.document().views([
           S.view.form(),
-          S.view
-            .component(({ document }) => (
-              <PostPreviewPane
-                slug={document.displayed.slug?.current}
-                apiVersion={apiVersion}
-                previewSecretId={previewSecretId}
-              />
-            ))
-            .title('Preview'),
+          S.view.component(Iframe).options(iframeOptions).title('Preview'),
         ])
-
       default:
         return null
     }

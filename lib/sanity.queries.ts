@@ -50,7 +50,7 @@ export interface Post {
   title?: string
   coverImage?: any
   date?: string
-  _updatedAt?: string;
+  _updatedAt?: string
   excerpt?: string
   author?: Author
   slug?: string
