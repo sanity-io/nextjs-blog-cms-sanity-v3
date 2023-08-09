@@ -31,10 +31,12 @@
     "sanity": "3.15.0",
     "sanity-plugin-asset-source-unsplash": "1.1.0",
     "sanity-plugin-iframe-pane": "2.5.2",
+    "styled-components": "^5.3.11",
     "swr": "2.2.0"
   },
   "devDependencies": {
     "@types/react": "18.2.18",
+    "@types/styled-components": "^5.1.26",
     "autoprefixer": "10.4.14",
     "eslint": "8.46.0",
     "eslint-config-next": "13.4.13",
