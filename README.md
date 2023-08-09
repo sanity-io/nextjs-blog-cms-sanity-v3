@@ -45,7 +45,7 @@ The Studio connects to Sanity Content Lake, which gives you hosted content APIs 
 
 | [Blog](https://nextjs-blog.sanity.build)                                                                       | [Studio](https://nextjs-blog.sanity.build/studio)                                                                       |
 | -------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
-| ![Blog](https://user-images.githubusercontent.com/44635000/197511913-94ea36dd-099d-4dbf-b71f-3335879621c9.png) | ![Sanity Studio](https://user-images.githubusercontent.com/44635000/197511725-b2a2e2e5-287b-41a9-84c6-ec90d37ca480.png) |
+| ![Blog](https://github.com/sanity-io/nextjs-blog-cms-sanity-v3/assets/81981/adc1a90e-644e-456a-b630-ac44e4636e24) | ![Sanity Studio](https://github.com/sanity-io/nextjs-blog-cms-sanity-v3/assets/81981/93a39af1-a806-45ca-8648-0cc7e2295eea) |
 
 ### Important files and folders
 
