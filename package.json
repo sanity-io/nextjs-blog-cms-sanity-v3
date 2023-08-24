@@ -15,7 +15,7 @@
     "singleQuote": true
   },
   "dependencies": {
-    "@portabletext/react": "3.0.4",
+    "@portabletext/react": "3.0.7",
     "@sanity/client": "6.4.9",
     "@sanity/image-url": "1.0.2",
     "@sanity/vision": "3.15.1",
@@ -24,7 +24,7 @@
     "date-fns": "2.30.0",
     "intl-segmenter-polyfill": "0.4.4",
     "next": "13.4.19",
-    "next-sanity": "5.4.4",
+    "next-sanity": "5.4.6",
     "next-sanity-image": "6.1.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
@@ -35,7 +35,7 @@
     "swr": "2.2.1"
   },
   "devDependencies": {
-    "@types/react": "18.2.20",
+    "@types/react": "18.2.21",
     "@types/styled-components": "5.1.26",
     "autoprefixer": "10.4.15",
     "eslint": "8.47.0",
