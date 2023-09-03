@@ -18,8 +18,8 @@
     "@portabletext/react": "3.0.7",
     "@sanity/client": "6.4.9",
     "@sanity/image-url": "1.0.2",
-    "@sanity/vision": "3.15.1",
-    "@vercel/og": "0.5.11",
+    "@sanity/vision": "3.16.2",
+    "@vercel/og": "0.5.13",
     "classnames": "2.3.2",
     "date-fns": "2.30.0",
     "intl-segmenter-polyfill": "0.4.4",
@@ -28,25 +28,25 @@
     "next-sanity-image": "6.1.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "sanity": "3.15.1",
-    "sanity-plugin-asset-source-unsplash": "1.1.0",
+    "sanity": "3.16.2",
+    "sanity-plugin-asset-source-unsplash": "1.1.1",
     "sanity-plugin-iframe-pane": "2.5.5",
     "styled-components": "5.3.11",
-    "swr": "2.2.1"
+    "swr": "2.2.2"
   },
   "devDependencies": {
     "@types/react": "18.2.21",
     "@types/styled-components": "5.1.26",
     "autoprefixer": "10.4.15",
-    "eslint": "8.47.0",
+    "eslint": "8.48.0",
     "eslint-config-next": "13.4.19",
     "eslint-plugin-simple-import-sort": "10.0.0",
-    "postcss": "8.4.28",
-    "prettier": "3.0.2",
+    "postcss": "8.4.29",
+    "prettier": "3.0.3",
     "prettier-plugin-packagejson": "2.4.5",
-    "prettier-plugin-tailwindcss": "0.5.3",
+    "prettier-plugin-tailwindcss": "0.5.4",
     "tailwindcss": "3.3.3",
-    "typescript": "5.1.6"
+    "typescript": "5.2.2"
   },
   "engines": {
     "node": ">=16"
