@@ -30,7 +30,7 @@
     "react-dom": "18.2.0",
     "sanity": "3.16.2",
     "sanity-plugin-asset-source-unsplash": "1.1.1",
-    "sanity-plugin-iframe-pane": "2.5.5",
+    "sanity-plugin-iframe-pane": "2.5.7",
     "styled-components": "5.3.11",
     "swr": "2.2.2"
   },
