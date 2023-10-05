@@ -35,7 +35,7 @@
     "swr": "2.2.4"
   },
   "devDependencies": {
-    "@types/react": "18.2.24",
+    "@types/react": "18.2.25",
     "@types/styled-components": "5.1.28",
     "autoprefixer": "10.4.16",
     "eslint": "8.50.0",
