@@ -28,6 +28,11 @@ export const previewSecretId: `${string}.${string}` = 'preview.secret'
 // Used to generate URLs for previewing your content
 export const DRAFT_MODE_ROUTE = '/api/draft'
 
+/**
+ * Used to configure edit intent links, for Presentation Mode, as well as to configure where the Studio is mounted in the router.
+ */
+export const studioUrl = '/studio'
+
 function assertValue<T>(v: T | undefined, errorMessage: string): T {
   if (v === undefined) {
     throw new Error(errorMessage)
