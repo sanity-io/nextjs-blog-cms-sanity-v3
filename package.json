@@ -23,7 +23,7 @@
     "classnames": "2.3.2",
     "date-fns": "2.30.0",
     "intl-segmenter-polyfill": "0.4.4",
-    "next": "13.5.6",
+    "next": "14.0.2",
     "next-sanity": "5.5.10",
     "next-sanity-image": "6.1.1",
     "react": "18.2.0",
