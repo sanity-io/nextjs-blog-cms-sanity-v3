@@ -11,6 +11,7 @@ import {
   DRAFT_MODE_ROUTE,
   projectId,
 } from 'lib/sanity.api'
+import { locate } from 'plugins/locate'
 import { previewDocumentNode } from 'plugins/previewPane'
 import { settingsPlugin, settingsStructure } from 'plugins/settings'
 import { defineConfig } from 'sanity'
@@ -39,6 +40,7 @@ export default defineConfig({
       defaultDocumentNode: previewDocumentNode(),
     }),
     presentationTool({
+      locate,
       previewUrl: {
         origin:
           typeof location === 'undefined'
