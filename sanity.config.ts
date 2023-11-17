@@ -2,6 +2,8 @@
  * This config is used to set up Sanity Studio that's mounted on the `/pages/studio/[[...index]].tsx` route
  */
 
+// Using `@sanity/presentation` instead of `sanity/presentation` until `sanity` ships with: https://github.com/sanity-io/visual-editing/releases/tag/presentation-v1.0.5
+import { presentationTool } from '@sanity/presentation'
 import { visionTool } from '@sanity/vision'
 import {
   apiVersion,
@@ -13,7 +15,6 @@ import { previewDocumentNode } from 'plugins/previewPane'
 import { settingsPlugin, settingsStructure } from 'plugins/settings'
 import { defineConfig } from 'sanity'
 import { deskTool } from 'sanity/desk'
-import { presentationTool } from 'sanity/presentation'
 import { unsplashImageAsset } from 'sanity-plugin-asset-source-unsplash'
 import authorType from 'schemas/author'
 import postType from 'schemas/post'
