@@ -1,7 +1,7 @@
 import 'tailwindcss/tailwind.css'
 
 import { AppProps } from 'next/app'
-import { lazy } from 'react'
+import { lazy, Suspense } from 'react'
 
 export interface SharedPageProps {
   draftMode: boolean
@@ -9,6 +9,7 @@ export interface SharedPageProps {
 }
 
 const PreviewProvider = lazy(() => import('components/PreviewProvider'))
+const VisualEditing = lazy(() => import('components/VisualEditing'))
 
 export default function App({
   Component,
@@ -23,6 +24,11 @@ export default function App({
         </PreviewProvider>
       ) : (
         <Component {...pageProps} />
+      )}
+      {draftMode && (
+        <Suspense>
+          <VisualEditing />
+        </Suspense>
       )}
     </>
   )

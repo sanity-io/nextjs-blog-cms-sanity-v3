@@ -1,0 +1,48 @@
+import { enableOverlays, HistoryAdapterNavigate } from '@sanity/overlays'
+import { useRouter } from 'next/router'
+import { useEffect, useRef, useState } from 'react'
+
+export default function VisualEditing() {
+  const router = useRouter()
+  const routerRef = useRef(router)
+  const [navigate, setNavigate] = useState<HistoryAdapterNavigate | undefined>()
+
+  useEffect(() => {
+    routerRef.current = router
+  }, [router])
+  useEffect(() => {
+    const isInsideIframe = window !== parent
+    if (!isInsideIframe || process.env.NEXT_PUBLIC_VERCEL_ENV === 'preview') {
+      return
+    }
+    const disable = enableOverlays({
+      allowStudioOrigin: location.origin,
+      history: {
+        subscribe: (navigate) => {
+          setNavigate(() => navigate)
+          return () => setNavigate(undefined)
+        },
+        update: (update) => {
+          switch (update.type) {
+            case 'push':
+              return routerRef.current.push(update.url)
+            case 'pop':
+              return routerRef.current.back()
+            case 'replace':
+              return routerRef.current.replace(update.url)
+            default:
+              throw new Error(`Unknown update type: ${update.type}`)
+          }
+        },
+      },
+    })
+    return () => disable()
+  }, [])
+  useEffect(() => {
+    if (navigate && router.isReady) {
+      navigate({ type: 'push', url: router.asPath })
+    }
+  }, [navigate, router.asPath, router.isReady])
+
+  return null
+}
