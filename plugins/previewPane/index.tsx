@@ -4,25 +4,32 @@
 // It's part of the Studio's “Structure Builder API” and is documented here:
 // https://www.sanity.io/docs/structure-builder-reference
 
-import { DRAFT_MODE_ROUTE, previewSecretId } from 'lib/sanity.api'
+import { DRAFT_MODE_ROUTE } from 'lib/sanity.api'
 import { DefaultDocumentNodeResolver } from 'sanity/desk'
-import {
-  defineUrlResolver,
-  Iframe,
-  type IframeOptions,
-} from 'sanity-plugin-iframe-pane'
+import { Iframe, IframeOptions } from 'sanity-plugin-iframe-pane'
 import authorType from 'schemas/author'
 import postType from 'schemas/post'
 
 import AuthorAvatarPreviewPane from './AuthorAvatarPreviewPane'
 
-const urlResolver = defineUrlResolver({
-  base: DRAFT_MODE_ROUTE,
-  requiresSlug: [postType.name],
-})
 const iframeOptions = {
-  url: urlResolver,
-  urlSecretId: previewSecretId,
+  url: {
+    origin: 'same-origin',
+    preview: (document) => {
+      if (!document) {
+        return new Error('Missing document')
+      }
+      switch (document._type) {
+        case 'post':
+          return (document as any)?.slug?.current
+            ? `/posts/${(document as any).slug.current}`
+            : new Error('Missing slug')
+        default:
+          return new Error(`Unknown document type: ${document?._type}`)
+      }
+    },
+    draftMode: DRAFT_MODE_ROUTE,
+  },
   reload: { button: true },
 } satisfies IframeOptions
 

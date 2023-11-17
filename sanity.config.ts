@@ -3,19 +3,12 @@
  */
 
 import { visionTool } from '@sanity/vision'
-import {
-  apiVersion,
-  dataset,
-  DRAFT_MODE_ROUTE,
-  previewSecretId,
-  projectId,
-} from 'lib/sanity.api'
+import { apiVersion, dataset, projectId } from 'lib/sanity.api'
 import { previewDocumentNode } from 'plugins/previewPane'
 import { settingsPlugin, settingsStructure } from 'plugins/settings'
 import { defineConfig } from 'sanity'
 import { deskTool } from 'sanity/desk'
 import { unsplashImageAsset } from 'sanity-plugin-asset-source-unsplash'
-import { previewUrl } from 'sanity-plugin-iframe-pane/preview-url'
 import authorType from 'schemas/author'
 import postType from 'schemas/post'
 import settingsType from 'schemas/settings'
@@ -40,12 +33,6 @@ export default defineConfig({
     }),
     // Configures the global "new document" button, and document actions, to suit the Settings document singleton
     settingsPlugin({ type: settingsType.name }),
-    // Add the "Open preview" action
-    previewUrl({
-      base: DRAFT_MODE_ROUTE,
-      urlSecretId: previewSecretId,
-      matchTypes: [postType.name, settingsType.name],
-    }),
     // Add an image asset source for Unsplash
     unsplashImageAsset(),
     // Vision lets you query your content with GROQ in the studio

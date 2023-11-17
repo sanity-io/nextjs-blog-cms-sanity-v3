@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 
-export default function exit(
+export default function handle(
   _req: NextApiRequest,
   res: NextApiResponse<void>,
 ): void {
