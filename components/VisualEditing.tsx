@@ -11,10 +11,6 @@ export default function VisualEditing() {
     routerRef.current = router
   }, [router])
   useEffect(() => {
-    const isInsideIframe = window !== parent
-    if (!isInsideIframe || process.env.NEXT_PUBLIC_VERCEL_ENV === 'preview') {
-      return
-    }
     const disable = enableOverlays({
       allowStudioOrigin: location.origin,
       history: {
