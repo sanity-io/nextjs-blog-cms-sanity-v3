@@ -19,7 +19,7 @@
     "@sanity/client": "6.11.1",
     "@sanity/image-url": "1.0.2",
     "@sanity/overlays": "2.3.6",
-    "@sanity/preview-url-secret": "1.5.2",
+    "@sanity/preview-url-secret": "1.5.3",
     "@sanity/vision": "3.25.0",
     "@vercel/og": "0.6.2",
     "classnames": "2.5.1",
