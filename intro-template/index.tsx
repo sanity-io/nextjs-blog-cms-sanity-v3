@@ -114,7 +114,7 @@ export default memo(function IntroTemplate() {
                   </div>
 
                   {isLocalHost ? (
-                    <div className="text-xs text-gray-700">
+                    <div className="text-xs text-gray-700 text-pretty">
                       Start editing your content structure by changing the post
                       schema in
                       <div className="w-fit bg-slate-200 px-2">
