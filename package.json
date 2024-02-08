@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@portabletext/react": "3.0.11",
-    "@sanity/client": "6.12.3",
+    "@sanity/client": "6.12.4",
     "@sanity/image-url": "1.0.2",
     "@sanity/preview-url-secret": "1.6.1",
     "@sanity/vision": "3.28.0",
