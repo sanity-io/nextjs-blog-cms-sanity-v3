@@ -1,15 +1,15 @@
 import 'tailwindcss/tailwind.css'
 
+import { VisualEditing } from '@sanity/visual-editing/next-pages-router'
 import { AppProps } from 'next/app'
-import { lazy, Suspense } from 'react'
+import dynamic from 'next/dynamic'
 
 export interface SharedPageProps {
   draftMode: boolean
   token: string
 }
 
-const PreviewProvider = lazy(() => import('components/PreviewProvider'))
-const VisualEditing = lazy(() => import('components/VisualEditing'))
+const PreviewProvider = dynamic(() => import('components/PreviewProvider'))
 
 export default function App({
   Component,
@@ -25,11 +25,7 @@ export default function App({
       ) : (
         <Component {...pageProps} />
       )}
-      {draftMode && (
-        <Suspense>
-          <VisualEditing />
-        </Suspense>
-      )}
+      {draftMode && <VisualEditing />}
     </>
   )
 }

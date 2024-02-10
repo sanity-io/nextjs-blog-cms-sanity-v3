@@ -23,7 +23,7 @@ export const SanityImage = (props: Props) => {
         sizes="(max-width: 800px) 100vw, 800px"
       />
       {caption && (
-        <figcaption className="mt-2 text-center italic text-sm text-gray-500 dark:text-gray-400">
+        <figcaption className="mt-2 text-center italic text-sm text-gray-500 dark:text-gray-400 text-pretty">
           {caption}
         </figcaption>
       )}

@@ -1,13 +1,33 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { memo, useEffect, useState } from 'react'
+import { memo, useSyncExternalStore } from 'react'
 
 import cover from './cover.png'
 
+const subscribe = () => () => {}
+
 export default memo(function IntroTemplate() {
-  const [studioURL, setStudioURL] = useState(null)
-  const [createPostURL, setCreatePostURL] = useState(null)
-  const [isLocalHost, setIsLocalhost] = useState(false)
+  const studioURL = useSyncExternalStore(
+    subscribe,
+    () => `${window.location.origin}/studio`,
+    () => null,
+  )
+  const createPostURL = useSyncExternalStore(
+    subscribe,
+    () =>
+      `${window.location.origin}/studio/intent/create/template=post;type=post/`,
+    () => null,
+  )
+  const isLocalHost = useSyncExternalStore(
+    subscribe,
+    () => window.location.hostname === 'localhost',
+    () => false,
+  )
+  const hasUTMtags = useSyncExternalStore(
+    subscribe,
+    () => window.location.search.includes('utm'),
+    () => false,
+  )
 
   const hasEnvFile = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID
   const hasRepoEnvVars =
@@ -18,19 +38,6 @@ export default memo(function IntroTemplate() {
   const removeBlockURL = hasRepoEnvVars
     ? `https://${process.env.NEXT_PUBLIC_VERCEL_GIT_PROVIDER}.com/${process.env.NEXT_PUBLIC_VERCEL_GIT_REPO_OWNER}/${process.env.NEXT_PUBLIC_VERCEL_GIT_REPO_SLUG}/blob/main/README.md#how-can-i-remove-the-next-steps-block-from-my-blog`
     : `https://github.com/sanity-io/nextjs-blog-cms-sanity-v3#how-can-i-remove-the-next-steps-block-from-my-blog`
-
-  const [hasUTMtags, setHasUTMtags] = useState(false)
-
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      setStudioURL(`${window.location.origin}/studio`)
-      setCreatePostURL(
-        `${window.location.origin}/studio/intent/create/template=post;type=post/`,
-      )
-      setIsLocalhost(window.location.hostname === 'localhost')
-      setHasUTMtags(window.location.search.includes('utm'))
-    }
-  }, [])
 
   if (hasUTMtags || !studioURL) {
     return
@@ -114,7 +121,7 @@ export default memo(function IntroTemplate() {
                   </div>
 
                   {isLocalHost ? (
-                    <div className="text-xs text-gray-700">
+                    <div className="text-xs text-gray-700 text-pretty">
                       Start editing your content structure by changing the post
                       schema in
                       <div className="w-fit bg-slate-200 px-2">
