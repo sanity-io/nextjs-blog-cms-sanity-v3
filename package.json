@@ -42,7 +42,7 @@
     "autoprefixer": "10.4.17",
     "eslint": "8.56.0",
     "eslint-config-next": "14.1.0",
-    "eslint-plugin-simple-import-sort": "10.0.0",
+    "eslint-plugin-simple-import-sort": "12.0.0",
     "postcss": "8.4.35",
     "prettier": "3.2.5",
     "prettier-plugin-packagejson": "2.4.10",
