@@ -49,13 +49,9 @@ export const mostRecentAboutQuery = groq`
   ${aboutFields}
 }`
 
-export const postAndMoreStoriesQuery = groq`
+export const postQuery = groq`
 {
   "post": *[_type == "post" && slug.current == $slug] | order(_updatedAt desc) [0] {
-    content,
-    ${postFields}
-  },
-  "morePosts": *[_type == "post" && slug.current != $slug] | order(date desc, _updatedAt desc) [0...2] {
     content,
     ${postFields}
   }

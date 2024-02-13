@@ -11,8 +11,8 @@ import {
   mostRecentAboutQuery,
   photosQuery,
   type Post,
-  postAndMoreStoriesQuery,
   postBySlugQuery,
+  postQuery,
   postSlugsQuery,
   type Settings,
   settingsQuery,
@@ -74,9 +74,9 @@ export async function getPostBySlug(
   return (await client.fetch(postBySlugQuery, { slug })) || ({} as any)
 }
 
-export async function getPostAndMoreStories(
+export async function getPost(
   client: SanityClient,
   slug: string,
-): Promise<{ post: Post; morePosts: Post[] }> {
-  return await client.fetch(postAndMoreStoriesQuery, { slug })
+): Promise<{ post: Post; }> {
+  return await client.fetch(postQuery, { slug })
 }

@@ -2,14 +2,14 @@ import { urlForImage } from 'lib/sanity.image'
 import Image from 'next/image'
 import Link from 'next/link'
 
-interface CoverImageProps {
+interface PostImageProps {
   title: string
   slug?: string
   image: any
   priority?: boolean
 }
 
-export default function CoverImage(props: CoverImageProps) {
+export default function PostImage(props: PostImageProps) {
   const { title, slug, image: source, priority } = props
   const image = source?.asset?._ref ? (
     <div>

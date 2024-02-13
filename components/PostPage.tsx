@@ -4,19 +4,14 @@ import Layout from 'components/BlogLayout'
 import PostBody from 'components/PostBody'
 import PostHeader from 'components/PostHeader'
 import PostPageHead from 'components/PostPageHead'
-import MoreStories from 'components/Posts'
-import PostTitle from 'components/PostTitle'
-import SectionSeparator from 'components/SectionSeparator'
 import * as fallback from 'lib/fallback.data'
-import type { About, Post, Settings } from 'lib/sanity.queries'
+import type { Post, Settings } from 'lib/sanity.queries'
 import { notFound } from 'next/navigation'
 
 export interface PostPageProps {
-  about?: About
   preview?: boolean
   loading?: boolean
   post: Post
-  morePosts: Post[]
   settings: Settings
 }
 
@@ -26,10 +21,8 @@ export default function PostPage(props: PostPageProps) {
   const {
     preview,
     loading,
-    morePosts = NO_POSTS,
     post,
     settings,
-    about,
   } = props
   const { title = fallback.title } = settings || {}
 
@@ -45,9 +38,9 @@ export default function PostPage(props: PostPageProps) {
 
       <Layout preview={preview} loading={loading}>
         <Container>
-          <BlogHeader title={title} about={about} />
+          <BlogHeader title={title} />
           {preview && !post ? (
-            <PostTitle>Loading…</PostTitle>
+            <div>Loading…</div>
           ) : (
             <>
               <article>
@@ -59,8 +52,6 @@ export default function PostPage(props: PostPageProps) {
                 />
                 <PostBody content={post.content} />
               </article>
-              <SectionSeparator />
-              {morePosts?.length > 0 && <MoreStories posts={morePosts} />}
             </>
           )}
         </Container>

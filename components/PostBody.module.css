@@ -2,6 +2,11 @@
   @apply text-lg leading-relaxed;
 }
 
+.portableText ul, .portableText ol {
+  list-style: revert;
+  @apply pl-6;
+}
+
 .portableText p,
 .portableText ul,
 .portableText ol,
