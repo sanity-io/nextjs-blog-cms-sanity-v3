@@ -6,7 +6,10 @@ import {
   useCdn,
 } from 'lib/sanity.api'
 import {
+  About,
   indexQuery,
+  mostRecentAboutQuery,
+  photosQuery,
   type Post,
   postAndMoreStoriesQuery,
   postBySlugQuery,
@@ -48,6 +51,14 @@ export async function getSettings(client: SanityClient): Promise<Settings> {
 
 export async function getAllPosts(client: SanityClient): Promise<Post[]> {
   return (await client.fetch(indexQuery)) || []
+}
+
+export async function getAllPhotos(client: SanityClient): Promise<Post[]> {
+  return (await client.fetch(photosQuery)) || []
+}
+
+export async function getMostRecentAbout(client: SanityClient): Promise<About> {
+  return (await client.fetch(mostRecentAboutQuery)) || ({} as any)
 }
 
 export async function getAllPostsSlugs(): Promise<Pick<Post, 'slug'>[]> {

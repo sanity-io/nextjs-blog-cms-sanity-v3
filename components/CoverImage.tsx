@@ -1,4 +1,3 @@
-import cn from 'classnames'
 import { urlForImage } from 'lib/sanity.image'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -13,17 +12,13 @@ interface CoverImageProps {
 export default function CoverImage(props: CoverImageProps) {
   const { title, slug, image: source, priority } = props
   const image = source?.asset?._ref ? (
-    <div
-      className={cn('shadow-small', {
-        'transition-shadow duration-200 hover:shadow-medium': slug,
-      })}
-    >
+    <div>
       <Image
         className="h-auto w-full"
-        width={2000}
-        height={1000}
+        width={500}
+        height={250}
         alt=""
-        src={urlForImage(source).height(1000).width(2000).url()}
+        src={urlForImage(source).height(250).width(500).url()}
         sizes="100vw"
         priority={priority}
       />

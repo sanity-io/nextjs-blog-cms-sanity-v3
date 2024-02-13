@@ -1,6 +1,6 @@
 import { toPlainText } from '@portabletext/react'
 import BlogMeta from 'components/BlogMeta'
-import * as demo from 'lib/demo.data'
+import * as fallback from 'lib/fallback.data'
 import { Settings } from 'lib/sanity.queries'
 import Head from 'next/head'
 
@@ -10,11 +10,11 @@ export interface IndexPageHeadProps {
 
 export default function IndexPageHead({ settings }: IndexPageHeadProps) {
   const {
-    title = demo.title,
-    description = demo.description,
+    title = fallback.title,
+    description = fallback.description,
     ogImage = {},
   } = settings
-  const ogImageTitle = ogImage?.title || demo.ogImageTitle
+  const ogImageTitle = ogImage?.title || fallback.ogImageTitle
 
   return (
     <Head>
