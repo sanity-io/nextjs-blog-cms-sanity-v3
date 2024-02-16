@@ -1,12 +1,12 @@
 export const LinkedInCTA = () => {
   return (
     <div className="max-w-lg px-4 py-2 bg-gray-50 border-solid border-1 rounded-sm border-gray-500 flex flex-col gap-2">
-      <div className="flex-row text-md font-bold">Work History</div>
-      <div className="flex text-xs flex-row justify-evenly w-full">
+      <div className="flex-row text-lg font-bold">Work History</div>
+      <div className="flex text-sm flex-row justify-evenly w-full">
         <table>
           <tbody>
             <tr>
-              <td className="min-w-12 align-top italic">
+              <td className="min-w-16 align-top italic">
                 &apos;16-&apos;18
               </td>
               <td className="pl-2">
