@@ -21,7 +21,7 @@ export const AboutMe = (about: About) => {
     return (
       <>
         <div
-          className="max-md:hidden font-bold bg-oklahoma-beige h-10 w-full hover:cursor-pointer flex items-center justify-center text-sm"
+          className="max-md:hidden font-bold bg-linkedin-light h-10 w-full hover:cursor-pointer flex items-center justify-center text-sm"
           onClick={() => setExpanded(true)}
         >
           Click here to learn more about me
@@ -32,7 +32,7 @@ export const AboutMe = (about: About) => {
           />
         </div>
         <div
-          className="md:hidden font-bold bg-oklahoma-beige text-whit h-10 w-full hover:cursor-pointer flex items-center justify-center text-sm"
+          className="md:hidden font-bold bg-linkedin-light text-whit h-10 w-full hover:cursor-pointer flex items-center justify-center text-sm"
           onClick={() => setExpanded(true)}
         >
           Tap here to learn more about me

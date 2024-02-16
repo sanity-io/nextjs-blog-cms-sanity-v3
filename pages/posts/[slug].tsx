@@ -24,9 +24,7 @@ export default function ProjectSlugRoute(props: PageProps) {
   const { settings, post, draftMode } = props
 
   if (draftMode) {
-    return (
-      <PreviewPostPage post={post} settings={settings} />
-    )
+    return <PreviewPostPage post={post} settings={settings} />
   }
 
   return <PostPage post={post} settings={settings} />

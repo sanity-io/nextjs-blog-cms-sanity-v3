@@ -19,6 +19,8 @@ module.exports = {
         'chi-blue': '#B3DDF2',
         'oklahoma-blue': '#0073cf',
         'oklahoma-beige': '#efe8c7',
+        'oklahoma-beige-light': '#FDFCF9',
+        'linkedin-light': '#e6f6ff',
       },
       spacing: {
         28: '7rem',

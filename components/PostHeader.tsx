@@ -23,8 +23,8 @@ export default function PostHeader(
       </div>
       <div className="w-full max-w-2xl px-2">
         <h1 className="text-4xl font-bold">{title}</h1>
-        <div className="text-gray-500" >
-          <Date dateString={date} /> 
+        <div className="text-gray-500">
+          <Date dateString={date} />
         </div>
       </div>
     </div>

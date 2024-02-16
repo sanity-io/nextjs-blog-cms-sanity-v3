@@ -77,6 +77,6 @@ export async function getPostBySlug(
 export async function getPost(
   client: SanityClient,
   slug: string,
-): Promise<{ post: Post; }> {
+): Promise<{ post: Post }> {
   return await client.fetch(postQuery, { slug })
 }
