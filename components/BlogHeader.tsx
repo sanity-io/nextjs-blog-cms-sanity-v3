@@ -1,5 +1,5 @@
-import { PortableText } from '@portabletext/react'
 import Link from 'next/link'
+import { PortableText } from 'next-sanity'
 
 import styles from './BlogHeader.module.css'
 
