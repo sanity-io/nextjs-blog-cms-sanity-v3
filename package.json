@@ -19,6 +19,7 @@
     "@sanity/preview-url-secret": "1.6.7",
     "@sanity/vision": "3.36.4",
     "@sanity/visual-editing": "1.8.7",
+    "@sanity/webhook": "4.0.2-bc",
     "@vercel/og": "0.6.2",
     "classnames": "2.5.1",
     "date-fns": "3.6.0",
