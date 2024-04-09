@@ -17,7 +17,7 @@
   "dependencies": {
     "@sanity/image-url": "1.0.2",
     "@sanity/preview-url-secret": "1.6.7",
-    "@sanity/vision": "3.37.0",
+    "@sanity/vision": "3.37.1",
     "@sanity/visual-editing": "1.8.7",
     "@sanity/webhook": "4.0.3",
     "@vercel/og": "0.6.2",
@@ -29,7 +29,7 @@
     "next-sanity-image": "6.1.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "sanity": "3.37.0",
+    "sanity": "3.37.1",
     "sanity-plugin-asset-source-unsplash": "3.0.0",
     "sanity-plugin-iframe-pane": "3.1.6",
     "styled-components": "6.1.8",
