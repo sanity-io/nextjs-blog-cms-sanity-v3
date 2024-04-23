@@ -25,7 +25,6 @@
 import { isValidSignature, SIGNATURE_HEADER_NAME } from '@sanity/webhook'
 import { apiVersion, dataset, projectId } from 'lib/sanity.api'
 import type { NextApiRequest, NextApiResponse } from 'next'
-import type { PageConfig } from 'next/types'
 import {
   createClient,
   groq,
@@ -41,8 +40,7 @@ export const config = {
      */
     bodyParser: false,
   },
-  runtime: 'nodejs',
-} satisfies PageConfig
+}
 
 export default async function revalidate(
   req: NextApiRequest,
