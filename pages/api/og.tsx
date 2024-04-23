@@ -1,10 +1,9 @@
+import { createClient } from '@sanity/client'
 import { ImageResponse } from '@vercel/og'
 import { apiVersion, dataset, projectId } from 'lib/sanity.api'
 import type { NextRequest, NextResponse } from 'next/server'
-import type { PageConfig } from 'next/types'
-import { createClient } from 'next-sanity'
 
-export const config: PageConfig = { runtime: 'edge' }
+export const config = { runtime: 'edge' }
 
 import { height, OpenGraphImage, width } from 'components/OpenGraphImage'
 import * as demo from 'lib/demo.data'
