@@ -15,10 +15,10 @@
     "singleQuote": true
   },
   "dependencies": {
-    "@sanity/client": "6.17.2",
+    "@sanity/client": "6.18.0",
     "@sanity/image-url": "1.0.2",
     "@sanity/preview-url-secret": "1.6.12",
-    "@sanity/vision": "3.40.0",
+    "@sanity/vision": "3.41.1",
     "@sanity/visual-editing": "1.8.18",
     "@sanity/webhook": "4.0.4",
     "@vercel/og": "0.6.2",
@@ -26,14 +26,14 @@
     "date-fns": "3.6.0",
     "intl-segmenter-polyfill": "0.4.4",
     "next": "14.2.3",
-    "next-sanity": "9.0.14",
+    "next-sanity": "9.0.15",
     "next-sanity-image": "6.1.1",
     "react": "18.3.1",
     "react-dom": "18.3.1",
-    "sanity": "3.40.0",
+    "sanity": "3.41.1",
     "sanity-plugin-asset-source-unsplash": "3.0.1",
     "sanity-plugin-iframe-pane": "3.1.6",
-    "styled-components": "6.1.9",
+    "styled-components": "6.1.10",
     "swr": "2.2.5"
   },
   "devDependencies": {
