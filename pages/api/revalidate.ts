@@ -22,6 +22,7 @@
  * 16. Redeploy with `npx vercel --prod` to apply the new environment variable
  */
 
+import { isValidSignature, SIGNATURE_HEADER_NAME } from '@sanity/webhook'
 import { apiVersion, dataset, projectId } from 'lib/sanity.api'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import {
@@ -30,9 +31,16 @@ import {
   type SanityClient,
   type SanityDocument,
 } from 'next-sanity'
-import { parseBody, type ParsedBody } from 'next-sanity/webhook'
+import type { ParsedBody } from 'next-sanity/webhook'
 
-export { config } from 'next-sanity/webhook'
+export const config = {
+  api: {
+    /**
+     * Next.js will by default parse the body, which can lead to invalid signatures.
+     */
+    bodyParser: false,
+  },
+}
 
 export default async function revalidate(
   req: NextApiRequest,
@@ -67,6 +75,49 @@ export default async function revalidate(
   }
 }
 
+async function parseBody<Body = SanityDocument>(
+  req: NextApiRequest,
+  secret?: string,
+  waitForContentLakeEventualConsistency: boolean = true,
+): Promise<ParsedBody<Body>> {
+  let signature = req.headers[SIGNATURE_HEADER_NAME]
+  if (Array.isArray(signature)) {
+    signature = signature[0]
+  }
+  if (!signature) {
+    console.error('Missing signature header')
+    return { body: null, isValidSignature: null }
+  }
+
+  if (req.readableEnded) {
+    throw new Error(
+      `Request already ended and the POST body can't be read. Have you setup \`export {config} from 'next-sanity/webhook' in your webhook API handler?\``,
+    )
+  }
+
+  const body = await readBody(req)
+  const validSignature = secret
+    ? await isValidSignature(body, signature, secret.trim())
+    : null
+
+  if (validSignature !== false && waitForContentLakeEventualConsistency) {
+    await new Promise((resolve) => setTimeout(resolve, 1000))
+  }
+
+  return {
+    body: body.trim() ? JSON.parse(body) : null,
+    isValidSignature: validSignature,
+  }
+}
+
+async function readBody(readable: NextApiRequest): Promise<string> {
+  const chunks = []
+  for await (const chunk of readable) {
+    chunks.push(typeof chunk === 'string' ? Buffer.from(chunk) : chunk)
+  }
+  return Buffer.concat(chunks).toString('utf8')
+}
+
 type StaleRoute = '/' | `/posts/${string}`
 
 async function queryStaleRoutes(
@@ -81,7 +132,7 @@ async function queryStaleRoutes(
   if (body._type === 'post') {
     const exists = await client.fetch(groq`*[_id == $id][0]`, { id: body._id })
     if (!exists) {
-      let staleRoutes: StaleRoute[] = ['/']
+      const staleRoutes: StaleRoute[] = ['/']
       if ((body.slug as any)?.current) {
         staleRoutes.push(`/posts/${(body.slug as any).current}`)
       }

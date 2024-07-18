@@ -6,12 +6,8 @@ The Studio connects to Sanity Content Lake, which gives you hosted content APIs 
 
 [![Deploy with Vercel](https://vercel.com/button)][vercel-deploy]
 
-> **Note**
->
-> This starter uses the `/pages` directory for Next.js routing.
->
-> The template will be migrated to the currently experimental [/app][app-dir] directory
-> when Vercel announce that it is production ready.
+> [!NOTE]  
+> This starter uses the Next.js [Pages Router](https://nextjs.org/docs/pages). [An App Router example is also available.](https://github.com/vercel/next.js/tree/canary/examples/cms-sanity#readme)
 
 ## Features
 

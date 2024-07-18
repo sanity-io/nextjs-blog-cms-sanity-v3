@@ -7,10 +7,7 @@
  * https://portabletext.org/
  *
  */
-import {
-  PortableText,
-  type PortableTextReactComponents,
-} from '@portabletext/react'
+import { PortableText, type PortableTextReactComponents } from 'next-sanity'
 
 import styles from './PostBody.module.css'
 import { SanityImage } from './SanityImage'

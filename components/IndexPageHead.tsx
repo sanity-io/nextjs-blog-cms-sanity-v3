@@ -1,8 +1,8 @@
-import { toPlainText } from '@portabletext/react'
 import BlogMeta from 'components/BlogMeta'
 import * as demo from 'lib/demo.data'
 import { Settings } from 'lib/sanity.queries'
 import Head from 'next/head'
+import { toPlainText } from 'next-sanity'
 
 export interface IndexPageHeadProps {
   settings: Settings

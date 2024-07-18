@@ -9,7 +9,7 @@ import PostTitle from 'components/PostTitle'
 import SectionSeparator from 'components/SectionSeparator'
 import * as demo from 'lib/demo.data'
 import type { Post, Settings } from 'lib/sanity.queries'
-import { notFound } from 'next/navigation'
+import Error from 'next/error'
 
 export interface PostPageProps {
   preview?: boolean
@@ -28,7 +28,7 @@ export default function PostPage(props: PostPageProps) {
   const slug = post?.slug
 
   if (!slug && !preview) {
-    notFound()
+    return <Error statusCode={404} />
   }
 
   return (
