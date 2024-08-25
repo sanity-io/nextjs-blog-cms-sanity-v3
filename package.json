@@ -38,7 +38,6 @@
   },
   "devDependencies": {
     "@types/react": "18.3.3",
-    "@types/styled-components": "5.1.34",
     "autoprefixer": "10.4.19",
     "eslint": "8.57.0",
     "eslint-config-next": "14.2.4",
