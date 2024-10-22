@@ -25,7 +25,7 @@
     "@vercel/og": "0.6.3",
     "classnames": "2.5.1",
     "date-fns": "3.6.0",
-    "groq": "^3.61.0",
+    "groq": "3.61.0",
     "intl-segmenter-polyfill": "0.4.4",
     "next": "14.2.15",
     "next-sanity": "9.6.0",
