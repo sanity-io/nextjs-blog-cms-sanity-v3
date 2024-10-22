@@ -3,6 +3,7 @@ import * as demo from 'lib/demo.data'
 import { urlForImage } from 'lib/sanity.image'
 import { Post, Settings } from 'lib/sanity.queries'
 import Head from 'next/head'
+import { stegaClean } from 'next-sanity'
 
 export interface PostPageHeadProps {
   settings: Settings
@@ -13,7 +14,9 @@ export default function PostPageHead({ settings, post }: PostPageHeadProps) {
   const title = settings.title ?? demo.title
   return (
     <Head>
-      <title>{post.title ? `${post.title} | ${title}` : title}</title>
+      <title>
+        {stegaClean(post.title ? `${post.title} | ${title}` : title)}
+      </title>
       <BlogMeta />
       {post.coverImage?.asset?._ref && (
         <meta
