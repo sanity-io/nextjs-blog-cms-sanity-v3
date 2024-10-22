@@ -2,7 +2,7 @@ import BlogMeta from 'components/BlogMeta'
 import * as demo from 'lib/demo.data'
 import { Settings } from 'lib/sanity.queries'
 import Head from 'next/head'
-import { toPlainText } from 'next-sanity'
+import { stegaClean, toPlainText } from 'next-sanity'
 
 export interface IndexPageHeadProps {
   settings: Settings
@@ -18,7 +18,7 @@ export default function IndexPageHead({ settings }: IndexPageHeadProps) {
 
   return (
     <Head>
-      <title>{title}</title>
+      <title>{stegaClean(title)}</title>
       <BlogMeta />
       <meta
         key="description"
