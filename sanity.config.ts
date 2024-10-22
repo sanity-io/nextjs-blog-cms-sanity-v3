@@ -42,7 +42,7 @@ export default defineConfig({
     presentationTool({
       locate,
       previewUrl: {
-        draftMode: {
+        previewMode: {
           enable: DRAFT_MODE_ROUTE,
         },
       },
