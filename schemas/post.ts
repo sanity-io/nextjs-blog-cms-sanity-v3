@@ -3,34 +3,23 @@ import { format, parseISO } from 'date-fns'
 import { defineField, defineType } from 'sanity'
 
 import authorType from './author'
-
-/**
- * This file is the schema definition for a post.
- *
- * Here you'll be able to edit the different fields that appear when you 
- * create or edit a post in the studio.
- * 
- * Here you can see the different schema types that are available:
-
-  https://www.sanity.io/docs/schema-types
-
- */
+import categoryType from './category'
 
 export default defineType({
   name: 'post',
-  title: 'Post',
+  title: 'Мэдээлэл',
   icon: BookIcon,
   type: 'document',
   fields: [
     defineField({
       name: 'title',
-      title: 'Title',
+      title: 'Гарчиг',
       type: 'string',
       validation: (rule) => rule.required(),
     }),
     defineField({
       name: 'slug',
-      title: 'Slug',
+      title: 'Холбоос',
       type: 'slug',
       options: {
         source: 'title',
@@ -40,51 +29,30 @@ export default defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({
-      name: 'content',
-      title: 'Content',
-      type: 'array',
-      of: [
-        { type: 'block' },
-        {
-          type: 'image',
-          options: {
-            hotspot: true,
-          },
-          fields: [
-            {
-              name: 'caption',
-              type: 'string',
-              title: 'Image caption',
-              description: 'Caption displayed below the image.',
-            },
-            {
-              name: 'alt',
-              type: 'string',
-              title: 'Alternative text',
-              description: 'Important for SEO and accessiblity.',
-            },
-          ],
-        },
-      ],
-    }),
-    defineField({
       name: 'excerpt',
-      title: 'Excerpt',
+      title: 'Товч',
       type: 'text',
     }),
     defineField({
-      name: 'coverImage',
-      title: 'Cover Image',
+      name: 'mainImage',
+      title: 'Үндсэн зураг',
       type: 'image',
       options: {
         hotspot: true,
       },
     }),
     defineField({
-      name: 'date',
+      name: 'publishedAt',
       title: 'Date',
       type: 'datetime',
       initialValue: () => new Date().toISOString(),
+    }),
+
+    defineField({
+      name: 'subschool',
+      title: 'Сургууль',
+      type: 'reference',
+      to: [{ type: subschools.name }],
     }),
     defineField({
       name: 'author',
@@ -96,14 +64,12 @@ export default defineType({
   preview: {
     select: {
       title: 'title',
-      author: 'author.name',
-      date: 'date',
-      media: 'coverImage',
+      date: 'publishedAt',
+      media: 'mainImage',
     },
-    prepare({ title, media, author, date }) {
+    prepare({ title, media, date }) {
       const subtitles = [
-        author && `by ${author}`,
-        date && `on ${format(parseISO(date), 'LLL d, yyyy')}`,
+        date && `on ${format(parseISO(date), 'yyyy-MM-dd')}`,
       ].filter(Boolean)
 
       return { title, media, subtitle: subtitles.join(' ') }
