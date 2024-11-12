@@ -43,5 +43,6 @@ jobs:
           branch: actions/prettier-if-needed
           commit-message: 'chore(prettier): 🤖 ✨'
           labels: 🤖 bot
+          sign-commits: true
           title: 'chore(prettier): 🤖 ✨'
           token: ${{ steps.generate-token.outputs.token }}
