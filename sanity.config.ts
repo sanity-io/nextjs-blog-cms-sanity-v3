@@ -33,6 +33,7 @@ export default defineConfig({
     // If you want more content types, you can add them to this array
     types: [authorType, postType, settingsType],
   },
+  releases: { enabled: true },
   plugins: [
     structureTool({
       structure: settingsStructure(settingsType),
