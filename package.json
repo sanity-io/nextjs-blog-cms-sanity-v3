@@ -40,7 +40,7 @@
   "devDependencies": {
     "@types/react": "18.3.18",
     "autoprefixer": "10.4.20",
-    "eslint": "8.57.1",
+    "eslint": "9.19.0",
     "eslint-config-next": "14.2.23",
     "eslint-plugin-simple-import-sort": "12.1.1",
     "postcss": "8.5.1",
