@@ -9,7 +9,6 @@
  */
 import { PortableText, type PortableTextReactComponents } from 'next-sanity'
 
-import styles from './PostBody.module.css'
 import { SanityImage } from './SanityImage'
 
 const myPortableTextComponents: Partial<PortableTextReactComponents> = {
@@ -22,7 +21,7 @@ const myPortableTextComponents: Partial<PortableTextReactComponents> = {
 
 export default function PostBody({ content }) {
   return (
-    <div className={`mx-auto max-w-2xl ${styles.portableText}`}>
+    <div className="mx-auto max-w-2xl prose">
       <PortableText value={content} components={myPortableTextComponents} />
     </div>
   )

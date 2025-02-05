@@ -7,6 +7,7 @@ import MoreStories from 'components/MoreStories'
 import IntroTemplate from 'intro-template'
 import * as demo from 'lib/demo.data'
 import type { Post, Settings } from 'lib/sanity.queries'
+import { Suspense } from 'react'
 
 export interface IndexPageProps {
   preview?: boolean
@@ -39,7 +40,9 @@ export default function IndexPage(props: IndexPageProps) {
           )}
           {morePosts.length > 0 && <MoreStories posts={morePosts} />}
         </Container>
-        <IntroTemplate />
+        <Suspense>
+          <IntroTemplate />
+        </Suspense>
       </Layout>
     </>
   )

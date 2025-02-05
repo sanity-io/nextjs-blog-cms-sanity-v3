@@ -1,9 +1,10 @@
-/** @type {import('next').NextConfig} */
-const config = {
+import type { NextConfig } from 'next'
+
+const config: NextConfig = {
   images: {
     remotePatterns: [
       { hostname: 'cdn.sanity.io' },
-      { hostname: 'source.unsplash.com' },
+      { hostname: 'picsum.photos' },
     ],
   },
   typescript: {

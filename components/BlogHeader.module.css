@@ -1,3 +1,6 @@
 .portableText a {
-  @apply underline transition-colors duration-200 hover:text-success;
+  @apply underline transition-colors duration-200;
+  &:hover {
+    color: var(--color-success);
+  }
 }
