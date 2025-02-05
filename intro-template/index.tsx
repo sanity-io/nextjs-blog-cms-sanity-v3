@@ -1,33 +1,23 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { memo, useSyncExternalStore } from 'react'
+import { useSyncExternalStore } from 'react'
 
 import cover from './cover.png'
 
 const subscribe = () => () => {}
 
-export default memo(function IntroTemplate() {
-  const studioURL = useSyncExternalStore(
+export default function IntroTemplate() {
+  const mounted = useSyncExternalStore(
     subscribe,
-    () => `${window.location.origin}/studio`,
-    () => null,
-  )
-  const createPostURL = useSyncExternalStore(
-    subscribe,
-    () =>
-      `${window.location.origin}/studio/intent/create/template=post;type=post/`,
-    () => null,
-  )
-  const isLocalHost = useSyncExternalStore(
-    subscribe,
-    () => window.location.hostname === 'localhost',
+    () => true,
     () => false,
   )
-  const hasUTMtags = useSyncExternalStore(
-    subscribe,
-    () => window.location.search.includes('utm'),
-    () => false,
-  )
+  const studioURL = mounted ? `${window.location.origin}/studio` : null
+  const createPostURL = mounted
+    ? `${window.location.origin}/studio/intent/create/template=post;type=post/`
+    : null
+  const isLocalHost = mounted ? window.location.hostname === 'localhost' : false
+  const hasUTMtags = mounted ? window.location.search.includes('utm') : false
 
   const hasEnvFile = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID
   const hasRepoEnvVars =
@@ -45,7 +35,7 @@ export default memo(function IntroTemplate() {
 
   return (
     <div className="flex justify-center border border-gray-200 bg-gray-50">
-      <div className="mb-8 mt-20 grid max-w-screen-2xl grid-cols-1 gap-y-20 md:grid-cols-2 md:gap-x-16 md:gap-y-32 lg:gap-x-32 ">
+      <div className="mb-8 mt-20 grid max-w-(--breakpoint-2xl) grid-cols-1 gap-y-20 md:grid-cols-2 md:gap-x-16 md:gap-y-32 lg:gap-x-32 ">
         <div className="self-center">
           <Image
             alt="An illustration of a browser window, a terminal window, the Sanity.io logo and the NextJS logo"
@@ -102,7 +92,7 @@ export default memo(function IntroTemplate() {
 
                   <div className="mt-3">
                     <Link
-                      className="inline-flex rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-800"
+                      className="inline-flex rounded-sm bg-blue-500 px-4 py-2 text-white hover:bg-blue-800"
                       href={createPostURL}
                     >
                       Go to Sanity Studio
@@ -144,7 +134,7 @@ export default memo(function IntroTemplate() {
 
                       <div className="mt-3">
                         <a
-                          className="inline-flex rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-800"
+                          className="inline-flex rounded-sm bg-blue-500 px-4 py-2 text-white hover:bg-blue-800"
                           href={repoURL}
                           target="_blank"
                           rel="noopener noreferrer"
@@ -196,14 +186,14 @@ export default memo(function IntroTemplate() {
       </div>
     </div>
   )
-})
+}
 
 function Box({
   circleTitle,
   element,
 }: {
   circleTitle: string
-  element: JSX.Element
+  element: React.JSX.Element
 }) {
   return (
     <li className="mt-2 grid grid-flow-col grid-rows-1 place-content-start gap-3">
