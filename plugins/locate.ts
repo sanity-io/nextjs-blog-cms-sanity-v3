@@ -17,7 +17,7 @@ export const locate: DocumentLocationResolver = (params, context) => {
     const doc$ = context.documentStore.listenQuery(
       `*[_id == $id && defined(slug.current)][0]{slug,title}`,
       params,
-      { perspective: 'previewDrafts' },
+      { perspective: 'drafts' },
     ) as Observable<{
       slug: { current: string }
       title: string | null
@@ -46,7 +46,7 @@ export const locate: DocumentLocationResolver = (params, context) => {
     const doc$ = context.documentStore.listenQuery(
       `*[_type == "post" && references($id) && defined(slug.current)]{slug,title}`,
       params,
-      { perspective: 'previewDrafts' },
+      { perspective: 'drafts' },
     ) as Observable<
       {
         slug: { current: string }
