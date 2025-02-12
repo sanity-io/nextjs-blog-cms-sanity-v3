@@ -19,7 +19,7 @@
     "@sanity/icons": "3.5.7",
     "@sanity/image-url": "1.1.0",
     "@sanity/vision": "3.75.0",
-    "@sanity/visual-editing": "2.13.1",
+    "@sanity/visual-editing": "2.13.2",
     "@sanity/webhook": "4.0.4",
     "@vercel/og": "0.6.5",
     "classnames": "2.5.1",
