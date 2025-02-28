@@ -19,7 +19,7 @@ export const readToken = process.env.SANITY_API_READ_TOKEN || ''
 
 // see https://www.sanity.io/docs/api-versioning for how versioning works
 export const apiVersion =
-  process.env.NEXT_PUBLIC_SANITY_API_VERSION || '2023-06-21'
+  process.env.NEXT_PUBLIC_SANITY_API_VERSION || '2025-02-27'
 
 // Used to generate URLs for previewing your content
 export const DRAFT_MODE_ROUTE = '/api/draft-mode/enable'
