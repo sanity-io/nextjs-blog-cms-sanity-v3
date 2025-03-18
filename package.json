@@ -26,7 +26,7 @@
     "date-fns": "4.1.0",
     "groq": "3.79.0",
     "intl-segmenter-polyfill": "0.4.4",
-    "next": "15.2.2",
+    "next": "15.2.3",
     "next-sanity": "9.9.5",
     "next-sanity-image": "6.1.1",
     "react": "19.0.0",
@@ -34,15 +34,15 @@
     "sanity": "3.79.0",
     "sanity-plugin-asset-source-unsplash": "3.0.3",
     "sanity-plugin-iframe-pane": "3.2.1",
-    "styled-components": "6.1.15",
+    "styled-components": "6.1.16",
     "swr": "2.3.3"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "4.0.14",
     "@tailwindcss/typography": "0.5.16",
-    "@types/react": "19.0.10",
+    "@types/react": "19.0.11",
     "eslint": "8.57.1",
-    "eslint-config-next": "15.2.2",
+    "eslint-config-next": "15.2.3",
     "eslint-plugin-simple-import-sort": "12.1.1",
     "postcss": "8.5.3",
     "prettier": "3.5.3",
@@ -53,7 +53,7 @@
   },
   "overrides": {
     "next-sanity-image": {
-      "next": "15.2.2",
+      "next": "15.2.3",
       "react": "19.0.0"
     }
   },
