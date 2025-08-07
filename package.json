@@ -27,7 +27,7 @@
     "groq": "3.87.0",
     "intl-segmenter-polyfill": "0.4.4",
     "next": "15.4.6",
-    "next-sanity": "9.10.2",
+    "next-sanity": "10.0.10",
     "next-sanity-image": "6.2.0",
     "react": "19.1.1",
     "react-dom": "19.1.1",
