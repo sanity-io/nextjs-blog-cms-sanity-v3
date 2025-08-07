@@ -15,11 +15,11 @@
     "singleQuote": true
   },
   "dependencies": {
-    "@sanity/client": "6.29.1",
+    "@sanity/client": "7.8.2",
     "@sanity/icons": "3.7.0",
     "@sanity/image-url": "1.1.0",
     "@sanity/vision": "3.87.0",
-    "@sanity/visual-editing": "2.13.18",
+    "@sanity/visual-editing": "2.15.4",
     "@sanity/webhook": "4.0.4",
     "@vercel/og": "0.6.8",
     "classnames": "2.5.1",
@@ -28,13 +28,13 @@
     "intl-segmenter-polyfill": "0.4.4",
     "next": "15.4.6",
     "next-sanity": "9.10.2",
-    "next-sanity-image": "6.1.1",
+    "next-sanity-image": "6.2.0",
     "react": "19.1.1",
     "react-dom": "19.1.1",
     "sanity": "3.87.0",
     "sanity-plugin-asset-source-unsplash": "3.0.3",
     "sanity-plugin-iframe-pane": "3.2.1",
-    "styled-components": "6.1.17",
+    "styled-components": "6.1.19",
     "swr": "2.3.3"
   },
   "devDependencies": {
@@ -51,13 +51,7 @@
     "tailwindcss": "4.1.5",
     "typescript": "5.8.3"
   },
-  "overrides": {
-    "next-sanity-image": {
-      "next": "15.4.6",
-      "react": "19.1.1"
-    }
-  },
   "engines": {
-    "node": ">=20"
+    "node": ">=20.19"
   }
 }
