@@ -22,7 +22,7 @@ export const apiVersion =
   process.env.NEXT_PUBLIC_SANITY_API_VERSION || '2025-08-07'
 
 // Used to generate URLs for previewing your content
-export const DRAFT_MODE_ROUTE = '/api/draft-mode/enable'
+export const PREVIEW_MODE_ROUTE = '/api/preview-mode/enable'
 
 /**
  * Used to configure edit intent links, for Presentation Mode, as well as to configure where the Studio is mounted in the router.

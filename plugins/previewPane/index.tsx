@@ -4,7 +4,7 @@
 // It's part of the Studio's “Structure Builder API” and is documented here:
 // https://www.sanity.io/docs/structure-builder-reference
 
-import { DRAFT_MODE_ROUTE } from 'lib/sanity.api'
+import { PREVIEW_MODE_ROUTE } from 'lib/sanity.api'
 import type { DefaultDocumentNodeResolver } from 'sanity/structure'
 import { Iframe, IframeOptions } from 'sanity-plugin-iframe-pane'
 import authorType from 'schemas/author'
@@ -28,7 +28,7 @@ const iframeOptions = {
           return new Error(`Unknown document type: ${document?._type}`)
       }
     },
-    draftMode: DRAFT_MODE_ROUTE,
+    draftMode: PREVIEW_MODE_ROUTE,
   },
   reload: { button: true },
 } satisfies IframeOptions

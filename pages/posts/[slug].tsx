@@ -22,9 +22,9 @@ interface Query {
 }
 
 export default function ProjectSlugRoute(props: PageProps) {
-  const { settings, post, morePosts, draftMode } = props
+  const { settings, post, morePosts, previewMode } = props
 
-  if (draftMode) {
+  if (previewMode) {
     return (
       <PreviewPostPage post={post} morePosts={morePosts} settings={settings} />
     )
@@ -34,8 +34,10 @@ export default function ProjectSlugRoute(props: PageProps) {
 }
 
 export const getStaticProps: GetStaticProps<PageProps, Query> = async (ctx) => {
-  const { draftMode = false, params = {} } = ctx
-  const client = getClient(draftMode ? { token: readToken } : undefined)
+  const { preview: previewMode = false, previewData, params = {} } = ctx
+  const client = getClient(
+    previewMode ? { token: readToken, perspective: previewData } : undefined,
+  )
 
   const [settings, { post, morePosts }] = await Promise.all([
     getSettings(client),
@@ -43,9 +45,7 @@ export const getStaticProps: GetStaticProps<PageProps, Query> = async (ctx) => {
   ])
 
   if (!post) {
-    return {
-      notFound: true,
-    }
+    return { notFound: true }
   }
 
   return {
@@ -53,8 +53,9 @@ export const getStaticProps: GetStaticProps<PageProps, Query> = async (ctx) => {
       post,
       morePosts,
       settings,
-      draftMode,
-      token: draftMode ? readToken : '',
+      previewMode,
+      previewPerspective: typeof previewData === 'string' ? previewData : null,
+      token: previewMode ? readToken : '',
     },
   }
 }

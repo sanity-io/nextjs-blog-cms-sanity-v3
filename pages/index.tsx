@@ -16,18 +16,24 @@ interface Query {
 }
 
 export default function Page(props: PageProps) {
-  const { posts, settings, draftMode } = props
+  const { posts, settings, previewMode } = props
 
-  if (draftMode) {
+  if (previewMode) {
     return <PreviewIndexPage posts={posts} settings={settings} />
   }
 
-  return <IndexPage posts={posts} settings={settings} />
+  return (
+    <main>
+      <IndexPage posts={posts} settings={settings} />
+    </main>
+  )
 }
 
 export const getStaticProps: GetStaticProps<PageProps, Query> = async (ctx) => {
-  const { draftMode = false } = ctx
-  const client = getClient(draftMode ? { token: readToken } : undefined)
+  const { preview: previewMode = false, previewData } = ctx
+  const client = getClient(
+    previewMode ? { token: readToken, perspective: previewData } : undefined,
+  )
 
   const [settings, posts = []] = await Promise.all([
     getSettings(client),
@@ -38,8 +44,9 @@ export const getStaticProps: GetStaticProps<PageProps, Query> = async (ctx) => {
     props: {
       posts,
       settings,
-      draftMode,
-      token: draftMode ? readToken : '',
+      previewMode,
+      previewPerspective: typeof previewData === 'string' ? previewData : null,
+      token: previewMode ? readToken : '',
     },
   }
 }

@@ -7,7 +7,7 @@ import { visionTool } from '@sanity/vision'
 import {
   apiVersion,
   dataset,
-  DRAFT_MODE_ROUTE,
+  PREVIEW_MODE_ROUTE,
   projectId,
 } from 'lib/sanity.api'
 import { locate } from 'plugins/locate'
@@ -41,11 +41,7 @@ export default defineConfig({
     }),
     presentationTool({
       locate,
-      previewUrl: {
-        previewMode: {
-          enable: DRAFT_MODE_ROUTE,
-        },
-      },
+      previewUrl: { previewMode: { enable: PREVIEW_MODE_ROUTE } },
     }),
     // Configures the global "new document" button, and document actions, to suit the Settings document singleton
     settingsPlugin({ type: settingsType.name }),
