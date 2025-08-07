@@ -1,3 +1,4 @@
+import { useLiveQuery } from '@sanity/preview-kit'
 import PostPage, { PostPageProps } from 'components/PostPage'
 import {
   type Post,
@@ -5,7 +6,6 @@ import {
   Settings,
   settingsQuery,
 } from 'lib/sanity.queries'
-import { useLiveQuery } from 'next-sanity/preview'
 
 export default function PreviewPostPage(props: PostPageProps) {
   const [{ post: postPreview, morePosts }, loadingPost] = useLiveQuery<{
@@ -14,9 +14,7 @@ export default function PreviewPostPage(props: PostPageProps) {
   }>(
     { post: props.post, morePosts: props.morePosts },
     postAndMoreStoriesQuery,
-    {
-      slug: props.post.slug,
-    },
+    { slug: props.post.slug },
   )
   const [settings, loadingSettings] = useLiveQuery<Settings>(
     props.settings,
