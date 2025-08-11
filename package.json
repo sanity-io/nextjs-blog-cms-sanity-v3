@@ -37,12 +37,12 @@
     "sanity-plugin-asset-source-unsplash": "3.1.0",
     "sanity-plugin-iframe-pane": "4.0.0",
     "styled-components": "6.1.19",
-    "swr": "2.3.4"
+    "swr": "2.3.6"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "4.1.11",
     "@tailwindcss/typography": "0.5.16",
-    "@types/react": "19.1.9",
+    "@types/react": "19.1.10",
     "eslint": "8.57.1",
     "eslint-config-next": "15.4.6",
     "eslint-plugin-simple-import-sort": "12.1.1",
