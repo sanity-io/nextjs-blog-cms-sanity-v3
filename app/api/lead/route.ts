@@ -9,25 +9,34 @@ function isEmail(v: string) {
 
 export async function POST(req: NextRequest) {
   try {
-    const body = await req.json().catch(() => ({}));
-    const service = sanitize(body.service);
-    const name    = sanitize(body.name);
-    const email   = sanitize(body.email);
-    const city    = sanitize(body.city);
+    // Accept JSON OR HTML form submissions
+    let data: Record<string, any> = {};
+    try {
+      data = await req.json();
+    } catch {
+      const fd = await req.formData();
+      data = Object.fromEntries(fd.entries());
+    }
+
+    const service = sanitize(data.service);
+    const name    = sanitize(data.name);
+    const email   = sanitize(data.email);
+    const city    = sanitize(data.city);
+    const phone   = sanitize(data.phone);
 
     if (!service) return NextResponse.json({ ok: false, error: 'service required' }, { status: 400 });
     if (!name)    return NextResponse.json({ ok: false, error: 'name required' }, { status: 400 });
     if (!email || !isEmail(email)) return NextResponse.json({ ok: false, error: 'valid email required' }, { status: 400 });
     if (!city)    return NextResponse.json({ ok: false, error: 'city required' }, { status: 400 });
 
-    // Honeypot (optional)
-    const hp = sanitize((body as any).company || '');
+    // Honeypot
+    const hp = sanitize(data.company || '');
     if (hp) return NextResponse.json({ ok: true }, { status: 200 });
 
     const to   = process.env.LEAD_TO_EMAIL!;
     const from = process.env.RESEND_FROM || 'Solovoro <no-reply@solovoro.ca>';
 
-    const rows = Object.entries(body as Record<string, unknown>)
+    const rows = Object.entries(data)
       .filter(([k]) => k !== 'company')
       .map(([k, v]) =>
         `<tr><td style="padding:6px 10px;border-bottom:1px solid #eee;"><b>${k}</b></td><td style="padding:6px 10px;border-bottom:1px solid #eee;">${String(v ?? '')}</td></tr>`
@@ -42,7 +51,6 @@ export async function POST(req: NextRequest) {
       </div>
     `;
 
-    // Use Resend API directly
     const res = await fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: {
