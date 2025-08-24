@@ -9,12 +9,14 @@ function isEmail(v: string) {
 
 export async function POST(req: NextRequest) {
   try {
-    // Accept JSON OR HTML form submissions
     let data: Record<string, any> = {};
+
+    // Try JSON first
     try {
-      data = await req.json();
+      data = await req.clone().json();
     } catch {
-      const fd = await req.formData();
+      // Fallback to FormData
+      const fd = await req.clone().formData();
       data = Object.fromEntries(fd.entries());
     }
 
@@ -76,3 +78,4 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ ok: false, error: e?.message || 'server_error' }, { status: 500 });
   }
 }
+
