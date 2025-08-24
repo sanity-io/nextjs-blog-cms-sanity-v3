@@ -1,123 +1,76 @@
-'use client'
+import Link from 'next/link';
+import type { Metadata } from 'next';
+import { notFound } from 'next/navigation';
+import ClientLeadForm from './ClientLeadForm';
+import { services, cities } from '../../../lib/solovoro';
 
-import { useState } from 'react'
-import Link from 'next/link'
-import type { Metadata, ResolvingMetadata } from 'next'
-import { notFound } from 'next/navigation'
-import { services, cities } from '@/lib/solovoro'
-
-export async function generateMetadata(
-  { params }: { params: { city: string; service: string } },
-  parent: ResolvingMetadata
-): Promise<Metadata> {
-  const { city, service } = params
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://solovoro.ca'
-  const capitalizedCity = city.charAt(0).toUpperCase() + city.slice(1)
-  const capitalizedService = service.charAt(0).toUpperCase() + service.slice(1)
-  const title = `${capitalizedService} in ${capitalizedCity} | Solovoro`
-  const description = `Find the best ${capitalizedService.toLowerCase()} services in ${capitalizedCity}. Get free quotes from trusted providers.`
-  const canonicalUrl = `${siteUrl}/${city}/${service}`
-  return {
-    title,
-    description,
-    alternates: {
-      canonical: canonicalUrl,
-    },
-    openGraph: {
-      title,
-      description,
-      url: canonicalUrl,
-      siteName: 'Solovoro',
-      locale: 'en_CA',
-      type: 'website',
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title,
-      description,
-    },
-  }
+interface PageProps {
+  params: { city: string; service: string };
 }
 
-export default function Page({ params }: { params: { city: string; service: string } }) {
-  const { city, service } = params
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { city, service } = params;
+  const capService = service.charAt(0).toUpperCase() + service.slice(1);
+  const capCity = city.charAt(0).toUpperCase() + city.slice(1);
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://solovoro.ca';
+  const url = `${siteUrl}/${city}/${service}`;
+  return {
+    title: `${capService} in ${capCity} | Solovoro`,
+    description: `Get free quotes from trusted ${service} providers in ${capCity}. Compare estimates and choose the best local professional for your project.`,
+    openGraph: {
+      title: `${capService} in ${capCity} | Solovoro`,
+      description: `Get free quotes from trusted ${service} providers in ${capCity}.`,
+      url,
+    },
+    twitter: {
+      card: 'summary',
+      title: `${capService} in ${capCity} | Solovoro`,
+      description: `Get free quotes from trusted ${service} providers in ${capCity}.`,
+    },
+    alternates: {
+      canonical: url,
+    },
+  };
+}
 
-  // Ensure only valid city/service slugs render; otherwise show 404
+export default function Page({ params }: PageProps) {
+  const { city, service } = params;
+
+  // Validate service and city slugs against the central lists.
   const isValid =
-    services.some((s) => s.slug === service) && cities.some((c) => c.slug === city)
-  if (!isValid) {
-    notFound()
-  }
+    services.some((s) => s.slug === service) &&
+    cities.some((c) => c.slug === city);
+  if (!isValid) notFound();
 
-  const capitalizedCity = city.charAt(0).toUpperCase() + city.slice(1)
-  const capitalizedService = service.charAt(0).toUpperCase() + service.slice(1)
-
-  const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle')
-
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    const form = event.currentTarget
-    const formData = new FormData(form)
-    try {
-      const res = await fetch('/api/lead', {
-        method: 'POST',
-        body: formData,
-      })
-      if (res.ok) {
-        setStatus('success')
-        form.reset()
-      } else {
-        setStatus('error')
-      }
-    } catch {
-      setStatus('error')
-    }
-  }
+  const capService = service.charAt(0).toUpperCase() + service.slice(1);
+  const capCity = city.charAt(0).toUpperCase() + city.slice(1);
 
   return (
-    <main style={{ padding: '20px' }}>
-      <h1>
-        {capitalizedService} in {capitalizedCity}
+    <main style={{ maxWidth: 960, margin: '72px auto', padding: '0 20px' }}>
+      <h1
+        style={{
+          fontWeight: 700,
+          letterSpacing: '-0.02em',
+          fontSize: 42,
+          marginBottom: 12,
+        }}
+      >
+        {capService} in {capCity}
       </h1>
-      <p>
-        Need {capitalizedService.toLowerCase()} services in {capitalizedCity}? Fill out the form
-        and we’ll connect you with trusted professionals.
+      <p style={{ maxWidth: 560, color: '#444', fontSize: 18, lineHeight: 1.6 }}>
+        Get trusted quotes from top {service} providers in {capCity}. Fill out the
+        form below to receive free estimates.
       </p>
-
-      {status === 'success' && (
-        <p style={{ color: 'green', marginTop: '1rem' }}>
-          Thanks — your request has been received!
-        </p>
-      )}
-      {status === 'error' && (
-        <p style={{ color: 'red', marginTop: '1rem' }}>
-          Error: please try again later.
-        </p>
-      )}
-
-      <form onSubmit={handleSubmit}>
-        <input type="text" name="name" placeholder="Your Name" required />
-        <input type="email" name="email" placeholder="Your Email" required />
-        {/* Hidden normalized values */}
-        <input type="hidden" name="city" value={city.toLowerCase()} />
-        <input type="hidden" name="service" value={service.toLowerCase()} />
-        {/* Honeypot field to reduce spam */}
-        <input
-          type="text"
-          name="company"
-          style={{ display: 'none' }}
-          tabIndex={-1}
-          autoComplete="off"
-        />
-        <button type="submit" style={{ padding: '12px 16px', fontWeight: 600 }}>
-          Get Free Quotes
-        </button>
-      </form>
-
-      {/* Link back to home page */}
+      <div style={{ height: 12 }} />
+      <ClientLeadForm
+        city={city}
+        service={service}
+        capCity={capCity}
+        capService={capService}
+      />
       <p style={{ marginTop: 20 }}>
         <Link href="/">← Back to Home</Link>
       </p>
     </main>
-  )
+  );
 }
