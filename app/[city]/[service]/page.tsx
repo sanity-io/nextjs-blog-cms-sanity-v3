@@ -1,68 +1,106 @@
-import { Metadata } from 'next';
-import Link from 'next/link';
+'use client'
 
-/**
- * Dynamic page component for service/location landing pages.
- *
- * This file uses Next.js App Router dynamic segments (`[city]` and `[service]`) to
- * generate SEO‑friendly pages for each service in a given city. The metadata
- * generator sets a custom title and description based on the current URL
- * parameters, which helps search engines understand the purpose of the page.
- *
- * The main page reuses the same lead form as the homepage, but prepopulates
- * hidden inputs for the selected service and city so the API receives the
- * correct values when the form is submitted. Users can simply enter their
- * contact information and submit to receive quotes from local providers.
- */
-interface PageProps {
-  params: {
-    city: string;
-    service: string;
-  };
-}
+import { useState } from 'react'
+import Link from 'next/link'
+import type { Metadata, ResolvingMetadata } from 'next'
+import { notFound } from 'next/navigation'
+import { services, cities } from '@/lib/solovoro'
 
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const { city, service } = params;
-  const serviceName = service.charAt(0).toUpperCase() + service.slice(1);
-  const cityName = city.charAt(0).toUpperCase() + city.slice(1);
+export async function generateMetadata(
+  { params }: { params: { city: string; service: string } },
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  const { city, service } = params
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://solovoro.ca'
+  const capitalizedCity = city.charAt(0).toUpperCase() + city.slice(1)
+  const capitalizedService = service.charAt(0).toUpperCase() + service.slice(1)
+  const title = `${capitalizedService} in ${capitalizedCity} | Solovoro`
+  const description = `Find the best ${capitalizedService.toLowerCase()} services in ${capitalizedCity}. Get free quotes from trusted providers.`
+  const canonicalUrl = `${siteUrl}/${city}/${service}`
   return {
-    title: `${serviceName} in ${cityName} | Solovoro`,
-    description: `Get free quotes from trusted ${serviceName.toLowerCase()} providers in ${cityName}. Compare estimates and choose the best local professional for your project.`,
-    openGraph: {
-      title: `${serviceName} in ${cityName} | Solovoro`,
-      description: `Get free quotes from trusted ${serviceName.toLowerCase()} providers in ${cityName}.`,
-      url: `https://solovoro.ca/${city}/${service}`,
+    title,
+    description,
+    alternates: {
+      canonical: canonicalUrl,
     },
-  };
+    openGraph: {
+      title,
+      description,
+      url: canonicalUrl,
+      siteName: 'Solovoro',
+      locale: 'en_CA',
+      type: 'website',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+    },
+  }
 }
 
-export default function ServiceCityPage({ params }: PageProps) {
-  const { city, service } = params;
-  const serviceName = service.charAt(0).toUpperCase() + service.slice(1);
-  const cityName = city.charAt(0).toUpperCase() + city.slice(1);
+export default function Page({ params }: { params: { city: string; service: string } }) {
+  const { city, service } = params
+
+  // Ensure only valid city/service slugs render; otherwise show 404
+  const isValid =
+    services.some((s) => s.slug === service) && cities.some((c) => c.slug === city)
+  if (!isValid) {
+    notFound()
+  }
+
+  const capitalizedCity = city.charAt(0).toUpperCase() + city.slice(1)
+  const capitalizedService = service.charAt(0).toUpperCase() + service.slice(1)
+
+  const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle')
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    const form = event.currentTarget
+    const formData = new FormData(form)
+    try {
+      const res = await fetch('/api/lead', {
+        method: 'POST',
+        body: formData,
+      })
+      if (res.ok) {
+        setStatus('success')
+        form.reset()
+      } else {
+        setStatus('error')
+      }
+    } catch {
+      setStatus('error')
+    }
+  }
 
   return (
-    <main style={{ maxWidth: 960, margin: '72px auto', padding: '0 20px' }}>
-      <h1
-        style={{ fontWeight: 700, letterSpacing: '-0.02em', fontSize: 42, marginBottom: 12 }}
-      >
-        {serviceName} in {cityName}
+    <main style={{ padding: '20px' }}>
+      <h1>
+        {capitalizedService} in {capitalizedCity}
       </h1>
-      <p style={{ maxWidth: 560, color: '#444', fontSize: 18, lineHeight: 1.6 }}>
-        Get trusted quotes from top {serviceName.toLowerCase()} providers in {cityName}. Fill out the form
-        below to receive free estimates from local professionals.
+      <p>
+        Need {capitalizedService.toLowerCase()} services in {capitalizedCity}? Fill out the form
+        and we’ll connect you with trusted professionals.
       </p>
 
-      <div style={{ height: 12 }} />
+      {status === 'success' && (
+        <p style={{ color: 'green', marginTop: '1rem' }}>
+          Thanks — your request has been received!
+        </p>
+      )}
+      {status === 'error' && (
+        <p style={{ color: 'red', marginTop: '1rem' }}>
+          Error: please try again later.
+        </p>
+      )}
 
-      {/* Lead form posting to our API. Hidden inputs prefill the service and city. */}
-      <form action="/api/lead" method="POST" style={{ display: 'grid', gap: 12, maxWidth: 480 }}>
-        <input name="name" placeholder="Your name" required />
-        <input name="email" type="email" placeholder="Your email" required />
-        {/* Show the city as a read‑only field so users understand what they are requesting quotes for. */}
-        <input name="city" defaultValue={cityName} readOnly />
-        {/* Hidden field for service used by the API */}
-        <input type="hidden" name="service" defaultValue={serviceName} />
+      <form onSubmit={handleSubmit}>
+        <input type="text" name="name" placeholder="Your Name" required />
+        <input type="email" name="email" placeholder="Your Email" required />
+        {/* Hidden normalized values */}
+        <input type="hidden" name="city" value={city.toLowerCase()} />
+        <input type="hidden" name="service" value={service.toLowerCase()} />
         {/* Honeypot field to reduce spam */}
         <input
           type="text"
@@ -81,5 +119,5 @@ export default function ServiceCityPage({ params }: PageProps) {
         <Link href="/">← Back to Home</Link>
       </p>
     </main>
-  );
+  )
 }
