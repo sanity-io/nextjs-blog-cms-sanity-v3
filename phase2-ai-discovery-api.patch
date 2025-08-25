@@ -1,0 +1,96 @@
+From c92721911603d03503bc6d67552df86b283f2073 Mon Sep 17 00:00:00 2001
+From: Solovoro Bot <bot@solovoro.ca>
+Date: Mon, 25 Aug 2025 06:07:14 +0000
+Subject: [PATCH] feat(api): add AI discovery endpoint scaffold for
+ /api/discover
+
+---
+ app/api/discover/route.ts | 75 +++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 75 insertions(+)
+ create mode 100644 app/api/discover/route.ts
+
+diff --git a/app/api/discover/route.ts b/app/api/discover/route.ts
+new file mode 100644
+index 0000000..7429a92
+--- /dev/null
++++ b/app/api/discover/route.ts
+@@ -0,0 +1,75 @@
++// app/api/discover/route.ts
++//
++// Phase 2: AI discovery API.
++//
++// This API endpoint exposes structured service information for AI
++// assistants and other automated consumers. It accepts `city` and
++// `service` query parameters, validates them against the canonical
++// registry defined in `lib/solovoro.ts`, and returns a JSON payload
++// containing provider listings (currently a placeholder), metadata,
++// canonical URLs and simple trust signals. The response format is
++// designed to be easily parseable by language models and other
++// agents that need authoritative data on local services.
++
++import { NextResponse } from 'next/server'
++import { services, cities } from '@/lib/solovoro'
++
++// Specify that this route should always be evaluated on demand. We
++// don't leverage Next.js revalidation here because data may change
++// frequently, and AI consumers should always receive the latest
++// information.
++export const dynamic = 'force-dynamic'
++
++export async function GET(request: Request) {
++  const { searchParams } = new URL(request.url)
++  const citySlug = searchParams.get('city')
++  const serviceSlug = searchParams.get('service')
++
++  if (!citySlug || !serviceSlug) {
++    return NextResponse.json(
++      { error: 'Missing city or service query parameter' },
++      { status: 400 },
++    )
++  }
++
++  const city = cities.find((c) => c.slug === citySlug)
++  const service = services.find((s) => s.slug === serviceSlug)
++
++  if (!city || !service) {
++    return NextResponse.json(
++      { error: 'Invalid city or service' },
++      { status: 404 },
++    )
++  }
++
++  // TODO: integrate actual provider lookup once our provider database
++  // or third‑party integrations are ready. For now we return an
++  // empty array to illustrate the shape of the response.
++  const providers: Array<{
++    name: string
++    url: string
++    rating?: number
++    phone?: string
++  }> = []
++
++  const siteUrl =
++    process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/+$/, '') || 'https://solovoro.ca'
++
++  return NextResponse.json({
++    city: {
++      name: city.name,
++      slug: city.slug,
++    },
++    service: {
++      name: service.name,
++      slug: service.slug,
++    },
++    canonical: `${siteUrl}/${city.slug}/${service.slug}`,
++    trustSignals: {
++      // Basic trust attributes—expand as we integrate reputation data.
++      source: 'Solovoro',
++      verified: true,
++    },
++    providers,
++  })
++}
+\ No newline at end of file
+-- 
+2.39.5
+

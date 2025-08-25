@@ -1,0 +1,713 @@
+From aafeb44e309d1b33738915610c1b54080a221dbb Mon Sep 17 00:00:00 2001
+From: Solovoro Bot <bot@solovoro.ca>
+Date: Mon, 25 Aug 2025 04:23:41 +0000
+Subject: [PATCH] feat(seo): Phase-1 Quebec hubs, dynamic sitemap, canonical +
+ JSON-LD, alias fixes
+
+---
+ app/[city]/[service]/page.tsx | 170 ++++++++++++++++++++++++++++++++++
+ app/cleaning/page.tsx         |  77 +++++++++++++++
+ app/moving/page.tsx           |  79 ++++++++++++++++
+ app/plumbing/page.tsx         |  77 +++++++++++++++
+ app/roofing/page.tsx          |  77 +++++++++++++++
+ app/sitemap.ts                |  60 ++++++++++++
+ lib/solovoro.ts               |  63 +++++++++++++
+ tsconfig.json                 |  26 ++++++
+ 8 files changed, 629 insertions(+)
+ create mode 100644 app/[city]/[service]/page.tsx
+ create mode 100644 app/cleaning/page.tsx
+ create mode 100644 app/moving/page.tsx
+ create mode 100644 app/plumbing/page.tsx
+ create mode 100644 app/roofing/page.tsx
+ create mode 100644 app/sitemap.ts
+ create mode 100644 lib/solovoro.ts
+ create mode 100644 tsconfig.json
+
+diff --git a/app/[city]/[service]/page.tsx b/app/[city]/[service]/page.tsx
+new file mode 100644
+index 0000000..a8362a5
+--- /dev/null
++++ b/app/[city]/[service]/page.tsx
+@@ -0,0 +1,170 @@
++// app/[city]/[service]/page.tsx
++//
++// Dynamic route for a specific city and service combination. This
++// server component validates the incoming URL segments against the
++// canonical list of services and cities, generates structured metadata
++// (including a canonical link and JSON‑LD schema) and renders a
++// service/city landing page with a lead capture form.
++
++import { notFound } from 'next/navigation'
++import type { Metadata } from 'next'
++// We do not link to other routes from the city/service page, so avoid
++// importing unused modules.
++import { cities, services } from '@/lib/solovoro'
++
++// Revalidate this page once every 24 hours (86400 seconds) to
++// accommodate daily content updates and signal freshness to crawlers.
++export const revalidate = 86400
++
++// Helper to look up a service and city by slug. Returns null if
++// either segment is invalid.
++function resolveSlugs(citySlug: string, serviceSlug: string) {
++  const city = cities.find((c) => c.slug === citySlug) || null
++  const service = services.find((s) => s.slug === serviceSlug) || null
++  return { city, service }
++}
++
++type Props = { params: { city: string; service: string } }
++
++// Generate page metadata. Next.js will merge this with site‑wide
++// defaults defined in the root layout. We include a canonical link
++// via the alternates field and craft a descriptive title and
++// description for SEO.
++export async function generateMetadata({ params }: Props): Promise<Metadata> {
++  const { city, service } = resolveSlugs(params.city, params.service)
++  if (!city || !service) {
++    // Trigger the 404 page if the slugs are unknown.
++    notFound()
++  }
++
++  const siteUrl =
++    process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/+$/, '') || 'https://solovoro.ca'
++  const url = `${siteUrl}/${city.slug}/${service.slug}`
++  const title = `${service.name} in ${city.name} | Solovoro`
++  const description = `Looking for ${service.name.toLowerCase()} services in ${city.name}? Solovoro connects you with trusted professionals.`
++
++  return {
++    title,
++    description,
++    alternates: {
++      canonical: url,
++    },
++    openGraph: {
++      title,
++      description,
++      url,
++      type: 'website',
++    },
++    twitter: {
++      title,
++      description,
++      card: 'summary_large_image',
++    },
++  }
++}
++
++// Render the dynamic city/service page. Includes a JSON‑LD script for
++// structured data. The form posts to `/api/lead` and includes hidden
++// fields with normalized city and service slugs so the API can
++// associate leads accurately.
++export default function Page({ params }: Props) {
++  const { city, service } = resolveSlugs(params.city, params.service)
++  if (!city || !service) {
++    notFound()
++  }
++
++  const siteUrl =
++    process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/+$/, '') || 'https://solovoro.ca'
++  const jsonLd = {
++    '@context': 'https://schema.org',
++    '@type': ['Service', 'LocalBusiness'],
++    name: `${service.name} in ${city.name}`,
++    description: `Find the best ${service.name.toLowerCase()} services in ${city.name}.`,
++    serviceType: service.name,
++    areaServed: {
++      '@type': 'City',
++      name: city.name,
++      address: {
++        '@type': 'PostalAddress',
++        addressLocality: city.name,
++        addressRegion: city.province,
++        addressCountry: 'CA',
++      },
++    },
++    provider: {
++      '@type': 'Organization',
++      name: 'Solovoro',
++      url: siteUrl,
++    },
++  }
++
++  return (
++    <main className="prose mx-auto max-w-4xl p-6">
++      {/* Page heading */}
++      <h1 className="text-3xl font-bold mb-4">
++        {service.name} services in {city.name}
++      </h1>
++      <p className="mb-6">
++        Solovoro connects you with top‑rated providers for {service.name.toLowerCase()} services
++        in {city.name}. Fill out the form below to request a quote and we'll
++        match you with trusted professionals.
++      </p>
++
++      {/* Lead capture form */}
++      <form
++        action="/api/lead"
++        method="POST"
++        className="flex flex-col space-y-4"
++      >
++        {/* Hidden normalized values used by the API */}
++        <input type="hidden" name="city" value={city.slug} />
++        <input type="hidden" name="service" value={service.slug} />
++
++        <label className="flex flex-col">
++          <span className="mb-1 font-medium">Name</span>
++          <input
++            type="text"
++            name="name"
++            required
++            placeholder="Your name"
++            className="border rounded px-3 py-2"
++          />
++        </label>
++        <label className="flex flex-col">
++          <span className="mb-1 font-medium">Email</span>
++          <input
++            type="email"
++            name="email"
++            required
++            placeholder="you@example.com"
++            className="border rounded px-3 py-2"
++          />
++        </label>
++        <label className="flex flex-col">
++          <span className="mb-1 font-medium">Phone</span>
++          <input
++            type="tel"
++            name="phone"
++            required
++            placeholder="(555) 123‑4567"
++            className="border rounded px-3 py-2"
++          />
++        </label>
++        <button
++          type="submit"
++          className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700"
++        >
++          Request a Quote
++        </button>
++      </form>
++
++      {/* Structured data for SEO */}
++      <script
++        type="application/ld+json"
++        dangerouslySetInnerHTML={{
++          __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c'),
++        }}
++      />
++    </main>
++  )
++}
+\ No newline at end of file
+diff --git a/app/cleaning/page.tsx b/app/cleaning/page.tsx
+new file mode 100644
+index 0000000..ed3603d
+--- /dev/null
++++ b/app/cleaning/page.tsx
+@@ -0,0 +1,77 @@
++// app/cleaning/page.tsx
++//
++// Service hub page for the Cleaning category. Lists all Québec cities and
++// links to the corresponding city/service pages. Provides structured
++// metadata including canonical URL and an ItemList JSON‑LD schema.
++
++import type { Metadata } from 'next'
++import Link from 'next/link'
++import { cities, services } from '@/lib/solovoro'
++
++const service = services.find((s) => s.slug === 'cleaning')!
++
++export function generateMetadata(): Metadata {
++  const siteUrl =
++    process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/+$/, '') || 'https://solovoro.ca'
++  const url = `${siteUrl}/${service.slug}`
++  const title = `${service.name} services in Québec | Solovoro`
++  const description = `Discover the best ${service.name.toLowerCase()} companies across Québec. Browse providers in Montreal, Laval, Longueuil, Québec City, Gatineau and Sherbrooke.`
++  return {
++    title,
++    description,
++    alternates: {
++      canonical: url,
++    },
++    openGraph: {
++      title,
++      description,
++      url,
++      type: 'website',
++    },
++    twitter: {
++      title,
++      description,
++      card: 'summary_large_image',
++    },
++  }
++}
++
++export default function Page() {
++  const siteUrl =
++    process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/+$/, '') || 'https://solovoro.ca'
++  const jsonLd = {
++    '@context': 'https://schema.org',
++    '@type': 'ItemList',
++    name: `${service.name} services in Québec`,
++    itemListElement: cities.map((city, index) => ({
++      '@type': 'ListItem',
++      position: index + 1,
++      url: `${siteUrl}/${city.slug}/${service.slug}`,
++      name: `${service.name} in ${city.name}`,
++    })),
++  }
++  return (
++    <main className="prose mx-auto max-w-4xl p-6">
++      <h1 className="text-3xl font-bold mb-4">{service.name} services across Québec</h1>
++      <p className="mb-6">
++        Find trusted {service.name.toLowerCase()} companies in major Québec cities.
++        Select your city below to get started.
++      </p>
++      <ul className="list-disc pl-6 space-y-2">
++        {cities.map((city) => (
++          <li key={city.slug}>
++            <Link href={`/${city.slug}/${service.slug}`}>
++              {service.name} in {city.name}
++            </Link>
++          </li>
++        ))}
++      </ul>
++      <script
++        type="application/ld+json"
++        dangerouslySetInnerHTML={{
++          __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c'),
++        }}
++      />
++    </main>
++  )
++}
+\ No newline at end of file
+diff --git a/app/moving/page.tsx b/app/moving/page.tsx
+new file mode 100644
+index 0000000..3366eaa
+--- /dev/null
++++ b/app/moving/page.tsx
+@@ -0,0 +1,79 @@
++// app/moving/page.tsx
++//
++// Service hub page for the Moving category. Lists all Québec cities and
++// links to the corresponding city/service pages. Provides structured
++// metadata including canonical URL and an ItemList JSON‑LD schema.
++
++import type { Metadata } from 'next'
++import Link from 'next/link'
++import { cities, services } from '@/lib/solovoro'
++
++const service = services.find((s) => s.slug === 'moving')!
++
++// Generate metadata for the moving hub. Set a canonical URL and
++// descriptive title/description for AI and traditional SEO.
++export function generateMetadata(): Metadata {
++  const siteUrl =
++    process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/+$/, '') || 'https://solovoro.ca'
++  const url = `${siteUrl}/${service.slug}`
++  const title = `${service.name} services in Québec | Solovoro`
++  const description = `Discover the best ${service.name.toLowerCase()} companies across Québec. Browse providers in Montreal, Laval, Longueuil, Québec City, Gatineau and Sherbrooke.`
++  return {
++    title,
++    description,
++    alternates: {
++      canonical: url,
++    },
++    openGraph: {
++      title,
++      description,
++      url,
++      type: 'website',
++    },
++    twitter: {
++      title,
++      description,
++      card: 'summary_large_image',
++    },
++  }
++}
++
++export default function Page() {
++  const siteUrl =
++    process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/+$/, '') || 'https://solovoro.ca'
++  const jsonLd = {
++    '@context': 'https://schema.org',
++    '@type': 'ItemList',
++    name: `${service.name} services in Québec`,
++    itemListElement: cities.map((city, index) => ({
++      '@type': 'ListItem',
++      position: index + 1,
++      url: `${siteUrl}/${city.slug}/${service.slug}`,
++      name: `${service.name} in ${city.name}`,
++    })),
++  }
++  return (
++    <main className="prose mx-auto max-w-4xl p-6">
++      <h1 className="text-3xl font-bold mb-4">{service.name} services across Québec</h1>
++      <p className="mb-6">
++        Find trusted {service.name.toLowerCase()} companies in major Québec cities.
++        Select your city below to get started.
++      </p>
++      <ul className="list-disc pl-6 space-y-2">
++        {cities.map((city) => (
++          <li key={city.slug}>
++            <Link href={`/${city.slug}/${service.slug}`}>
++              {service.name} in {city.name}
++            </Link>
++          </li>
++        ))}
++      </ul>
++      <script
++        type="application/ld+json"
++        dangerouslySetInnerHTML={{
++          __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c'),
++        }}
++      />
++    </main>
++  )
++}
+\ No newline at end of file
+diff --git a/app/plumbing/page.tsx b/app/plumbing/page.tsx
+new file mode 100644
+index 0000000..3fd2401
+--- /dev/null
++++ b/app/plumbing/page.tsx
+@@ -0,0 +1,77 @@
++// app/plumbing/page.tsx
++//
++// Service hub page for the Plumbing category. Lists all Québec cities and
++// links to the corresponding city/service pages. Provides structured
++// metadata including canonical URL and an ItemList JSON‑LD schema.
++
++import type { Metadata } from 'next'
++import Link from 'next/link'
++import { cities, services } from '@/lib/solovoro'
++
++const service = services.find((s) => s.slug === 'plumbing')!
++
++export function generateMetadata(): Metadata {
++  const siteUrl =
++    process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/+$/, '') || 'https://solovoro.ca'
++  const url = `${siteUrl}/${service.slug}`
++  const title = `${service.name} services in Québec | Solovoro`
++  const description = `Discover the best ${service.name.toLowerCase()} companies across Québec. Browse providers in Montreal, Laval, Longueuil, Québec City, Gatineau and Sherbrooke.`
++  return {
++    title,
++    description,
++    alternates: {
++      canonical: url,
++    },
++    openGraph: {
++      title,
++      description,
++      url,
++      type: 'website',
++    },
++    twitter: {
++      title,
++      description,
++      card: 'summary_large_image',
++    },
++  }
++}
++
++export default function Page() {
++  const siteUrl =
++    process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/+$/, '') || 'https://solovoro.ca'
++  const jsonLd = {
++    '@context': 'https://schema.org',
++    '@type': 'ItemList',
++    name: `${service.name} services in Québec`,
++    itemListElement: cities.map((city, index) => ({
++      '@type': 'ListItem',
++      position: index + 1,
++      url: `${siteUrl}/${city.slug}/${service.slug}`,
++      name: `${service.name} in ${city.name}`,
++    })),
++  }
++  return (
++    <main className="prose mx-auto max-w-4xl p-6">
++      <h1 className="text-3xl font-bold mb-4">{service.name} services across Québec</h1>
++      <p className="mb-6">
++        Find trusted {service.name.toLowerCase()} companies in major Québec cities.
++        Select your city below to get started.
++      </p>
++      <ul className="list-disc pl-6 space-y-2">
++        {cities.map((city) => (
++          <li key={city.slug}>
++            <Link href={`/${city.slug}/${service.slug}`}>
++              {service.name} in {city.name}
++            </Link>
++          </li>
++        ))}
++      </ul>
++      <script
++        type="application/ld+json"
++        dangerouslySetInnerHTML={{
++          __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c'),
++        }}
++      />
++    </main>
++  )
++}
+\ No newline at end of file
+diff --git a/app/roofing/page.tsx b/app/roofing/page.tsx
+new file mode 100644
+index 0000000..8fef784
+--- /dev/null
++++ b/app/roofing/page.tsx
+@@ -0,0 +1,77 @@
++// app/roofing/page.tsx
++//
++// Service hub page for the Roofing category. Lists all Québec cities and
++// links to the corresponding city/service pages. Provides structured
++// metadata including canonical URL and an ItemList JSON‑LD schema.
++
++import type { Metadata } from 'next'
++import Link from 'next/link'
++import { cities, services } from '@/lib/solovoro'
++
++const service = services.find((s) => s.slug === 'roofing')!
++
++export function generateMetadata(): Metadata {
++  const siteUrl =
++    process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/+$/, '') || 'https://solovoro.ca'
++  const url = `${siteUrl}/${service.slug}`
++  const title = `${service.name} services in Québec | Solovoro`
++  const description = `Discover the best ${service.name.toLowerCase()} companies across Québec. Browse providers in Montreal, Laval, Longueuil, Québec City, Gatineau and Sherbrooke.`
++  return {
++    title,
++    description,
++    alternates: {
++      canonical: url,
++    },
++    openGraph: {
++      title,
++      description,
++      url,
++      type: 'website',
++    },
++    twitter: {
++      title,
++      description,
++      card: 'summary_large_image',
++    },
++  }
++}
++
++export default function Page() {
++  const siteUrl =
++    process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/+$/, '') || 'https://solovoro.ca'
++  const jsonLd = {
++    '@context': 'https://schema.org',
++    '@type': 'ItemList',
++    name: `${service.name} services in Québec`,
++    itemListElement: cities.map((city, index) => ({
++      '@type': 'ListItem',
++      position: index + 1,
++      url: `${siteUrl}/${city.slug}/${service.slug}`,
++      name: `${service.name} in ${city.name}`,
++    })),
++  }
++  return (
++    <main className="prose mx-auto max-w-4xl p-6">
++      <h1 className="text-3xl font-bold mb-4">{service.name} services across Québec</h1>
++      <p className="mb-6">
++        Find trusted {service.name.toLowerCase()} companies in major Québec cities.
++        Select your city below to get started.
++      </p>
++      <ul className="list-disc pl-6 space-y-2">
++        {cities.map((city) => (
++          <li key={city.slug}>
++            <Link href={`/${city.slug}/${service.slug}`}>
++              {service.name} in {city.name}
++            </Link>
++          </li>
++        ))}
++      </ul>
++      <script
++        type="application/ld+json"
++        dangerouslySetInnerHTML={{
++          __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c'),
++        }}
++      />
++    </main>
++  )
++}
+\ No newline at end of file
+diff --git a/app/sitemap.ts b/app/sitemap.ts
+new file mode 100644
+index 0000000..eeb9bf4
+--- /dev/null
++++ b/app/sitemap.ts
+@@ -0,0 +1,60 @@
++// app/sitemap.ts
++//
++// Generates the XML sitemap for the Solovoro application. This file
++// exports a function that Next.js calls at build time to produce a
++// static list of all pages on the site. The sitemap includes the
++// homepage, service hub pages and every city/service combination.
++//
++// The `dynamic` export tells Next.js to treat this route as
++// completely static regardless of any dynamic segments. Setting
++// `force-static` ensures a single, predictable sitemap is emitted at
++// build time instead of revalidating on each request.
++
++import type { MetadataRoute } from 'next'
++import { services, cities } from '@/lib/solovoro'
++
++// Force Next.js to precompute this sitemap at build time.
++export const dynamic = 'force-static'
++
++// Determine the canonical base URL. During deployment this is
++// configured via the NEXT_PUBLIC_SITE_URL environment variable. In
++// development or fallback scenarios we default to the production
++// domain.
++const siteUrl =
++  process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/+$/, '') || 'https://solovoro.ca'
++
++export default function sitemap(): MetadataRoute.Sitemap {
++  const urls: MetadataRoute.SitemapUrl[] = []
++
++  // Home page
++  urls.push({
++    url: `${siteUrl}/`,
++    lastModified: new Date(),
++    changeFrequency: 'daily',
++    priority: 1,
++  })
++
++  // Service hubs (e.g. /moving, /plumbing)
++  for (const s of services) {
++    urls.push({
++      url: `${siteUrl}/${s.slug}`,
++      lastModified: new Date(),
++      changeFrequency: 'weekly',
++      priority: 0.9,
++    })
++  }
++
++  // City × Service pages (e.g. /montreal/moving)
++  for (const c of cities) {
++    for (const s of services) {
++      urls.push({
++        url: `${siteUrl}/${c.slug}/${s.slug}`,
++        lastModified: new Date(),
++        changeFrequency: 'weekly',
++        priority: 0.8,
++      })
++    }
++  }
++
++  return urls
++}
+\ No newline at end of file
+diff --git a/lib/solovoro.ts b/lib/solovoro.ts
+new file mode 100644
+index 0000000..c2a35e2
+--- /dev/null
++++ b/lib/solovoro.ts
+@@ -0,0 +1,63 @@
++// lib/solovoro.ts
++//
++// This module centralizes the list of supported services and cities for
++// the Solovoro lead‑generation platform. Each service and city entry
++// includes a slug used in URL construction along with a human‑readable
++// name. This data is consumed throughout the app—for example when
++// building the sitemap, validating dynamic route parameters or
++// constructing metadata.
++
++export type Service = {
++  /**
++   * A URL‑friendly identifier used in route segments (e.g. `/moving`).
++   */
++  slug: 'moving' | 'plumbing' | 'cleaning' | 'roofing'
++  /**
++   * A human friendly name for the service.
++   */
++  name: string
++}
++
++export type City = {
++  /**
++   * A URL‑friendly identifier used in route segments (e.g. `/montreal`).
++   */
++  slug:
++    | 'montreal'
++    | 'laval'
++    | 'longueuil'
++    | 'quebec-city'
++    | 'gatineau'
++    | 'sherbrooke'
++  /**
++   * Human friendly city name with proper capitalization and accents.
++   */
++  name: string
++  /**
++   * Canadian province abbreviation. Phase 1 focuses exclusively on Québec
++   * (QC) but the type is included for future expansions.
++   */
++  province: 'QC'
++}
++
++// Core service offerings available on the platform. When adding new
++// services in future phases, extend this array and update the Service
++// type accordingly.
++export const services: Service[] = [
++  { slug: 'moving', name: 'Moving' },
++  { slug: 'plumbing', name: 'Plumbing' },
++  { slug: 'cleaning', name: 'Cleaning' },
++  { slug: 'roofing', name: 'Roofing' },
++]
++
++// List of Québec cities targeted in Phase 1. Each entry defines a
++// slug and a display name. New cities can be appended here when
++// expanding beyond Québec.
++export const cities: City[] = [
++  { slug: 'montreal', name: 'Montreal', province: 'QC' },
++  { slug: 'laval', name: 'Laval', province: 'QC' },
++  { slug: 'longueuil', name: 'Longueuil', province: 'QC' },
++  { slug: 'quebec-city', name: 'Québec City', province: 'QC' },
++  { slug: 'gatineau', name: 'Gatineau', province: 'QC' },
++  { slug: 'sherbrooke', name: 'Sherbrooke', province: 'QC' },
++]
+\ No newline at end of file
+diff --git a/tsconfig.json b/tsconfig.json
+new file mode 100644
+index 0000000..7b544ca
+--- /dev/null
++++ b/tsconfig.json
+@@ -0,0 +1,26 @@
++{
++  "compilerOptions": {
++    // Enable absolute imports rooted at the project base. This
++    // configuration allows us to import modules using the `@/` prefix
++    // (e.g. `import { services } from '@/lib/solovoro'`) instead of
++    // relative paths. Keeping the alias in a single place ensures
++    // consistency across the codebase.
++    "baseUrl": ".",
++    "paths": {
++      "@/*": ["./*"]
++    },
++    "target": "es2020",
++    "module": "esnext",
++    "lib": ["dom", "dom.iterable", "es2020"],
++    "strict": true,
++    "jsx": "preserve",
++    "resolveJsonModule": true,
++    "esModuleInterop": true,
++    "skipLibCheck": true,
++    "moduleResolution": "bundler",
++    "isolatedModules": true,
++    "noEmit": true
++  },
++  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
++  "exclude": ["node_modules"]
++}
+\ No newline at end of file
+-- 
+2.39.5
+
