@@ -29,7 +29,7 @@
     "groq": "4.5.0",
     "intl-segmenter-polyfill": "0.4.4",
     "next": "15.5.0",
-    "next-sanity": "10.0.13",
+    "next-sanity": "10.0.14",
     "next-sanity-image": "6.2.0",
     "react": "19.1.1",
     "react-dom": "19.1.1",
@@ -42,7 +42,7 @@
   "devDependencies": {
     "@tailwindcss/postcss": "4.1.12",
     "@tailwindcss/typography": "0.5.16",
-    "@types/react": "19.1.10",
+    "@types/react": "19.1.11",
     "eslint": "8.57.1",
     "eslint-config-next": "15.5.0",
     "eslint-plugin-simple-import-sort": "12.1.1",
