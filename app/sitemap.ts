@@ -1,22 +1,24 @@
-import type { MetadataRoute } from 'next'
-import { services, cities } from '../lib/solovoro'
+import type { MetadataRoute } from 'next';
+import { services, cities } from '../lib/solovoro';
 
-// Generate a dynamic sitemap using Next.js metadata file convention.
-// See: https://nextjs.org/docs/app/api-reference/file-conventions/metadata/sitemap
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://solovoro.ca'
+// Use site URL from env or default
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://solovoro.ca';
+
+// Generate sitemap statically at build time
+export const dynamic = 'force-static';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const urls: MetadataRoute.SitemapUrl[] = []
+  const urls: MetadataRoute.SitemapUrl[] = [];
 
-  // Always include the homepage
+  // Homepage
   urls.push({
     url: siteUrl,
     lastModified: new Date(),
     changeFrequency: 'daily',
     priority: 1,
-  })
+  });
 
-  // Generate service/city combinations
+  // Service/city combinations
   services.forEach((service) => {
     cities.forEach((city) => {
       urls.push({
@@ -24,9 +26,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
         lastModified: new Date(),
         changeFrequency: 'weekly',
         priority: 0.8,
-      })
-    })
-  })
+      });
+    });
+  });
 
-  return urls
+  // Service hubs
+  services.forEach((service) => {
+    urls.push({
+      url: `${siteUrl}/${service.slug}`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.6,
+    });
+  });
+
+  return urls;
 }
