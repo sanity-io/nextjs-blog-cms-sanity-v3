@@ -1,3 +1,4 @@
+// components/ClientLeadForm.tsx
 "use client";
 import { useState } from "react";
 
@@ -7,7 +8,8 @@ type Props = {
 };
 
 export default function ClientLeadForm({ city, service }: Props) {
-  const [status, setStatus] = useState<"idle" | "ok" | "error" | "submitting">("idle");
+  const [status, setStatus] =
+    useState<"idle" | "ok" | "error" | "submitting">("idle");
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -46,11 +48,16 @@ export default function ClientLeadForm({ city, service }: Props) {
       <div style={{ display: "grid", gap: 10 }}>
         <input name="name" placeholder="Your name" required />
         <input type="email" name="email" placeholder="Email" required />
-        <input name="city" placeholder="City" defaultValue={city ?? ""} required />
+        <input
+          name="city"
+          placeholder="City"
+          defaultValue={city ?? ""}
+          required
+        />
         <input
           name="service"
           placeholder="Service"
-          deaultValue={service ?? ""}
+          defaultValue={service ?? ""}
           required
         />
         <button type="submit" disabled={status === "submitting"}>
