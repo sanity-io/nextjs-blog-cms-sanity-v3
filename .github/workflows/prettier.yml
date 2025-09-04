@@ -23,7 +23,6 @@ jobs:
       - uses: actions/checkout@v5
       - uses: actions/setup-node@v5
         with:
-          cache: npm
           node-version: lts/*
       - run: npm ci --ignore-scripts --only-dev
       - uses: actions/cache@v4
