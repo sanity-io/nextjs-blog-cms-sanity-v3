@@ -2,9 +2,9 @@ import { Card } from '@sanity/ui'
 import { height, OpenGraphImage, width } from 'components/OpenGraphImage'
 import { createIntlSegmenterPolyfill } from 'intl-segmenter-polyfill'
 import type { Settings } from 'lib/sanity.queries'
+import { use, useState } from 'react'
 import satori, { type SatoriOptions } from 'satori'
 import styled from 'styled-components'
-import useSWR from 'swr/immutable'
 
 async function init(): Promise<SatoriOptions['fonts']> {
   if (!globalThis?.Intl?.Segmenter) {
@@ -47,23 +47,15 @@ const OpenGraphSvg = styled(Card).attrs({
 `
 
 export default function OpenGraphPreview(props: Settings['ogImage']) {
-  // we wrap the segmenter setup and font loading in SWR to enable caching
-  const { data: fonts } = useSWR('OpenGraphPreview.init', () => fontsPromise, {
-    suspense: true,
-  })
+  const fonts = use(fontsPromise)
 
-  // Also handle the satori render call in SWR to enable caching and only re-render when the title changes or fonts hot reload
-  const { data: __html } = useSWR(
-    [props.title, fonts satisfies SatoriOptions['fonts']],
-    ([title, fonts]) => {
-      return satori(<OpenGraphImage title={title || ''} />, {
-        width,
-        height,
-        fonts,
-      })
-    },
-    { suspense: true },
+  const [promise] = useState(() =>
+    satori(<OpenGraphImage title={props.title || ''} />, {
+      width,
+      height,
+      fonts,
+    }),
   )
 
-  return <OpenGraphSvg dangerouslySetInnerHTML={{ __html }} />
+  return <OpenGraphSvg dangerouslySetInnerHTML={{ __html: use(promise) }} />
 }
