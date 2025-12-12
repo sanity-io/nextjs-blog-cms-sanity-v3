@@ -28,7 +28,7 @@
     "date-fns": "4.1.0",
     "groq": "4.10.3",
     "intl-segmenter-polyfill": "0.4.4",
-    "next": "15.5.8",
+    "next": "15.5.9",
     "next-sanity": "11.5.5",
     "next-sanity-image": "6.2.0",
     "react": "19.2.1",
